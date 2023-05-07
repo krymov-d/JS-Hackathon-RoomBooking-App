@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.roombookingapp.R
+import com.example.roombookingapp.presentation.roomdetails.FragmentRoomDetails
 import com.example.roombookingapp.presentation.signup.FragmentSignUp
 import com.google.android.material.textfield.TextInputEditText
 
@@ -46,7 +47,10 @@ class FragmentSignIn : Fragment() {
 
     private fun initClickListeners() {
         btnLogin.setOnClickListener {
-
+            parentFragmentManager
+                .beginTransaction()
+                .replace(flContainerID, FragmentRoomDetails(), null)
+                .commit()
         }
 
         tvSignUp.setOnClickListener {
