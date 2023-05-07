@@ -1,0 +1,3 @@
+package com.example.roombookingapp.domain.repositories
+
+interface TemporaryRepository
