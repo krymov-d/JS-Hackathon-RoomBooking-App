@@ -1,8 +1,9 @@
-package com.example.roombookingapp
+package com.example.roombookingapp.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.roombookingapp.presentation.FragmentSignIn
+import com.example.roombookingapp.R
+import com.example.roombookingapp.presentation.signin.FragmentSignIn
 
 class MainActivity : AppCompatActivity() {
 

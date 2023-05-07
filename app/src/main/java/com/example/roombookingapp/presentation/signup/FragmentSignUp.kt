@@ -1,4 +1,4 @@
-package com.example.roombookingapp.presentation
+package com.example.roombookingapp.presentation.signup
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,21 +10,21 @@ import androidx.fragment.app.Fragment
 import com.example.roombookingapp.R
 import com.google.android.material.textfield.TextInputEditText
 
-class FragmentSignIn : Fragment() {
+class FragmentSignUp : Fragment() {
 
-    private val flContainerID = R.id.fl_login_container
-
+    private lateinit var etName: TextInputEditText
+    private lateinit var etSurname: TextInputEditText
     private lateinit var etEmail: TextInputEditText
     private lateinit var etPassword: TextInputEditText
-    private lateinit var btnLogin: Button
-    private lateinit var tvSignUp: TextView
+    private lateinit var btnRegister: Button
+    private lateinit var tvSignIn: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_sign_in, container, false)
+        return inflater.inflate(R.layout.fragment_sign_up, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,28 +36,22 @@ class FragmentSignIn : Fragment() {
 
     private fun initViews(view: View) {
         with(view) {
-            etEmail = findViewById(R.id.sign_in_et_email)
-            etPassword = findViewById(R.id.sign_in_et_password)
-            btnLogin = findViewById(R.id.sign_in_btn_login)
-            tvSignUp = findViewById(R.id.sign_in_tv_sign_up)
+            etName = findViewById(R.id.sign_up_et_name)
+            etSurname = findViewById(R.id.sign_up_et_surname)
+            etEmail = findViewById(R.id.sign_up_et_email)
+            etPassword = findViewById(R.id.sign_up_et_password)
+            btnRegister = findViewById(R.id.sign_up_btn_register)
+            tvSignIn = findViewById(R.id.sign_up_tv_sign_in)
         }
     }
 
     private fun initClickListeners() {
-        btnLogin.setOnClickListener {
+        btnRegister.setOnClickListener {
 
         }
 
-        tvSignUp.setOnClickListener {
-            initSignUpForm()
+        tvSignIn.setOnClickListener {
+            parentFragmentManager.popBackStack()
         }
-    }
-
-    private fun initSignUpForm() {
-        parentFragmentManager
-            .beginTransaction()
-            .replace(flContainerID, FragmentSignUp(), null)
-            .addToBackStack(null)
-            .commit()
     }
 }
