@@ -47,7 +47,8 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/sign_in_et_password"
-            style="@style/Login_text_input_edittext" />
+            style="@style/Login_text_input_edittext"
+            android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.appcompat.widget.AppCompatButton
