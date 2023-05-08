@@ -7,8 +7,6 @@ import com.example.roombookingapp.domain.repositories.RoomsRepository
 
 class RoomsRepositoryImpl : RoomsRepository {
     override suspend fun getRoomDetails(roomId: Long): Room {
-//        val dateTimePattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-//        val formatter = DateTimeFormatter.ofPattern(dateTimePattern)
         val startTime = "2023-05-08T12:00:00.000Z"
         val endTime = "2023-05-08T12:30:00.000Z"
         val period = TimeFrame(id = "TimeFrameId", startTime = startTime, endTime = endTime)
