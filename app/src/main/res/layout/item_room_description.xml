@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/room_details_tv_category_hint"
+            style="@style/Room_details_description_hint"
+            android:layout_marginStart="8dp"
+            android:text="@string/category_w_column"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/room_details_tv_floor_hint"
+            style="@style/Room_details_description_hint"
+            android:text="@string/floor_w_column"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="@id/room_details_tv_category_hint"
+            app:layout_constraintTop_toBottomOf="@id/room_details_tv_category_hint"
+            app:layout_constraintVertical_bias="0" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/room_details_tv_capacity_hint"
+            style="@style/Room_details_description_hint"
+            android:text="@string/capacity_w_column"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="@id/room_details_tv_floor_hint"
+            app:layout_constraintTop_toBottomOf="@id/room_details_tv_floor_hint"
+            app:layout_constraintVertical_bias="0" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/room_details_tv_description_hint"
+            style="@style/Room_details_description_hint"
+            android:text="@string/description_w_column"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="@id/room_details_tv_capacity_hint"
+            app:layout_constraintTop_toBottomOf="@id/room_details_tv_capacity_hint"
+            app:layout_constraintVertical_bias="0" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/room_details_barrier_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:barrierDirection="end"
+            app:constraint_referenced_ids="room_details_tv_category_hint, room_details_tv_floor_hint, room_details_tv_capacity_hint, room_details_tv_description_hint" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/room_details_tv_category"
+            style="@style/Room_details_description_content"
+            app:layout_constraintBottom_toBottomOf="@id/room_details_tv_category_hint"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@id/room_details_barrier_hint"
+            app:layout_constraintTop_toTopOf="@id/room_details_tv_category_hint"
+            tools:text="@string/category_w_column" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/room_details_tv_floor"
+            style="@style/Room_details_description_content"
+            app:layout_constraintBottom_toBottomOf="@id/room_details_tv_floor_hint"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@id/room_details_barrier_hint"
+            app:layout_constraintTop_toTopOf="@id/room_details_tv_floor_hint"
+            tools:text="@string/floor_w_column" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/room_details_tv_capacity"
+            style="@style/Room_details_description_content"
+            app:layout_constraintBottom_toBottomOf="@id/room_details_tv_capacity_hint"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@id/room_details_barrier_hint"
+            app:layout_constraintTop_toTopOf="@id/room_details_tv_capacity_hint"
+            tools:text="@string/capacity_w_column" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/room_details_tv_description"
+            style="@style/Room_details_description_content"
+            app:layout_constraintBottom_toBottomOf="@id/room_details_tv_description_hint"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@id/room_details_barrier_hint"
+            app:layout_constraintTop_toTopOf="@id/room_details_tv_description_hint"
+            app:layout_constraintVertical_bias="0"
+            tools:text="@string/description_w_column" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
