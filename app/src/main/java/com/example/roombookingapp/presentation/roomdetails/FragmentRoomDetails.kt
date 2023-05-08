@@ -1,6 +1,5 @@
 package com.example.roombookingapp.presentation.roomdetails
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.roombookingapp.R
 import com.example.roombookingapp.presentation.utils.SpaceItemDecoration
+import com.example.roombookingapp.presentation.utils.showToast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import java.time.LocalDateTime
@@ -38,6 +38,8 @@ class FragmentRoomDetails : Fragment() {
     private lateinit var vpPhotos: ViewPager2
     private lateinit var photosViewPagerAdapter: PhotosViewPagerAdapter
 
+    private lateinit var tvBook: TextView
+
     private lateinit var tvRoomId: TextView
     private lateinit var tvRoomCategory: TextView
     private lateinit var tvRoomFloor: TextView
@@ -63,12 +65,15 @@ class FragmentRoomDetails : Fragment() {
         initViews(view)
         initPhotosViewPager()
         initBookingsRecyclerView()
+        initClickListener()
         initObservers()
     }
 
     private fun initViews(view: View) {
         with(view) {
             vpPhotos = findViewById(R.id.room_details_vp_photos)
+
+            tvBook = findViewById(R.id.room_details_tv_book)
 
             tvRoomId = findViewById(R.id.room_details_tv_id)
             tvRoomCategory = findViewById(R.id.room_details_tv_category)
@@ -94,6 +99,16 @@ class FragmentRoomDetails : Fragment() {
             adapter = bookingAdapter
             layoutManager = bookingLayoutManager
             addItemDecoration(bookingItemDecorator)
+        }
+    }
+
+    private fun initClickListener() {
+        tvRoomId.setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
+
+        tvBook.setOnClickListener {
+            context?.showToast("Fragment Booking")
         }
     }
 

@@ -49,6 +49,15 @@
         <item name="android:textAllCaps">true</item>
     </style>
 
+    <style name="Room_details_outlined_text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">16sp</item>
+        <item name="fontFamily">@font/montserrat_medium</item>
+        <item name="android:paddingVertical">4dp</item>
+        <item name="android:paddingHorizontal">8dp</item>
+    </style>
+
     <style name="Room_details_description_hint">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>

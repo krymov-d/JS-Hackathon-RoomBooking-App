@@ -50,6 +50,7 @@ class FragmentSignIn : Fragment() {
             parentFragmentManager
                 .beginTransaction()
                 .replace(flContainerID, FragmentRoomDetails.newInstance(0), null)
+                .addToBackStack(null)
                 .commit()
         }
 
