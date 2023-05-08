@@ -13,7 +13,7 @@ class FragmentRoomDetails : Fragment() {
     private var imageUrlList = listOf<String>()
 
     private lateinit var vpPhotos: ViewPager2
-    private lateinit var photosVPAdapter: PhotosViewPagerAdapter
+    private lateinit var photosViewPagerAdapter: PhotosViewPagerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,13 +29,12 @@ class FragmentRoomDetails : Fragment() {
         initImageURL()
 
         initViews(view)
-        initViewPager()
-        initViewPagerProperties()
+        initPhotosViewPagerProperties()
+        initPhotosViewPager()
     }
 
     private fun initImageURL() {
         imageUrlList = listOf(
-            "https://via.placeholder.com/600/92c952",
             "https://images.unsplash.com/photo-1621318164984-b06589834c91?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxOTU3MDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2MjM2OTk4MjI&ixlib=rb-1.2.1&q=80&w=1080",
             "https://images.unsplash.com/photo-1621551122354-e96737d64b70?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxOTU3MDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2MjM2OTk4MjI&ixlib=rb-1.2.1&q=80&w=1080",
             "https://images.unsplash.com/photo-1621616875450-79f024a8c42c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxOTU3MDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2MjM2OTk4MjI&ixlib=rb-1.2.1&q=80&w=1080",
@@ -44,14 +43,20 @@ class FragmentRoomDetails : Fragment() {
     }
 
     private fun initViews(view: View) {
-        vpPhotos = view.findViewById(R.id.room_details_vp_photos)
+        with(view) {
+            vpPhotos = findViewById(R.id.room_details_vp_photos)
+        }
     }
 
-    private fun initViewPager() {
-        photosVPAdapter = PhotosViewPagerAdapter(imageUrlList, layoutInflater)
+    private fun initPhotosViewPagerProperties() {
+        initPhotosViewPagerAdapter()
     }
 
-    private fun initViewPagerProperties() {
-        vpPhotos.adapter = photosVPAdapter
+    private fun initPhotosViewPagerAdapter() {
+        photosViewPagerAdapter = PhotosViewPagerAdapter(imageUrlList, layoutInflater)
+    }
+
+    private fun initPhotosViewPager() {
+        vpPhotos.adapter = photosViewPagerAdapter
     }
 }
