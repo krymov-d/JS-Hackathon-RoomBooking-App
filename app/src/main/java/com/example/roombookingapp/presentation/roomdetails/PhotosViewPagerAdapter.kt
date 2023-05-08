@@ -5,11 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.roombookingapp.R
 
-class PhotosViewPagerAdapter(
-    private val imageURLList: List<String>,
-    private val inflater: LayoutInflater
-) :
+class PhotosViewPagerAdapter(private val inflater: LayoutInflater) :
     RecyclerView.Adapter<PhotosViewHolder>() {
+
+    private val data: MutableList<String> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotosViewHolder {
         val itemView = inflater.inflate(R.layout.item_photo, parent, false)
@@ -17,10 +16,16 @@ class PhotosViewPagerAdapter(
     }
 
     override fun getItemCount(): Int {
-        return imageURLList.size
+        return data.size
     }
 
     override fun onBindViewHolder(holder: PhotosViewHolder, position: Int) {
-        holder.bind(imageURLList[position])
+        holder.bind(data[position])
+    }
+
+    fun setPhotos(photoUrlList: List<String>) {
+        data.clear()
+        data.addAll(photoUrlList)
+        notifyItemRangeChanged(0, data.size)
     }
 }

@@ -12,6 +12,7 @@
     <string name="need_an_account_w_question">Need an account?</string>
     <string name="already_have_an_account_w_question">Already have an account?</string>
 
+    <string name="room_w_column">Room: %1$s</string>
     <string name="category_w_column">Category:</string>
     <string name="floor_w_column">Floor:</string>
     <string name="capacity_w_column">Capacity:</string>

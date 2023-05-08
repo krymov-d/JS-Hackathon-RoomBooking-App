@@ -8,6 +8,6 @@ data class BookedTime(
     val id: Long,
     val roomId: Long,
     val userId: Long,
-    val period: TimeFrame,
     val purpose: String,
+    val period: TimeFrame,
 ) : Parcelable

@@ -49,7 +49,7 @@ class FragmentSignIn : Fragment() {
         btnLogin.setOnClickListener {
             parentFragmentManager
                 .beginTransaction()
-                .replace(flContainerID, FragmentRoomDetails(), null)
+                .replace(flContainerID, FragmentRoomDetails.newInstance(0), null)
                 .commit()
         }
 

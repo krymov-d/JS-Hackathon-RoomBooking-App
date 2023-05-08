@@ -1,3 +1,0 @@
-package com.example.roombookingapp.data.repositories
-
-class TemporaryRepositoryImpl
