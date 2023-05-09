@@ -7,11 +7,13 @@ import com.example.roombookingapp.R
 import com.example.roombookingapp.domain.models.Booking
 
 class BookingsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    private val tvWeekDay: TextView = itemView.findViewById(R.id.room_details_tv_weekday)
     private val tvDate: TextView = itemView.findViewById(R.id.room_details_tv_date)
     private val tvTime: TextView = itemView.findViewById(R.id.room_details_tv_time)
     private val tvPurpose: TextView = itemView.findViewById(R.id.room_details_tv_purpose)
 
     fun bind(booking: Booking) {
+        tvWeekDay.text = booking.weekDay
         tvDate.text = booking.date
         tvTime.text = booking.time
         tvPurpose.text = booking.purpose

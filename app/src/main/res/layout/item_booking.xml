@@ -15,13 +15,13 @@
         android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/room_details_tv_date"
-            android:layout_width="0dp"
+            android:id="@+id/room_details_tv_weekday"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="8dp"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/montserrat_medium"
-            android:textColor="@color/ui_03"
+            android:textColor="@color/ui_06"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -29,6 +29,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0"
+            tools:text="@string/app_name" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/room_details_tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:fontFamily="@font/montserrat"
+            android:textColor="@color/ui_02"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/room_details_tv_weekday"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintStart_toEndOf="@id/room_details_tv_weekday"
+            app:layout_constraintTop_toTopOf="@id/room_details_tv_weekday"
             tools:text="@string/app_name" />
 
         <View
@@ -39,8 +54,8 @@
             android:background="@color/ui_02"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/room_details_tv_date"
-            app:layout_constraintStart_toStartOf="@id/room_details_tv_date"
-            app:layout_constraintTop_toBottomOf="@id/room_details_tv_date"
+            app:layout_constraintStart_toStartOf="@id/room_details_tv_weekday"
+            app:layout_constraintTop_toBottomOf="@id/room_details_tv_weekday"
             app:layout_constraintVertical_bias="0" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -55,8 +70,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintStart_toStartOf="@id/room_details_tv_date"
-            app:layout_constraintTop_toBottomOf="@id/room_details_tv_date"
+            app:layout_constraintStart_toStartOf="@id/room_details_tv_weekday"
+            app:layout_constraintTop_toBottomOf="@id/room_details_tv_weekday"
             app:layout_constraintVertical_bias="0"
             tools:text="@string/app_name" />
 

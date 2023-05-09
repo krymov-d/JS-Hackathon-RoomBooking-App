@@ -1,10 +1,13 @@
 package com.example.roombookingapp.data.repositories
 
+import android.text.format.DateFormat
 import com.example.roombookingapp.domain.models.Booking
 import com.example.roombookingapp.domain.models.RoomDetails
 import com.example.roombookingapp.domain.repositories.RoomsRepository
+import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 class RoomsRepositoryImpl : RoomsRepository {
     override suspend fun getRoomPhotos(roomId: Long): List<String> {
@@ -41,37 +44,47 @@ class RoomsRepositoryImpl : RoomsRepository {
         val formattedTimeStart = dateTimeStart.format(timeFormatter)
         val formattedTimeEnd = dateTimeEnd.format(timeFormatter)
 
+        val weekDayFormatter = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+        val formattedWeekDay = weekDayFormatter.parse(formattedDate)
+
+        val weekDay = DateFormat.format("EEEE", formattedWeekDay)
+
         return listOf(
             Booking(
                 id = 0,
+                weekDay = "$weekDay",
                 date = formattedDate,
                 time = "$formattedTimeStart - $formattedTimeEnd",
                 purpose = "Lecture"
             ),
             Booking(
                 id = 1,
+                weekDay = "$weekDay",
                 date = formattedDate,
                 time = "$formattedTimeStart - $formattedTimeEnd",
                 purpose = "Meeting"
             ),
             Booking(
                 id = 2,
+                weekDay = "$weekDay",
                 date = formattedDate,
                 time = "$formattedTimeStart - $formattedTimeEnd",
-                purpose = "Problem solution"
+                purpose = "Party"
             ),
             Booking(
                 id = 3,
-                date = formattedDate,
-                time = "$formattedTimeStart - $formattedTimeEnd",
-                purpose = "Laboratory"
-            ),
-            Booking(
-                id = 4,
+                weekDay = "$weekDay",
                 date = formattedDate,
                 time = "$formattedTimeStart - $formattedTimeEnd",
                 purpose = "Free time"
-            )
+            ),
+            Booking(
+                id = 4,
+                weekDay = "$weekDay",
+                date = formattedDate,
+                time = "$formattedTimeStart - $formattedTimeEnd",
+                purpose = "Movie"
+            ),
         )
     }
 }
