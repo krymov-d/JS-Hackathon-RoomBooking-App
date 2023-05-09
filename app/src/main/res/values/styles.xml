@@ -49,4 +49,20 @@
         <item name="android:textAllCaps">true</item>
     </style>
 
+    <style name="Hint_text_input_layout">
+        <item name="android:layout_width">320dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColorHint">@color/ui_07</item>
+        <item name="boxBackgroundMode">outline</item>
+        <item name="boxCornerRadiusBottomEnd">8dp</item>
+        <item name="boxCornerRadiusBottomStart">8dp</item>
+        <item name="boxCornerRadiusTopEnd">8dp</item>
+        <item name="boxCornerRadiusTopStart">8dp</item>
+        <item name="boxStrokeColor">@color/ui_02</item>
+        <item name="boxStrokeWidthFocused">2dp</item>
+
+        <item name="hintAnimationEnabled">true</item>
+        <item name="hintTextColor">@color/ui_02</item>
+    </style>
+
 </resources>

@@ -1,4 +1,4 @@
-package com.example.roombookingapp.presentation.utils
+package com.example.roombookingapp.presentation.utils.extensions
 
 import android.content.Context
 import android.content.Intent
