@@ -1,15 +1,15 @@
-package com.example.roombookingapp.domain.models
+package com.example.roombookingapp.data.models
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Room(
+data class RemoteRoom(
     val id: Long,
-    val category: String,
+    val type: String,
     val floor: Long,
     val capacity: Long,
     val description: String,
     val photos: List<String>,
-    val bookedTimeList: List<BookedTime>,
+    val reservationList: List<RemoteBooking>,
 ) : Parcelable

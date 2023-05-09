@@ -1,4 +1,4 @@
-package com.example.roombookingapp.presentation.roomdetails
+package com.example.roombookingapp.presentation.roomdetails.photos
 
 import android.view.View
 import android.widget.ImageView

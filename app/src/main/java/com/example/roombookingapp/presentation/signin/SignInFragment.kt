@@ -8,11 +8,11 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.roombookingapp.R
-import com.example.roombookingapp.presentation.roomdetails.FragmentRoomDetails
-import com.example.roombookingapp.presentation.signup.FragmentSignUp
+import com.example.roombookingapp.presentation.roomdetails.RoomDetailsFragment
+import com.example.roombookingapp.presentation.signup.SignUpFragment
 import com.google.android.material.textfield.TextInputEditText
 
-class FragmentSignIn : Fragment() {
+class SignInFragment : Fragment() {
 
     private val flContainerID = R.id.fl_login_container
 
@@ -49,7 +49,7 @@ class FragmentSignIn : Fragment() {
         btnLogin.setOnClickListener {
             parentFragmentManager
                 .beginTransaction()
-                .replace(flContainerID, FragmentRoomDetails.newInstance(0), null)
+                .replace(flContainerID, RoomDetailsFragment.newInstance(0), null)
                 .addToBackStack(null)
                 .commit()
         }
@@ -62,7 +62,7 @@ class FragmentSignIn : Fragment() {
     private fun initSignUpForm() {
         parentFragmentManager
             .beginTransaction()
-            .replace(flContainerID, FragmentSignUp(), null)
+            .replace(flContainerID, SignUpFragment(), null)
             .addToBackStack(null)
             .commit()
     }

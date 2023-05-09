@@ -1,20 +1,21 @@
-package com.example.roombookingapp.presentation.roomdetails
+package com.example.roombookingapp.presentation.roomdetails.bookings
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.example.roombookingapp.R
+import com.example.roombookingapp.domain.models.Booking
 
-class BookingAdapter(private val inflater: LayoutInflater) :
-    ListAdapter<Booking, BookingViewHolder>(DiffCallback()) {
+class BookingsAdapter(private val inflater: LayoutInflater) :
+    ListAdapter<Booking, BookingsViewHolder>(DiffCallback()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookingViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookingsViewHolder {
         val itemView = inflater.inflate(R.layout.item_booking, parent, false)
-        return BookingViewHolder(itemView)
+        return BookingsViewHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder: BookingViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: BookingsViewHolder, position: Int) {
         val booking = getItem(position)
         holder.bind(booking)
     }

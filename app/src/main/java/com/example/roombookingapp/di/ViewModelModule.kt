@@ -8,7 +8,9 @@ val viewModelModule = module {
     viewModel { (roomId: Long) ->
         RoomDetailsViewModel(
             roomId = roomId,
-            getRoomDetailsUseCase = get()
+            getRoomPhotosUseCase = get(),
+            getRoomDetailsUseCase = get(),
+            getRoomBookingsUseCase = get(),
         )
     }
 }

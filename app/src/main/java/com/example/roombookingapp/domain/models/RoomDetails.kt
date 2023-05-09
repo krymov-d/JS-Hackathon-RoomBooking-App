@@ -4,10 +4,10 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class BookedTime(
+data class RoomDetails(
     val id: Long,
-    val roomId: Long,
-    val userId: Long,
-    val purpose: String,
-    val period: TimeFrame,
+    val category: String,
+    val floor: Long,
+    val capacity: Long,
+    val description: String,
 ) : Parcelable

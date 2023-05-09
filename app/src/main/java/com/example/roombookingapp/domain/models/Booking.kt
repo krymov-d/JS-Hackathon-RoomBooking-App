@@ -1,4 +1,4 @@
-package com.example.roombookingapp.presentation.roomdetails
+package com.example.roombookingapp.domain.models
 
 data class Booking(
     val id: Long,

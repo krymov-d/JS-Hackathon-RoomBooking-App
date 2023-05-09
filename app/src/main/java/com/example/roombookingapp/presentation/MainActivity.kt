@@ -3,7 +3,7 @@ package com.example.roombookingapp.presentation
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.roombookingapp.R
-import com.example.roombookingapp.presentation.signin.FragmentSignIn
+import com.example.roombookingapp.presentation.signin.SignInFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
     private fun initSignInForm() {
         supportFragmentManager
             .beginTransaction()
-            .add(flContainerID, FragmentSignIn(), null)
+            .add(flContainerID, SignInFragment(), null)
             .commit()
     }
 }

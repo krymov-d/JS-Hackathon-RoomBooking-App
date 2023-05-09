@@ -10,22 +10,22 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.roombookingapp.R
+import com.example.roombookingapp.presentation.roomdetails.bookings.BookingsAdapter
+import com.example.roombookingapp.presentation.roomdetails.photos.PhotosViewPagerAdapter
 import com.example.roombookingapp.presentation.utils.SpaceItemDecoration
 import com.example.roombookingapp.presentation.utils.showToast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 private const val TAG_ROOM_ID = "TAG_ROOM_ID"
 
-class FragmentRoomDetails : Fragment() {
+class RoomDetailsFragment : Fragment() {
 
     companion object {
-        fun newInstance(roomId: Long): FragmentRoomDetails {
+        fun newInstance(roomId: Long): RoomDetailsFragment {
             val args = Bundle()
             args.putLong(TAG_ROOM_ID, roomId)
-            val fragment = FragmentRoomDetails()
+            val fragment = RoomDetailsFragment()
             fragment.arguments = args
             return fragment
         }
@@ -38,7 +38,7 @@ class FragmentRoomDetails : Fragment() {
     private lateinit var vpPhotos: ViewPager2
     private lateinit var photosViewPagerAdapter: PhotosViewPagerAdapter
 
-    private lateinit var tvBook: TextView
+    private lateinit var tvBookThisRoom: TextView
 
     private lateinit var tvRoomId: TextView
     private lateinit var tvRoomCategory: TextView
@@ -47,7 +47,7 @@ class FragmentRoomDetails : Fragment() {
     private lateinit var tvRoomDescription: TextView
 
     private lateinit var rvBookings: RecyclerView
-    private lateinit var bookingAdapter: BookingAdapter
+    private lateinit var bookingsAdapter: BookingsAdapter
     private lateinit var bookingLayoutManager: LinearLayoutManager
     private lateinit var bookingItemDecorator: SpaceItemDecoration
 
@@ -73,7 +73,7 @@ class FragmentRoomDetails : Fragment() {
         with(view) {
             vpPhotos = findViewById(R.id.room_details_vp_photos)
 
-            tvBook = findViewById(R.id.room_details_tv_book)
+            tvBookThisRoom = findViewById(R.id.room_details_tv_book)
 
             tvRoomId = findViewById(R.id.room_details_tv_id)
             tvRoomCategory = findViewById(R.id.room_details_tv_category)
@@ -91,12 +91,12 @@ class FragmentRoomDetails : Fragment() {
     }
 
     private fun initBookingsRecyclerView() {
-        bookingAdapter = BookingAdapter(inflater = layoutInflater)
+        bookingsAdapter = BookingsAdapter(inflater = layoutInflater)
         bookingLayoutManager = LinearLayoutManager(context)
         bookingItemDecorator = SpaceItemDecoration(verticalSpaceInDp = 8, horizontalSpaceInDp = 16)
 
         rvBookings.apply {
-            adapter = bookingAdapter
+            adapter = bookingsAdapter
             layoutManager = bookingLayoutManager
             addItemDecoration(bookingItemDecorator)
         }
@@ -107,72 +107,28 @@ class FragmentRoomDetails : Fragment() {
             parentFragmentManager.popBackStack()
         }
 
-        tvBook.setOnClickListener {
+        tvBookThisRoom.setOnClickListener {
             context?.showToast("Fragment Booking")
         }
     }
 
     private fun initObservers() {
-        vmRoomDetails.roomsLiveData.observe(viewLifecycleOwner) {
-            with(it) {
-                photosViewPagerAdapter.setPhotos(photos)
+        vmRoomDetails.roomPhotosLiveData.observe(viewLifecycleOwner) { roomPhotos ->
+            photosViewPagerAdapter.setPhotos(roomPhotos)
+        }
 
+        vmRoomDetails.roomDetailsLiveData.observe(viewLifecycleOwner) { roomDetails ->
+            with(roomDetails) {
                 tvRoomId.text = getString(R.string.room_w_column, id.toString())
                 tvRoomCategory.text = category
                 tvRoomFloor.text = floor.toString()
                 tvRoomCapacity.text = capacity.toString()
                 tvRoomDescription.text = description
             }
+        }
 
-
-            val bookedTime = it.bookedTimeList[0]
-            val period = bookedTime.period
-
-            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSz")
-            val timeFormatter = DateTimeFormatter.ofPattern("hh:mm")
-            val dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
-
-            val dateTimeStart = LocalDateTime.parse(period.startTime, formatter)
-            val dateTimeEnd = LocalDateTime.parse(period.endTime, formatter)
-
-            val formattedDate = dateTimeStart.format(dateFormatter)
-            val formattedTimeStart = dateTimeStart.format(timeFormatter)
-            val formattedTimeEnd = dateTimeEnd.format(timeFormatter)
-
-            val listOfBookings = listOf(
-                Booking(
-                    id = 0,
-                    date = formattedDate,
-                    time = "$formattedTimeStart - $formattedTimeEnd",
-                    purpose = bookedTime.purpose
-                ),
-                Booking(
-                    id = 1,
-                    date = formattedDate,
-                    time = "$formattedTimeStart - $formattedTimeEnd",
-                    purpose = bookedTime.purpose
-                ),
-                Booking(
-                    id = 2,
-                    date = formattedDate,
-                    time = "$formattedTimeStart - $formattedTimeEnd",
-                    purpose = bookedTime.purpose
-                ),
-                Booking(
-                    id = 3,
-                    date = formattedDate,
-                    time = "$formattedTimeStart - $formattedTimeEnd",
-                    purpose = bookedTime.purpose
-                ),
-                Booking(
-                    id = 4,
-                    date = formattedDate,
-                    time = "$formattedTimeStart - $formattedTimeEnd",
-                    purpose = bookedTime.purpose
-                )
-            )
-
-            bookingAdapter.submitList(listOfBookings)
+        vmRoomDetails.roomBookingsLiveData.observe(viewLifecycleOwner) { roomBookings ->
+            bookingsAdapter.submitList(roomBookings)
         }
     }
 }

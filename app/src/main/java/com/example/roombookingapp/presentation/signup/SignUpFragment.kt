@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import com.example.roombookingapp.R
 import com.google.android.material.textfield.TextInputEditText
 
-class FragmentSignUp : Fragment() {
+class SignUpFragment : Fragment() {
 
     private lateinit var etName: TextInputEditText
     private lateinit var etSurname: TextInputEditText
