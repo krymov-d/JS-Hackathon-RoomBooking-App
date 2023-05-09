@@ -87,6 +87,7 @@ class RoomDetailsFragment : Fragment() {
 
     private fun initPhotosViewPager() {
         photosViewPagerAdapter = PhotosViewPagerAdapter(inflater = layoutInflater)
+        photosViewPagerAdapter.currentContext = context
         vpPhotos.adapter = photosViewPagerAdapter
     }
 
