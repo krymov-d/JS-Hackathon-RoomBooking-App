@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_fragment_authorization"
+    android:orientation="vertical"
+    tools:context=".presentation.rooms.addroom.FragmentAddRoom">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        style="@style/Login_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/add_room"
+        android:textSize="24sp"
+        app:fontFamily="@font/montserrat_bold" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_room_number"
+        style="@style/Hint_text_input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="32dp"
+        android:background="@color/ui_01"
+        android:hint="@string/room_number"
+        android:inputType="number"
+        android:padding="8dp"
+        app:fontFamily="@font/montserrat" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_room_type"
+        style="@style/Hint_text_input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/ui_01"
+        android:hint="@string/room_type"
+        android:inputType="text"
+        android:padding="8dp"
+        app:fontFamily="@font/montserrat" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_room_capacity"
+        style="@style/Hint_text_input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/ui_01"
+        android:hint="@string/room_capacity"
+        android:inputType="number"
+        android:padding="8dp"
+        app:fontFamily="@font/montserrat" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_room_floor"
+        style="@style/Hint_text_input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/ui_01"
+        android:hint="@string/room_floor"
+        android:inputType="number"
+        android:padding="8dp"
+        app:fontFamily="@font/montserrat" />
+
+
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_room_desc"
+        style="@style/Hint_text_input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/ui_01"
+        android:gravity="bottom"
+        android:hint="@string/room_desc"
+        android:inputType="text"
+        android:padding="8dp"
+        app:fontFamily="@font/montserrat" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/add_room_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="16dp"
+        android:background="@drawable/bg_btn_login_register"
+        android:text="@string/add_room"
+        android:textColor="@color/ui_01"
+        android:textSize="24sp"
+        app:fontFamily="@font/montserrat_bold" />
+</androidx.appcompat.widget.LinearLayoutCompat>
