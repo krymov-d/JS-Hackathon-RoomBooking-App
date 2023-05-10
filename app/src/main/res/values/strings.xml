@@ -12,6 +12,7 @@
     <string name="need_an_account_w_question">Need an account?</string>
     <string name="already_have_an_account_w_question">Already have an account?</string>
 
+    <string name="room_w_number">Room &#8470;</string>
     <string name="room_w_column">&#8592; Room: %1$s</string>
     <string name="room_count">%1$d/%2$d</string>
     <string name="book_this_room">Book this room</string>
@@ -19,5 +20,6 @@
     <string name="floor_w_column">Floor:</string>
     <string name="capacity_w_column">Capacity:</string>
     <string name="description_w_column">Description:</string>
+    <string name="reservations">Reservations</string>
 
 </resources>

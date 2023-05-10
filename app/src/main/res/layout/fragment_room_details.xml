@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_fragment_authorization">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -13,7 +14,7 @@
             android:id="@+id/room_details_vp_photos"
             android:layout_width="match_parent"
             android:layout_height="320dp"
-            android:background="@drawable/bg_fragment_authorization"
+            android:background="@color/ui_01"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -62,6 +63,26 @@
             app:layout_constraintTop_toBottomOf="@id/room_details_tv_id"
             app:layout_constraintVertical_bias="0" />
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/rooms_details_tv_reservations"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_tv_outlined"
+            android:fontFamily="@font/montserrat_medium"
+            android:gravity="center"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="2dp"
+            android:text="@string/reservations"
+            android:textAllCaps="true"
+            android:textColor="@color/ui_05"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/room_details_cv_description"
+            app:layout_constraintStart_toStartOf="@id/room_details_cv_description"
+            app:layout_constraintTop_toBottomOf="@id/room_details_cv_description"
+            app:layout_constraintVertical_bias="0" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/room_details_rv_bookings"
             android:layout_width="match_parent"
@@ -70,7 +91,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/room_details_cv_description"
+            app:layout_constraintTop_toBottomOf="@id/rooms_details_tv_reservations"
             app:layout_constraintVertical_bias="0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
