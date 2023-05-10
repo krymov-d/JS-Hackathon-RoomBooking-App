@@ -1,14 +1,14 @@
 package com.example.roombookingapp.data.repositories
 
-import android.text.format.DateFormat
+import com.example.roombookingapp.constants.dateFormatter
+import com.example.roombookingapp.constants.timeFormatter
+import com.example.roombookingapp.constants.weekDayFormatter
 import com.example.roombookingapp.domain.models.Booking
 import com.example.roombookingapp.domain.models.Room
 import com.example.roombookingapp.domain.models.RoomDetails
 import com.example.roombookingapp.domain.repositories.RoomsRepository
-import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.util.Locale
 
 class RoomsRepositoryImpl : RoomsRepository {
 
@@ -84,59 +84,52 @@ class RoomsRepositoryImpl : RoomsRepository {
     }
 
     override suspend fun getRoomBookings(roomId: Long): List<Booking> {
-        val startTime = "2023-05-08T12:00:00.000Z"
-        val endTime = "2023-05-08T12:30:00.000Z"
+        val startTime = "2023-05-10T13:00:00.000Z"
+        val endTime = "2023-05-10T01:00:00.000Z"
 
-        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSz")
-        val timeFormatter = DateTimeFormatter.ofPattern("hh:mm")
-        val dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
+        val startDateTime = LocalDateTime.parse(startTime, DateTimeFormatter.ISO_DATE_TIME)
+        val endDateTime = LocalDateTime.parse(endTime, DateTimeFormatter.ISO_DATE_TIME)
 
-        val dateTimeStart = LocalDateTime.parse(startTime, formatter)
-        val dateTimeEnd = LocalDateTime.parse(endTime, formatter)
+        val startHour = startDateTime.format(timeFormatter)
+        val endHour = endDateTime.format(timeFormatter)
 
-        val formattedDate = dateTimeStart.format(dateFormatter)
-        val formattedTimeStart = dateTimeStart.format(timeFormatter)
-        val formattedTimeEnd = dateTimeEnd.format(timeFormatter)
-
-        val weekDayFormatter = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
-        val formattedWeekDay = weekDayFormatter.parse(formattedDate)
-
-        val weekDay = DateFormat.format("EEEE", formattedWeekDay)
+        val date = startDateTime.format(dateFormatter)
+        val weekDay = startDateTime.format(weekDayFormatter)
 
         return listOf(
             Booking(
                 id = 0,
-                weekDay = "$weekDay",
-                date = formattedDate,
-                time = "$formattedTimeStart - $formattedTimeEnd",
+                weekDay = weekDay,
+                date = date,
+                time = "$startHour - $endHour",
                 purpose = "Lecture"
             ),
             Booking(
                 id = 1,
-                weekDay = "$weekDay",
-                date = formattedDate,
-                time = "$formattedTimeStart - $formattedTimeEnd",
+                weekDay = weekDay,
+                date = date,
+                time = "$startHour - $endHour",
                 purpose = "Meeting"
             ),
             Booking(
                 id = 2,
-                weekDay = "$weekDay",
-                date = formattedDate,
-                time = "$formattedTimeStart - $formattedTimeEnd",
+                weekDay = weekDay,
+                date = date,
+                time = "$startHour - $endHour",
                 purpose = "Party"
             ),
             Booking(
                 id = 3,
-                weekDay = "$weekDay",
-                date = formattedDate,
-                time = "$formattedTimeStart - $formattedTimeEnd",
+                weekDay = weekDay,
+                date = date,
+                time = "$startHour - $endHour",
                 purpose = "Free time"
             ),
             Booking(
                 id = 4,
-                weekDay = "$weekDay",
-                date = formattedDate,
-                time = "$formattedTimeStart - $formattedTimeEnd",
+                weekDay = weekDay,
+                date = date,
+                time = "$startHour - $endHour",
                 purpose = "Movie"
             ),
         )
