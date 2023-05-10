@@ -30,6 +30,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/ui_06</item>
+        <item name="android:fontFamily">@font/montserrat</item>
     </style>
 
     <style name="Login_question">
@@ -75,6 +76,31 @@
         <item name="fontFamily">@font/montserrat</item>
         <item name="android:layout_marginStart">8dp</item>
         <item name="android:layout_marginEnd">8dp</item>
+    </style>
+
+    <style name="room_booking_hints">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/ui_02</item>
+        <item name="android:textSize">20sp</item>
+        <item name="fontFamily">@font/montserrat_bold</item>
+    </style>
+
+    <style name="room_booking_buttons">
+        <item name="android:layout_width">136dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:textColor">@color/ui_01</item>
+        <item name="android:textSize">20sp</item>
+        <item name="fontFamily">@font/montserrat_medium</item>
+        <item name="android:background">@drawable/selector_bg_btn_book</item>
+        <item name="android:paddingHorizontal">8dp</item>
+    </style>
+
+    <style name="room_booking_edit_text_layouts" parent="Login_text_input_layout">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:enabled">false</item>
+        <item name="android:layout_marginEnd">16dp</item>
     </style>
 
 </resources>

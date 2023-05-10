@@ -22,4 +22,11 @@
     <string name="description_w_column">Description:</string>
     <string name="reservations">Reservations</string>
 
+    <string name="reason_for_booking_w_column">Reason for booking:</string>
+    <string name="reason">Reason</string>
+    <string name="select_time_period_w_column">Select time period:</string>
+    <string name="select_date">Date</string>
+    <string name="select_start_time">Start Time</string>
+    <string name="select_end_time">End Time</string>
+    <string name="submit">Submit request</string>
 </resources>

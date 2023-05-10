@@ -10,10 +10,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.roombookingapp.R
+import com.example.roombookingapp.presentation.booking.RoomBookingFragment
 import com.example.roombookingapp.presentation.roomdetails.bookings.BookingsAdapter
 import com.example.roombookingapp.presentation.roomdetails.photos.PhotosViewPagerAdapter
 import com.example.roombookingapp.presentation.utils.SpaceItemDecoration
-import com.example.roombookingapp.presentation.utils.showToast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -30,6 +30,8 @@ class RoomDetailsFragment : Fragment() {
             return fragment
         }
     }
+
+    private val flContainerID = R.id.fl_login_container
 
     private val vmRoomDetails: RoomDetailsViewModel by viewModel {
         parametersOf(arguments?.getLong(TAG_ROOM_ID) ?: 0)
@@ -109,7 +111,11 @@ class RoomDetailsFragment : Fragment() {
         }
 
         tvBookThisRoom.setOnClickListener {
-            context?.showToast("Fragment Booking")
+            parentFragmentManager
+                .beginTransaction()
+                .replace(flContainerID, RoomBookingFragment(), null)
+                .addToBackStack(null)
+                .commit()
         }
     }
 
