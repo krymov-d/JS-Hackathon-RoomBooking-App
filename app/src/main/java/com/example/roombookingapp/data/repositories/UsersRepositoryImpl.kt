@@ -1,10 +1,10 @@
 package com.example.roombookingapp.data.repositories
 
-import android.util.Log
 import com.example.roombookingapp.data.models.RemoteUser
+import com.example.roombookingapp.data.network.MainApi
 import com.example.roombookingapp.domain.repositories.UsersRepository
 
-class UsersRepositoryImpl : UsersRepository {
+class UsersRepositoryImpl(private val mainApi: MainApi) : UsersRepository {
 
     override suspend fun registerUser(
         name: String,
@@ -13,6 +13,6 @@ class UsersRepositoryImpl : UsersRepository {
         password: String
     ) {
         val newUser = RemoteUser(name = name, surname = surname, email = email, password = password)
-        Log.d("NewUser", "$newUser")
+        mainApi.registerUser(newUser = newUser)
     }
 }

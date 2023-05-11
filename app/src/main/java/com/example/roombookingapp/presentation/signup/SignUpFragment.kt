@@ -80,7 +80,6 @@ class SignUpFragment : Fragment() {
                 currentContext.showToastLong(R.string.please_fill_all_fields)
             } else {
                 vmSignUpViewModel.registerUser()
-                parentFragmentManager.popBackStack()
             }
         }
 
