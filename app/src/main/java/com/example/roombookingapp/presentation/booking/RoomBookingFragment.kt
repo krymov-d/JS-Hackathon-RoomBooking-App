@@ -8,12 +8,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatButton
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.example.roombookingapp.R
+import com.example.roombookingapp.presentation.utils.extensions.showToastLong
 import com.google.android.material.textfield.TextInputEditText
-import java.util.Calendar
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RoomBookingFragment : Fragment() {
+
+    private val vmRoomBooking: RoomBookingViewModel by viewModel()
 
     private lateinit var etReason: TextInputEditText
     private lateinit var etDate: TextInputEditText
@@ -23,13 +27,6 @@ class RoomBookingFragment : Fragment() {
     private lateinit var btnSelectStartTime: AppCompatButton
     private lateinit var btnSelectEndTime: AppCompatButton
     private lateinit var btnSubmitRequest: AppCompatButton
-
-    private lateinit var calendar: Calendar
-    private var currentYear = 0
-    private var currentMonth = 0
-    private var currentDay = 0
-    private var currentHour = 0
-    private var currentMinute = 0
 
     private lateinit var datePickerDialog: DatePickerDialog
     private lateinit var timePickerDialog: TimePickerDialog
@@ -48,8 +45,8 @@ class RoomBookingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initViews(view)
-        initCalendar()
         initClickListeners()
+        initObservers()
     }
 
     private fun initViews(view: View) {
@@ -65,46 +62,41 @@ class RoomBookingFragment : Fragment() {
         }
     }
 
-    private fun initCalendar() {
-        calendar = Calendar.getInstance()
-    }
-
     private fun initClickListeners() {
         val currentContext = context ?: return
+
+        etReason.addTextChangedListener {
+            vmRoomBooking.reasonLiveData.value = it.toString()
+        }
+
         btnSelectDate.setOnClickListener {
-            setCurrentDate()
-            setDateSetListener()
+            initDateSetListener()
             showDatePickerDialog(currentContext)
         }
 
         btnSelectStartTime.setOnClickListener {
-            setCurrentTime()
-            setTimeSetListener(timeOption = 0)
+            initTimeSetListener(timeOption = 0)
             showTimePickerDialog(currentContext)
         }
 
         btnSelectEndTime.setOnClickListener {
-            setCurrentTime()
-            setTimeSetListener(timeOption = 1)
+            initTimeSetListener(timeOption = 1)
             showTimePickerDialog(currentContext)
         }
 
         btnSubmitRequest.setOnClickListener {
-            parentFragmentManager.popBackStack()
+            if (vmRoomBooking.dateLiveData.value == null || vmRoomBooking.startLiveData.value == null || vmRoomBooking.endTimeLiveData.value == null) {
+                currentContext.showToastLong(getString(R.string.please_fill_all_fields))
+            } else {
+                vmRoomBooking.submitBooking()
+                parentFragmentManager.popBackStack()
+            }
         }
     }
 
-    private fun setCurrentDate() {
-        currentYear = calendar.get(Calendar.YEAR)
-        currentMonth = calendar.get(Calendar.MONTH)
-        currentDay = calendar.get(Calendar.DAY_OF_MONTH)
-    }
-
-    private fun setDateSetListener() {
+    private fun initDateSetListener() {
         onDateSetListener = DatePickerDialog.OnDateSetListener { _, year, monthIndex, dayOfMonth ->
-            val month = monthIndex + 1
-            val date = String.format("%02d / %02d / %04d", dayOfMonth, month, year)
-            etDate.setText(date)
+            vmRoomBooking.setDate(year = year, month = monthIndex + 1, day = dayOfMonth)
         }
     }
 
@@ -112,24 +104,18 @@ class RoomBookingFragment : Fragment() {
         datePickerDialog = DatePickerDialog(
             currentContext,
             onDateSetListener,
-            currentYear,
-            currentMonth,
-            currentDay
+            vmRoomBooking.getCurrentYear(),
+            vmRoomBooking.getCurrentMonth(),
+            vmRoomBooking.getCurrentDay()
         )
         datePickerDialog.show()
     }
 
-    private fun setCurrentTime() {
-        currentHour = calendar.get(Calendar.HOUR_OF_DAY)
-        currentMinute = calendar.get(Calendar.MINUTE)
-    }
-
-    private fun setTimeSetListener(timeOption: Int) {
+    private fun initTimeSetListener(timeOption: Int) {
         onTimeSetListener = TimePickerDialog.OnTimeSetListener { _, hour, minute ->
-            val time = String.format("%02d : %02d", hour, minute)
             when (timeOption) {
-                0 -> etStartTime.setText(time)
-                1 -> etEndTime.setText(time)
+                0 -> vmRoomBooking.setStartTime(hour = hour, minute = minute)
+                1 -> vmRoomBooking.setEndTime(hour = hour, minute = minute)
             }
         }
     }
@@ -138,10 +124,24 @@ class RoomBookingFragment : Fragment() {
         timePickerDialog = TimePickerDialog(
             currentContext,
             onTimeSetListener,
-            currentHour,
-            currentMinute,
+            vmRoomBooking.getCurrentHour(),
+            vmRoomBooking.getCurrentMinute(),
             true
         )
         timePickerDialog.show()
+    }
+
+    private fun initObservers() {
+        vmRoomBooking.dateLiveData.observe(viewLifecycleOwner) { pickedDate ->
+            etDate.setText(pickedDate)
+        }
+
+        vmRoomBooking.startLiveData.observe(viewLifecycleOwner) { pickedStartTime ->
+            etStartTime.setText(pickedStartTime)
+        }
+
+        vmRoomBooking.endTimeLiveData.observe(viewLifecycleOwner) { pickedEndTime ->
+            etEndTime.setText(pickedEndTime)
+        }
     }
 }

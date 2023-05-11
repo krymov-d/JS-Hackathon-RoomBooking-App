@@ -29,4 +29,5 @@
     <string name="select_start_time">Start Time</string>
     <string name="select_end_time">End Time</string>
     <string name="submit">Submit request</string>
+    <string name="please_fill_all_fields">Please fill out all required fields</string>
 </resources>

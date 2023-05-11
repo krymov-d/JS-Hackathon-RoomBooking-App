@@ -1,4 +1,4 @@
-package com.example.roombookingapp.presentation.utils
+package com.example.roombookingapp.presentation.utils.extensions
 
 import android.content.Context
 import android.content.Intent
@@ -10,7 +10,15 @@ fun Context.showToast(msg: String, length: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(this, msg, length).show()
 }
 
+fun Context.showToastLong(msg: String, length: Int = Toast.LENGTH_LONG) {
+    Toast.makeText(this, msg, length).show()
+}
+
 fun Context.showToast(@StringRes resId: Int, length: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(this, resId, length).show()
+}
+
+fun Context.showToastLong(@StringRes resId: Int, length: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(this, resId, length).show()
 }
 

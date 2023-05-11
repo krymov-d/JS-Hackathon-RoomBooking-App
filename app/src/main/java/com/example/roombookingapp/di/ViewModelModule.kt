@@ -1,5 +1,6 @@
 package com.example.roombookingapp.di
 
+import com.example.roombookingapp.presentation.booking.RoomBookingViewModel
 import com.example.roombookingapp.presentation.roomdetails.RoomDetailsViewModel
 import com.example.roombookingapp.presentation.rooms.RoomsViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -16,5 +17,8 @@ val viewModelModule = module {
     }
     viewModel {
         RoomsViewModel(getRoomsUseCase = get())
+    }
+    viewModel {
+        RoomBookingViewModel(submitBookingUseCase = get())
     }
 }
