@@ -6,11 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.example.roombookingapp.R
+import com.example.roombookingapp.presentation.utils.extensions.showToastLong
 import com.google.android.material.textfield.TextInputEditText
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SignUpFragment : Fragment() {
+
+    private val vmSignUpViewModel: SignUpViewModel by viewModel()
 
     private lateinit var etName: TextInputEditText
     private lateinit var etSurname: TextInputEditText
@@ -31,6 +36,7 @@ class SignUpFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initViews(view)
+        initTextChangeListeners()
         initClickListeners()
     }
 
@@ -45,9 +51,37 @@ class SignUpFragment : Fragment() {
         }
     }
 
-    private fun initClickListeners() {
-        btnRegister.setOnClickListener {
+    private fun initTextChangeListeners() {
+        etName.addTextChangedListener { name ->
+            vmSignUpViewModel.nameLiveData.value = name.toString()
+        }
 
+        etSurname.addTextChangedListener { surname ->
+            vmSignUpViewModel.surnameLiveData.value = surname.toString()
+        }
+
+        etEmail.addTextChangedListener { email ->
+            vmSignUpViewModel.emailLiveData.value = email.toString()
+        }
+
+        etPassword.addTextChangedListener { password ->
+            vmSignUpViewModel.passwordLiveData.value = password.toString()
+        }
+    }
+
+    private fun initClickListeners() {
+        val currentContext = context ?: return
+        btnRegister.setOnClickListener {
+            if (etName.text.toString().isEmpty()
+                || etSurname.text.toString().isEmpty()
+                || etEmail.text.toString().isEmpty()
+                || etPassword.text.toString().isEmpty()
+            ) {
+                currentContext.showToastLong(R.string.please_fill_all_fields)
+            } else {
+                vmSignUpViewModel.registerUser()
+                parentFragmentManager.popBackStack()
+            }
         }
 
         tvSignIn.setOnClickListener {
