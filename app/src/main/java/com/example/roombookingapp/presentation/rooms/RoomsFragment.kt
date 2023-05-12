@@ -2,10 +2,16 @@ package com.example.roombookingapp.presentation.rooms
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.roombookingapp.R
@@ -13,6 +19,7 @@ import com.example.roombookingapp.data.models.LoginResponse
 import com.example.roombookingapp.presentation.roomdetails.RoomDetailsFragment
 import com.example.roombookingapp.presentation.utils.ClickListener
 import com.example.roombookingapp.presentation.utils.SpaceItemDecoration
+import com.example.roombookingapp.presentation.utils.extensions.showToast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -65,6 +72,7 @@ class RoomsFragment : Fragment() {
         initToolbar()
         initRoomsRecyclerView()
         initObservers()
+        initMenu()
     }
 
     private fun initViews(view: View) {
@@ -113,5 +121,19 @@ class RoomsFragment : Fragment() {
         vmRooms.roomsLiveData.observe(viewLifecycleOwner) { rooms ->
             roomsAdapter.submitList(rooms)
         }
+    }
+
+    private fun initMenu() {
+        tbRooms.inflateMenu(R.menu.menu_room_add)
+        tbRooms.setOnMenuItemClickListener { menuItem ->
+            if (menuItem.itemId == R.id.menu_room_add) {
+                initRoomAddFragment()
+            }
+            true
+        }
+    }
+
+    private fun initRoomAddFragment() {
+        context?.showToast(getString(R.string.menu_room_add))
     }
 }

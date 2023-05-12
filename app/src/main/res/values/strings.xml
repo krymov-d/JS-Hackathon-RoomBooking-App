@@ -42,4 +42,6 @@
     <string name="available_rooms">Available Rooms</string>
     <string name="room_details">Room Details</string>
     <string name="room_booking">Room Booking</string>
+
+    <string name="menu_room_add">Room Add</string>
 </resources>
