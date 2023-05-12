@@ -23,16 +23,19 @@ class SignUpViewModel(private val userRegisterUseCase: UserRegisterUseCase) : Vi
         viewModelScope.launch {
             try {
                 progressLiveData.value = true
+
                 val response = userRegisterUseCase(
                     name = nameLiveData.value.toString(),
                     surname = surnameLiveData.value.toString(),
                     email = emailLiveData.value.toString(),
                     password = passwordLiveData.value.toString()
                 )
-                registrationStatusLiveData.value = response.toString().isNotEmpty()
+
+                registrationStatusLiveData.value = response == 200
             } catch (e: Exception) {
-                progressLiveData.value = false
                 registrationStatusLiveData.value = false
+            } finally {
+                progressLiveData.value = false
             }
         }
     }

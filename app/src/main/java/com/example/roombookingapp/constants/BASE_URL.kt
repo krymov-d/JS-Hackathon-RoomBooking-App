@@ -1,3 +1,3 @@
 package com.example.roombookingapp.constants
 
-const val BASE_URL = "http://34.230.74.15:8087/"
+const val BASE_URL = "http://44.202.105.221:8087/"

@@ -9,8 +9,8 @@ class UserRegisterUseCase(private val usersRepository: UsersRepository) {
         surname: String,
         email: String,
         password: String
-    ) {
-        usersRepository.registerUser(
+    ): Int {
+        return usersRepository.registerUser(
             name = name,
             surname = surname,
             email = email,

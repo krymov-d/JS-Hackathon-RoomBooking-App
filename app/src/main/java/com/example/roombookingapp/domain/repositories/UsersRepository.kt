@@ -7,7 +7,7 @@ interface UsersRepository {
         surname: String,
         email: String,
         password: String
-    )
+    ): Int
 
     suspend fun loginUser(email: String, password: String): String
 }
