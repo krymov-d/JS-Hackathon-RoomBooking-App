@@ -1,5 +1,6 @@
 package com.example.roombookingapp.presentation.signup
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +10,9 @@ import android.widget.TextView
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.example.roombookingapp.R
-import com.example.roombookingapp.presentation.utils.extensions.showToastLong
+import com.example.roombookingapp.presentation.utils.extensions.showSnackBar
+import com.example.roombookingapp.presentation.utils.extensions.showSnackBarWithAction
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.textfield.TextInputEditText
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -22,6 +25,7 @@ class SignUpFragment : Fragment() {
     private lateinit var etEmail: TextInputEditText
     private lateinit var etPassword: TextInputEditText
     private lateinit var btnRegister: Button
+    private lateinit var progressIndicator: CircularProgressIndicator
     private lateinit var tvSignIn: TextView
 
     override fun onCreateView(
@@ -35,9 +39,12 @@ class SignUpFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val currentContext = context ?: return
+
         initViews(view)
         initTextChangeListeners()
-        initClickListeners()
+        initClickListeners(currentContext)
+        initObservers(currentContext)
     }
 
     private fun initViews(view: View) {
@@ -47,6 +54,7 @@ class SignUpFragment : Fragment() {
             etEmail = findViewById(R.id.sign_up_et_email)
             etPassword = findViewById(R.id.sign_up_et_password)
             btnRegister = findViewById(R.id.sign_up_btn_register)
+            progressIndicator = findViewById(R.id.sign_up_progress_indicator)
             tvSignIn = findViewById(R.id.sign_up_tv_sign_in)
         }
     }
@@ -69,15 +77,17 @@ class SignUpFragment : Fragment() {
         }
     }
 
-    private fun initClickListeners() {
-        val currentContext = context ?: return
+    private fun initClickListeners(currentContext: Context) {
         btnRegister.setOnClickListener {
             if (etName.text.toString().isEmpty()
                 || etSurname.text.toString().isEmpty()
                 || etEmail.text.toString().isEmpty()
                 || etPassword.text.toString().isEmpty()
             ) {
-                currentContext.showToastLong(R.string.please_fill_all_fields)
+                currentContext.showSnackBar(
+                    view = it,
+                    messageStringId = R.string.please_fill_all_fields
+                )
             } else {
                 vmSignUpViewModel.registerUser()
             }
@@ -85,6 +95,38 @@ class SignUpFragment : Fragment() {
 
         tvSignIn.setOnClickListener {
             parentFragmentManager.popBackStack()
+        }
+    }
+
+    private fun initObservers(currentContext: Context) {
+        vmSignUpViewModel.progressLiveData.observe(viewLifecycleOwner) { isInProgress ->
+            if (isInProgress) {
+                btnRegister.isEnabled = false
+                btnRegister.setTextColor(resources.getColor(R.color.ui_03, null))
+                progressIndicator.visibility = View.VISIBLE
+            } else {
+                btnRegister.isEnabled = true
+                btnRegister.setTextColor(resources.getColor(R.color.ui_01, null))
+                progressIndicator.visibility = View.INVISIBLE
+            }
+        }
+
+        vmSignUpViewModel.registrationStatus.observe(viewLifecycleOwner) { isRegistered ->
+            if (isRegistered) {
+                currentContext.showSnackBar(
+                    view = btnRegister,
+                    messageStringId = R.string.registration_completed_successfully
+                )
+                parentFragmentManager.popBackStack()
+            } else {
+                currentContext.showSnackBarWithAction(
+                    view = btnRegister,
+                    messageStringId = R.string.registration_failed,
+                    actionStringId = R.string.retry
+                ) {
+                    vmSignUpViewModel.registerUser()
+                }
+            }
         }
     }
 }

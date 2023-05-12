@@ -12,15 +12,28 @@ class SignUpViewModel(private val registerUserUseCase: RegisterUserUseCase) : Vi
     val surnameLiveData: MutableLiveData<String> = MutableLiveData()
     val emailLiveData: MutableLiveData<String> = MutableLiveData()
     val passwordLiveData: MutableLiveData<String> = MutableLiveData()
+    val progressLiveData: MutableLiveData<Boolean> = MutableLiveData()
+    val registrationStatus: MutableLiveData<Boolean> = MutableLiveData()
+
+    init {
+        progressLiveData.value = false
+    }
 
     fun registerUser() {
         viewModelScope.launch {
-            registerUserUseCase(
-                name = nameLiveData.value.toString(),
-                surname = surnameLiveData.value.toString(),
-                email = emailLiveData.value.toString(),
-                password = passwordLiveData.value.toString()
-            )
+            try {
+                progressLiveData.value = true
+                val response = registerUserUseCase(
+                    name = nameLiveData.value.toString(),
+                    surname = surnameLiveData.value.toString(),
+                    email = emailLiveData.value.toString(),
+                    password = passwordLiveData.value.toString()
+                )
+                registrationStatus.value = response.toString().isNotEmpty()
+            } catch (e: Exception) {
+                progressLiveData.value = false
+                registrationStatus.value = false
+            }
         }
     }
 }
