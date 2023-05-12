@@ -1,5 +1,7 @@
 package com.example.roombookingapp.domain.repositories
 
+import com.example.roombookingapp.data.models.RemoteUserData
+
 interface UsersRepository {
 
     suspend fun registerUser(
@@ -9,5 +11,5 @@ interface UsersRepository {
         password: String
     ): Int
 
-    suspend fun loginUser(email: String, password: String): String
+    suspend fun loginUser(email: String, password: String): RemoteUserData
 }

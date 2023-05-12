@@ -21,15 +21,18 @@ class SignInViewModel(private val userLoginUseCase: UserLoginUseCase) : ViewMode
         viewModelScope.launch {
             try {
                 progressLiveData.value = true
+
                 val response = userLoginUseCase(
                     email = emailLiveData.value.toString(),
                     password = passwordLiveData.value.toString()
                 )
-                loginStatusLiveData.value = response.isNotEmpty()
+
+                loginStatusLiveData.value = response.jwtToken.isNotEmpty()
 
             } catch (e: Exception) {
-                progressLiveData.value = false
                 loginStatusLiveData.value = false
+            } finally {
+                progressLiveData.value = false
             }
         }
     }

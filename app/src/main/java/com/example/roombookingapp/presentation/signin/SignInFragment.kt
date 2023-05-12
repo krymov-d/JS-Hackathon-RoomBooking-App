@@ -114,7 +114,7 @@ class SignInFragment : Fragment() {
         }
 
         vmSignIn.loginStatusLiveData.observe(viewLifecycleOwner) { isLoggedIn ->
-            if (!isLoggedIn) {
+            if (isLoggedIn) {
                 currentContext.showSnackBar(
                     view = btnLogin,
                     messageStringId = R.string.login_successful
