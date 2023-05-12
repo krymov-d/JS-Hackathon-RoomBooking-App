@@ -128,12 +128,26 @@ class RoomDetailsFragment : Fragment() {
         }
 
         tvBookThisRoom.setOnClickListener {
-            parentFragmentManager
-                .beginTransaction()
-                .replace(flContainerID, RoomBookingFragment(), null)
-                .addToBackStack(null)
-                .commit()
+            initRoomBookingFragment()
         }
+    }
+
+    private fun initRoomBookingFragment() {
+        val userID = arguments?.getString(TAG_USER_ID) ?: ""
+        val userToken = arguments?.getString(TAG_USER_TOKEN) ?: ""
+        val roomId = arguments?.getString(TAG_ROOM_ID) ?: ""
+
+        parentFragmentManager
+            .beginTransaction()
+            .replace(
+                flContainerID, RoomBookingFragment.newInstance(
+                    userID = userID,
+                    userToken = userToken,
+                    roomId = roomId
+                ), null
+            )
+            .addToBackStack(null)
+            .commit()
     }
 
     private fun initObservers() {

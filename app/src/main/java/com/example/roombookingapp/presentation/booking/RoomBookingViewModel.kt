@@ -6,9 +6,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.roombookingapp.domain.use_cases.SubmitBookingUseCase
 import kotlinx.coroutines.launch
+import java.lang.Exception
 import java.util.Calendar
 
-class RoomBookingViewModel(private val submitBookingUseCase: SubmitBookingUseCase) : ViewModel() {
+class RoomBookingViewModel(
+    private val userId: String,
+    private val userToken: String,
+    private val roomId: String,
+    private val submitBookingUseCase: SubmitBookingUseCase
+) : ViewModel() {
 
     private val calendar = Calendar.getInstance()
 
@@ -30,6 +36,13 @@ class RoomBookingViewModel(private val submitBookingUseCase: SubmitBookingUseCas
 
     private val _endTimeLiveData: MutableLiveData<String> = MutableLiveData()
     val endTimeLiveData: LiveData<String> = _endTimeLiveData
+
+    val progressLiveData: MutableLiveData<Boolean> = MutableLiveData()
+    val submitStatusLiveData: MutableLiveData<Boolean> = MutableLiveData()
+
+    init {
+        progressLiveData.value = false
+    }
 
     fun setDate(year: Int, month: Int, day: Int) {
         pickedYear = year
@@ -58,17 +71,27 @@ class RoomBookingViewModel(private val submitBookingUseCase: SubmitBookingUseCas
 
     fun submitBooking() {
         viewModelScope.launch {
-            val reason = reasonLiveData.value ?: ""
-            submitBookingUseCase(
-                reason = reason,
-                day = pickedDay,
-                month = pickedMonth,
-                year = pickedYear,
-                startHour = pickedStartHour,
-                startMinute = pickedStartMinute,
-                endHour = pickedEndHour,
-                endMinute = pickedEndMinute
-            )
+            try {
+                progressLiveData.value = true
+                val response = submitBookingUseCase(
+                    userId = userId,
+                    userToken = userToken,
+                    roomId = roomId,
+                    reason = reasonLiveData.value.toString(),
+                    day = pickedDay,
+                    month = pickedMonth,
+                    year = pickedYear,
+                    startHour = pickedStartHour,
+                    startMinute = pickedStartMinute,
+                    endHour = pickedEndHour,
+                    endMinute = pickedEndMinute
+                )
+                submitStatusLiveData.value = response.statusCodeValue == 200
+            } catch (e: Exception) {
+                submitStatusLiveData.value = false
+            } finally {
+                progressLiveData.value = false
+            }
         }
     }
 }

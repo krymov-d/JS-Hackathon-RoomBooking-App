@@ -1,14 +1,15 @@
 package com.example.roombookingapp.data.repositories
 
-import com.example.roombookingapp.constants.dateTimeFormatter
-import com.example.roombookingapp.data.models.RemoteBooking
-import com.example.roombookingapp.data.models.RemoteTimeFrame
+import com.example.roombookingapp.data.mapper.toRemoteBooking
+import com.example.roombookingapp.data.models.RegisterResponse
+import com.example.roombookingapp.data.network.MainApi
 import com.example.roombookingapp.domain.repositories.BookingsRepository
-import java.time.OffsetDateTime
-import java.time.ZoneOffset
 
-class BookingsRepositoryImpl : BookingsRepository {
+class BookingsRepositoryImpl(private val mainApi: MainApi) : BookingsRepository {
     override suspend fun submitBooking(
+        userId: String,
+        userToken: String,
+        roomId: String,
         reason: String,
         day: Int,
         month: Int,
@@ -17,26 +18,23 @@ class BookingsRepositoryImpl : BookingsRepository {
         startMinute: Int,
         endHour: Int,
         endMinute: Int
-    ) {
-        val startDateTime =
-            OffsetDateTime.of(year, month, day, startHour, startMinute, 0, 0, ZoneOffset.UTC)
-        val endDateTime =
-            OffsetDateTime.of(year, month, day, endHour, endMinute, 0, 0, ZoneOffset.UTC)
-
-        val startDateTimeFormatted = startDateTime.format(dateTimeFormatter)
-        val endDateTimeFormatted = endDateTime.format(dateTimeFormatter)
-
-        val newBookingTimeFrame = RemoteTimeFrame(
-            clientId = 0,
-            roomId = 303,
-            startTime = startDateTimeFormatted,
-            endTime = endDateTimeFormatted
+    ): RegisterResponse {
+        val remoteBooking = toRemoteBooking(
+            userId = userId,
+            roomId = roomId,
+            reason = reason,
+            day = day,
+            month = month,
+            year = year,
+            startHour = startHour,
+            startMinute = startMinute,
+            endHour = endHour,
+            endMinute = endMinute
         )
-        val newBooking = RemoteBooking(
-            reservationId = 0,
-            userId = 0,
-            description = reason,
-            period = newBookingTimeFrame
+        return mainApi.submitBooking(
+            userToken = userToken,
+            roomId = roomId,
+            booking = remoteBooking
         )
     }
 }

@@ -11,5 +11,5 @@ import org.koin.dsl.module
 val repositoryModule = module {
     factory<UsersRepository> { UsersRepositoryImpl(mainApi = get()) }
     factory<RoomsRepository> { RoomsRepositoryImpl(mainApi = get()) }
-    factory<BookingsRepository> { BookingsRepositoryImpl() }
+    factory<BookingsRepository> { BookingsRepositoryImpl(mainApi = get()) }
 }

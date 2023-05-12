@@ -5,25 +5,51 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_fragment_authorization"
-    android:padding="16dp"
     tools:context=".presentation.MainActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/room_booking_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/ui_01"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0"
+        app:titleTextAppearance="@style/rooms_title"
+        app:titleTextColor="@color/ui_03" />
+
+    <View
+        android:id="@+id/room_booking_view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/ui_03"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/room_booking_toolbar"
+        app:layout_constraintVertical_bias="0" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/room_booking_tv_reason_hint"
         style="@style/room_booking_hints"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginTop="16dp"
-        android:text="@string/reason_for_booking_w_column"
+        android:text="@string/reason_w_column"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/room_booking_toolbar"
         app:layout_constraintVertical_bias="0" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/room_booking_et_layout_reason"
         style="@style/Login_text_input_layout"
         android:layout_width="match_parent"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,6 +67,7 @@
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/room_booking_tv_select_hint"
         style="@style/room_booking_hints"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginTop="16dp"
         android:text="@string/select_time_period_w_column"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -143,11 +170,27 @@
         android:id="@+id/room_booking_btn_submit_request"
         style="@style/room_booking_buttons"
         android:layout_width="wrap_content"
+        android:layout_marginBottom="16dp"
         android:text="@string/submit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1" />
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/room_booking_progress_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="4dp"
+        android:indeterminate="true"
+        android:visibility="invisible"
+        app:indicatorColor="@color/ui_01"
+        app:layout_constraintBottom_toBottomOf="@id/room_booking_btn_submit_request"
+        app:layout_constraintEnd_toEndOf="@id/room_booking_btn_submit_request"
+        app:layout_constraintStart_toStartOf="@id/room_booking_btn_submit_request"
+        app:layout_constraintTop_toTopOf="@id/room_booking_btn_submit_request"
+        tools:background="@color/ui_04"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

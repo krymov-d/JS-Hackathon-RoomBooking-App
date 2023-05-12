@@ -36,8 +36,12 @@ val viewModelModule = module {
         )
     }
 
-    viewModel {
-        RoomBookingViewModel(submitBookingUseCase = get())
+    viewModel { (userId: String, userToken: String, roomId: String) ->
+        RoomBookingViewModel(
+            userId = userId,
+            userToken = userToken,
+            roomId = roomId,
+            submitBookingUseCase = get()
+        )
     }
-
 }

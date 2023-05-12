@@ -22,7 +22,7 @@
     <string name="description_w_column">Description:</string>
     <string name="reservations">Reservations</string>
 
-    <string name="reason_for_booking_w_column">Reason for booking:</string>
+    <string name="reason_w_column">Reason:</string>
     <string name="reason">Reason</string>
     <string name="select_time_period_w_column">Select time period:</string>
     <string name="select_date">Date</string>
@@ -36,7 +36,10 @@
     <string name="registration_completed_successfully">REGISTRATION COMPLETED SUCCESSFULLY\nPlease login to continue</string>
     <string name="login_successful">LOGIN SUCCESSFUL</string>
     <string name="login_failed">LOGIN FAILED</string>
+    <string name="booking_successful">BOOKING SUCCESSFUL</string>
+    <string name="booking_failed">BOOKING FAILED</string>
 
     <string name="available_rooms">Available Rooms</string>
     <string name="room_details">Room Details</string>
+    <string name="room_booking">Room Booking</string>
 </resources>

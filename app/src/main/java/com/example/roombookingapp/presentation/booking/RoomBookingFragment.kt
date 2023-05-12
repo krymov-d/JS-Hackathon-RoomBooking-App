@@ -8,16 +8,45 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatButton
+import androidx.appcompat.widget.Toolbar
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.example.roombookingapp.R
+import com.example.roombookingapp.presentation.utils.extensions.showSnackBar
+import com.example.roombookingapp.presentation.utils.extensions.showSnackBarWithAction
 import com.example.roombookingapp.presentation.utils.extensions.showToastLong
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.textfield.TextInputEditText
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
+
+private const val TAG_USER_ID = "TAG_USER_ID"
+private const val TAG_ROOM_ID = "TAG_ROOM_ID"
+private const val TAG_USER_TOKEN = "TAG_USER_TOKEN"
 
 class RoomBookingFragment : Fragment() {
 
-    private val vmRoomBooking: RoomBookingViewModel by viewModel()
+    companion object {
+        fun newInstance(userID: String, userToken: String, roomId: String): RoomBookingFragment {
+            val args = Bundle()
+            args.putString(TAG_USER_ID, userID)
+            args.putString(TAG_USER_TOKEN, userToken)
+            args.putString(TAG_ROOM_ID, roomId)
+
+            val fragment = RoomBookingFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
+    private val vmRoomBooking: RoomBookingViewModel by viewModel {
+        val userID = arguments?.getString(TAG_USER_ID)
+        val userToken = arguments?.getString(TAG_USER_TOKEN)
+        val roomId = arguments?.getString(TAG_ROOM_ID)
+        parametersOf(userID, userToken, roomId)
+    }
+
+    private lateinit var tbRoomBooking: Toolbar
 
     private lateinit var etReason: TextInputEditText
     private lateinit var etDate: TextInputEditText
@@ -27,6 +56,7 @@ class RoomBookingFragment : Fragment() {
     private lateinit var btnSelectStartTime: AppCompatButton
     private lateinit var btnSelectEndTime: AppCompatButton
     private lateinit var btnSubmitRequest: AppCompatButton
+    private lateinit var progressIndicator: CircularProgressIndicator
 
     private lateinit var datePickerDialog: DatePickerDialog
     private lateinit var timePickerDialog: TimePickerDialog
@@ -44,13 +74,17 @@ class RoomBookingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val currentContext = context ?: return
+
         initViews(view)
+        initToolbar()
         initClickListeners()
-        initObservers()
+        initObservers(currentContext)
     }
 
     private fun initViews(view: View) {
         with(view) {
+            tbRoomBooking = findViewById(R.id.room_booking_toolbar)
             etReason = findViewById(R.id.room_booking_et_reason)
             etDate = findViewById(R.id.room_booking_et_date)
             etStartTime = findViewById(R.id.room_booking_et_start_time)
@@ -59,7 +93,12 @@ class RoomBookingFragment : Fragment() {
             btnSelectStartTime = findViewById(R.id.room_booking_btn_select_start_time)
             btnSelectEndTime = findViewById(R.id.room_booking_btn_select_end_time)
             btnSubmitRequest = findViewById(R.id.room_booking_btn_submit_request)
+            progressIndicator = findViewById(R.id.room_booking_progress_indicator)
         }
+    }
+
+    private fun initToolbar() {
+        tbRoomBooking.title = getString(R.string.room_booking)
     }
 
     private fun initClickListeners() {
@@ -85,11 +124,14 @@ class RoomBookingFragment : Fragment() {
         }
 
         btnSubmitRequest.setOnClickListener {
-            if (vmRoomBooking.dateLiveData.value == null || vmRoomBooking.startLiveData.value == null || vmRoomBooking.endTimeLiveData.value == null) {
+            if (etReason.text.toString().isEmpty()
+                || etDate.text.toString().isEmpty()
+                || etStartTime.text.toString().isEmpty()
+                || etEndTime.text.toString().isEmpty()
+            ) {
                 currentContext.showToastLong(getString(R.string.please_fill_all_fields))
             } else {
                 vmRoomBooking.submitBooking()
-                parentFragmentManager.popBackStack()
             }
         }
     }
@@ -131,7 +173,7 @@ class RoomBookingFragment : Fragment() {
         timePickerDialog.show()
     }
 
-    private fun initObservers() {
+    private fun initObservers(currentContext: Context) {
         vmRoomBooking.dateLiveData.observe(viewLifecycleOwner) { pickedDate ->
             etDate.setText(pickedDate)
         }
@@ -142,6 +184,38 @@ class RoomBookingFragment : Fragment() {
 
         vmRoomBooking.endTimeLiveData.observe(viewLifecycleOwner) { pickedEndTime ->
             etEndTime.setText(pickedEndTime)
+        }
+
+        vmRoomBooking.progressLiveData.observe(viewLifecycleOwner) { isInProgress ->
+            if (isInProgress) {
+                btnSubmitRequest.isEnabled = false
+                btnSubmitRequest.setTextColor(resources.getColor(R.color.ui_03, null))
+                progressIndicator.visibility = View.VISIBLE
+            } else {
+                btnSubmitRequest.isEnabled = true
+                btnSubmitRequest.setTextColor(resources.getColor(R.color.ui_01, null))
+                progressIndicator.visibility = View.INVISIBLE
+            }
+        }
+
+        vmRoomBooking.submitStatusLiveData.observe(viewLifecycleOwner) { isSubmitted ->
+            if (isSubmitted) {
+                currentContext.showSnackBar(
+                    view = btnSubmitRequest,
+                    messageStringId = R.string.booking_successful
+                )
+
+                parentFragmentManager.popBackStack()
+
+            } else {
+                currentContext.showSnackBarWithAction(
+                    view = btnSubmitRequest,
+                    messageStringId = R.string.booking_failed,
+                    actionStringId = R.string.retry
+                ) {
+                    vmRoomBooking.submitBooking()
+                }
+            }
         }
     }
 }
