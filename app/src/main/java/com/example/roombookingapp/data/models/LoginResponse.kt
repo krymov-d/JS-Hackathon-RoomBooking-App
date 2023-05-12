@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class RemoteUserData(
+data class LoginResponse(
     val userId: Long,
     val role: String,
     val jwtToken: String,

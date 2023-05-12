@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,14 +18,18 @@ import com.example.roombookingapp.presentation.utils.SpaceItemDecoration
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
+private const val TAG_USER_ID = "TAG_USER_ID"
 private const val TAG_ROOM_ID = "TAG_ROOM_ID"
+private const val TAG_USER_TOKEN = "TAG_USER_TOKEN"
 
 class RoomDetailsFragment : Fragment() {
 
     companion object {
-        fun newInstance(roomId: Long): RoomDetailsFragment {
+        fun newInstance(userID: String, userToken: String, roomId: String): RoomDetailsFragment {
             val args = Bundle()
-            args.putLong(TAG_ROOM_ID, roomId)
+            args.putString(TAG_USER_ID, userID)
+            args.putString(TAG_USER_TOKEN, userToken)
+            args.putString(TAG_ROOM_ID, roomId)
             val fragment = RoomDetailsFragment()
             fragment.arguments = args
             return fragment
@@ -34,8 +39,13 @@ class RoomDetailsFragment : Fragment() {
     private val flContainerID = R.id.fl_login_container
 
     private val vmRoomDetails: RoomDetailsViewModel by viewModel {
-        parametersOf(arguments?.getLong(TAG_ROOM_ID) ?: 0)
+        val userID = arguments?.getString(TAG_USER_ID)
+        val userToken = arguments?.getString(TAG_USER_TOKEN)
+        val roomId = arguments?.getString(TAG_ROOM_ID)
+        parametersOf(userID, userToken, roomId)
     }
+
+    private lateinit var tbRoomDetails: Toolbar
 
     private lateinit var vpPhotos: ViewPager2
     private lateinit var photosViewPagerAdapter: PhotosViewPagerAdapter
@@ -65,6 +75,7 @@ class RoomDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initViews(view)
+        initToolbar()
         initPhotosViewPager()
         initBookingsRecyclerView()
         initClickListener()
@@ -73,6 +84,8 @@ class RoomDetailsFragment : Fragment() {
 
     private fun initViews(view: View) {
         with(view) {
+            tbRoomDetails = findViewById(R.id.room_details_toolbar)
+
             vpPhotos = findViewById(R.id.room_details_vp_photos)
 
             tvBookThisRoom = findViewById(R.id.room_details_tv_book)
@@ -85,6 +98,10 @@ class RoomDetailsFragment : Fragment() {
 
             rvBookings = findViewById(R.id.room_details_rv_bookings)
         }
+    }
+
+    private fun initToolbar() {
+        tbRoomDetails.title = getString(R.string.room_details)
     }
 
     private fun initPhotosViewPager() {
@@ -120,11 +137,8 @@ class RoomDetailsFragment : Fragment() {
     }
 
     private fun initObservers() {
-        vmRoomDetails.roomPhotosLiveData.observe(viewLifecycleOwner) { roomPhotos ->
-            photosViewPagerAdapter.setPhotos(roomPhotos)
-        }
-
         vmRoomDetails.roomDetailsLiveData.observe(viewLifecycleOwner) { roomDetails ->
+            photosViewPagerAdapter.setPhotos(roomDetails.photoUrlList)
             with(roomDetails) {
                 tvRoomId.text = getString(R.string.room_w_column, id.toString())
                 tvRoomCategory.text = category
@@ -132,10 +146,7 @@ class RoomDetailsFragment : Fragment() {
                 tvRoomCapacity.text = capacity.toString()
                 tvRoomDescription.text = description
             }
-        }
-
-        vmRoomDetails.roomBookingsLiveData.observe(viewLifecycleOwner) { roomBookings ->
-            bookingsAdapter.submitList(roomBookings)
+            bookingsAdapter.submitList(roomDetails.bookingList)
         }
     }
 }

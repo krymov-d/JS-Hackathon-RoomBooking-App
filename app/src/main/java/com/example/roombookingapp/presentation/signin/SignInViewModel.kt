@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.roombookingapp.data.models.RemoteUserData
+import com.example.roombookingapp.data.models.LoginResponse
 import com.example.roombookingapp.domain.use_cases.UserLoginUseCase
 import kotlinx.coroutines.launch
 
@@ -15,8 +15,8 @@ class SignInViewModel(private val userLoginUseCase: UserLoginUseCase) : ViewMode
     val progressLiveData: MutableLiveData<Boolean> = MutableLiveData()
     val loginStatusLiveData: MutableLiveData<Boolean> = MutableLiveData()
 
-    private val _userDataLiveData: MutableLiveData<RemoteUserData> = MutableLiveData()
-    val userDataLiveData: LiveData<RemoteUserData> = _userDataLiveData
+    private val _userDataLiveData: MutableLiveData<LoginResponse> = MutableLiveData()
+    val userDataLiveData: LiveData<LoginResponse> = _userDataLiveData
 
     init {
         progressLiveData.value = false

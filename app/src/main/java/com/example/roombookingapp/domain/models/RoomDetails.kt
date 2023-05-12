@@ -10,4 +10,6 @@ data class RoomDetails(
     val floor: Long,
     val capacity: Long,
     val description: String,
+    val photoUrlList: List<String>,
+    val bookingList: List<Booking>
 ) : Parcelable

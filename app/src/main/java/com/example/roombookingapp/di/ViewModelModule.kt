@@ -27,12 +27,12 @@ val viewModelModule = module {
         )
     }
 
-    viewModel { (roomId: Long) ->
+    viewModel { (userId: String, userToken: String, roomId: String) ->
         RoomDetailsViewModel(
+            userId = userId,
+            userToken = userToken,
             roomId = roomId,
-            getRoomPhotosUseCase = get(),
-            getRoomDetailsUseCase = get(),
-            getRoomBookingsUseCase = get(),
+            getRoomDetailsUseCase = get()
         )
     }
 

@@ -37,5 +37,6 @@
     <string name="login_successful">LOGIN SUCCESSFUL</string>
     <string name="login_failed">LOGIN FAILED</string>
 
-    <string name="available_rooms">Available rooms</string>
+    <string name="available_rooms">Available Rooms</string>
+    <string name="room_details">Room Details</string>
 </resources>

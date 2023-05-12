@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.roombookingapp.R
-import com.example.roombookingapp.data.models.RemoteUserData
+import com.example.roombookingapp.data.models.LoginResponse
 import com.example.roombookingapp.presentation.roomdetails.RoomDetailsFragment
 import com.example.roombookingapp.presentation.utils.ClickListener
 import com.example.roombookingapp.presentation.utils.SpaceItemDecoration
@@ -23,7 +23,7 @@ private const val TAG_USER_TOKEN = "TAG_USER_TOKEN"
 class RoomsFragment : Fragment() {
 
     companion object {
-        fun newInstance(userData: RemoteUserData): RoomsFragment {
+        fun newInstance(userData: LoginResponse): RoomsFragment {
             val args = Bundle()
             args.putLong(TAG_USER_ID, userData.userId)
             args.putString(TAG_USER_ROLE, userData.role)
@@ -90,9 +90,20 @@ class RoomsFragment : Fragment() {
         }
 
         roomsAdapter.listener = ClickListener { room ->
+            val userID = arguments?.getLong(TAG_USER_ID)
+            val userToken = arguments?.getString(TAG_USER_TOKEN) ?: ""
+
             parentFragmentManager
                 .beginTransaction()
-                .replace(flContainerID, RoomDetailsFragment.newInstance(room.id), null)
+                .replace(
+                    flContainerID,
+                    RoomDetailsFragment.newInstance(
+                        userID = userID.toString(),
+                        userToken = userToken,
+                        roomId = room.id.toString()
+                    ),
+                    null
+                )
                 .addToBackStack(null)
                 .commit()
         }
