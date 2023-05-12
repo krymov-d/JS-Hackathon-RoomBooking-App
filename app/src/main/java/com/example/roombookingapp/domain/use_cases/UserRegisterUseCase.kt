@@ -2,7 +2,7 @@ package com.example.roombookingapp.domain.use_cases
 
 import com.example.roombookingapp.domain.repositories.UsersRepository
 
-class RegisterUserUseCase(private val usersRepository: UsersRepository) {
+class UserRegisterUseCase(private val usersRepository: UsersRepository) {
 
     suspend operator fun invoke(
         name: String,

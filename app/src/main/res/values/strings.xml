@@ -34,4 +34,6 @@
     <string name="registration_failed">REGISTRATION FAILED</string>
     <string name="retry">RETRY</string>
     <string name="registration_completed_successfully">REGISTRATION COMPLETED SUCCESSFULLY\nPlease login to continue</string>
+    <string name="login_successful">LOGIN SUCCESSFUL</string>
+    <string name="login_failed">LOGIN FAILED</string>
 </resources>

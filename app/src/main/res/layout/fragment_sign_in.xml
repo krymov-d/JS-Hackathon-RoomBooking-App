@@ -67,6 +67,21 @@
         app:layout_constraintTop_toBottomOf="@id/sign_in_et_layout_password"
         app:layout_constraintVertical_bias="0" />
 
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/sign_in_progress_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="4dp"
+        android:indeterminate="true"
+        android:visibility="invisible"
+        app:indicatorColor="@color/ui_01"
+        app:layout_constraintBottom_toBottomOf="@id/sign_in_btn_login"
+        app:layout_constraintEnd_toEndOf="@id/sign_in_btn_login"
+        app:layout_constraintStart_toStartOf="@id/sign_in_btn_login"
+        app:layout_constraintTop_toTopOf="@id/sign_in_btn_login"
+        tools:background="@color/ui_04"
+        tools:visibility="visible" />
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/sign_in_tv_question"
         style="@style/Login_question"

@@ -1,8 +1,6 @@
 package com.example.roombookingapp.data.models
 
-data class RemoteUser(
-    val name: String,
-    val surname: String,
+data class UserLogin(
     val email: String,
     val password: String
 )

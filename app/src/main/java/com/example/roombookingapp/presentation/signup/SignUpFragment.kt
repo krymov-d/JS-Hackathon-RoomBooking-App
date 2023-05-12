@@ -18,7 +18,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SignUpFragment : Fragment() {
 
-    private val vmSignUpViewModel: SignUpViewModel by viewModel()
+    private val vmSignUp: SignUpViewModel by viewModel()
 
     private lateinit var etName: TextInputEditText
     private lateinit var etSurname: TextInputEditText
@@ -61,19 +61,19 @@ class SignUpFragment : Fragment() {
 
     private fun initTextChangeListeners() {
         etName.addTextChangedListener { name ->
-            vmSignUpViewModel.nameLiveData.value = name.toString()
+            vmSignUp.nameLiveData.value = name.toString()
         }
 
         etSurname.addTextChangedListener { surname ->
-            vmSignUpViewModel.surnameLiveData.value = surname.toString()
+            vmSignUp.surnameLiveData.value = surname.toString()
         }
 
         etEmail.addTextChangedListener { email ->
-            vmSignUpViewModel.emailLiveData.value = email.toString()
+            vmSignUp.emailLiveData.value = email.toString()
         }
 
         etPassword.addTextChangedListener { password ->
-            vmSignUpViewModel.passwordLiveData.value = password.toString()
+            vmSignUp.passwordLiveData.value = password.toString()
         }
     }
 
@@ -89,7 +89,7 @@ class SignUpFragment : Fragment() {
                     messageStringId = R.string.please_fill_all_fields
                 )
             } else {
-                vmSignUpViewModel.registerUser()
+                vmSignUp.registerUser()
             }
         }
 
@@ -99,7 +99,7 @@ class SignUpFragment : Fragment() {
     }
 
     private fun initObservers(currentContext: Context) {
-        vmSignUpViewModel.progressLiveData.observe(viewLifecycleOwner) { isInProgress ->
+        vmSignUp.progressLiveData.observe(viewLifecycleOwner) { isInProgress ->
             if (isInProgress) {
                 btnRegister.isEnabled = false
                 btnRegister.setTextColor(resources.getColor(R.color.ui_03, null))
@@ -111,7 +111,7 @@ class SignUpFragment : Fragment() {
             }
         }
 
-        vmSignUpViewModel.registrationStatus.observe(viewLifecycleOwner) { isRegistered ->
+        vmSignUp.registrationStatusLiveData.observe(viewLifecycleOwner) { isRegistered ->
             if (isRegistered) {
                 currentContext.showSnackBar(
                     view = btnRegister,
@@ -124,7 +124,7 @@ class SignUpFragment : Fragment() {
                     messageStringId = R.string.registration_failed,
                     actionStringId = R.string.retry
                 ) {
-                    vmSignUpViewModel.registerUser()
+                    vmSignUp.registerUser()
                 }
             }
         }
