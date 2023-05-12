@@ -16,7 +16,7 @@
     <string name="room_w_column">&#8592; Room: %1$s</string>
     <string name="room_count">%1$d/%2$d</string>
     <string name="book_this_room">Book this room</string>
-    <string name="category_w_column">Category:</string>
+    <string name="room_type_w_column">Room type:</string>
     <string name="floor_w_column">Floor:</string>
     <string name="capacity_w_column">Capacity:</string>
     <string name="description_w_column">Description:</string>
@@ -36,4 +36,6 @@
     <string name="registration_completed_successfully">REGISTRATION COMPLETED SUCCESSFULLY\nPlease login to continue</string>
     <string name="login_successful">LOGIN SUCCESSFUL</string>
     <string name="login_failed">LOGIN FAILED</string>
+
+    <string name="available_rooms">Available rooms</string>
 </resources>

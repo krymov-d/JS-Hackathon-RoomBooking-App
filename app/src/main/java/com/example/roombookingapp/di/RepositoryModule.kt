@@ -9,7 +9,7 @@ import com.example.roombookingapp.domain.repositories.UsersRepository
 import org.koin.dsl.module
 
 val repositoryModule = module {
-    factory<UsersRepository> { UsersRepositoryImpl(get()) }
-    factory<RoomsRepository> { RoomsRepositoryImpl() }
+    factory<UsersRepository> { UsersRepositoryImpl(mainApi = get()) }
+    factory<RoomsRepository> { RoomsRepositoryImpl(mainApi = get()) }
     factory<BookingsRepository> { BookingsRepositoryImpl() }
 }

@@ -2,12 +2,10 @@ package com.example.roombookingapp.data.models
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import okhttp3.OkHttpClient
 
 @Parcelize
-data class RemoteTimeFrame(
-    val clientId: Long,
+data class RemotePhoto(
+    val photoId: Long,
     val roomId: Long,
-    val startTime: String,
-    val endTime: String
+    val name: String,
 ) : Parcelable

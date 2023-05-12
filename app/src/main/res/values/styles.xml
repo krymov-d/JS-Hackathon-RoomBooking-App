@@ -50,6 +50,11 @@
         <item name="android:textAllCaps">true</item>
     </style>
 
+    <style name="rooms_title">
+        <item name="android:textSize">22sp</item>
+        <item name="android:fontFamily">@font/montserrat_bold</item>
+    </style>
+
     <style name="Room_details_outlined_text">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>

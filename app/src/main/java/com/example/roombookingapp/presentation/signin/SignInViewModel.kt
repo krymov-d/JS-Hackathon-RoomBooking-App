@@ -1,8 +1,10 @@
 package com.example.roombookingapp.presentation.signin
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.roombookingapp.data.models.RemoteUserData
 import com.example.roombookingapp.domain.use_cases.UserLoginUseCase
 import kotlinx.coroutines.launch
 
@@ -12,6 +14,9 @@ class SignInViewModel(private val userLoginUseCase: UserLoginUseCase) : ViewMode
     val passwordLiveData: MutableLiveData<String> = MutableLiveData()
     val progressLiveData: MutableLiveData<Boolean> = MutableLiveData()
     val loginStatusLiveData: MutableLiveData<Boolean> = MutableLiveData()
+
+    private val _userDataLiveData: MutableLiveData<RemoteUserData> = MutableLiveData()
+    val userDataLiveData: LiveData<RemoteUserData> = _userDataLiveData
 
     init {
         progressLiveData.value = false
@@ -26,6 +31,8 @@ class SignInViewModel(private val userLoginUseCase: UserLoginUseCase) : ViewMode
                     email = emailLiveData.value.toString(),
                     password = passwordLiveData.value.toString()
                 )
+
+                _userDataLiveData.value = response
 
                 loginStatusLiveData.value = response.jwtToken.isNotEmpty()
 

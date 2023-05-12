@@ -18,8 +18,13 @@ val viewModelModule = module {
         SignUpViewModel(userRegisterUseCase = get())
     }
 
-    viewModel {
-        RoomsViewModel(getRoomsUseCase = get())
+    viewModel { (userId: Long, userRole: String, userToken: String) ->
+        RoomsViewModel(
+            userId = userId,
+            userRole = userRole,
+            userToken = userToken,
+            getRoomsUseCase = get()
+        )
     }
 
     viewModel { (roomId: Long) ->

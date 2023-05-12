@@ -4,21 +4,47 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.roombookingapp.R
+import com.example.roombookingapp.data.models.RemoteUserData
 import com.example.roombookingapp.presentation.roomdetails.RoomDetailsFragment
 import com.example.roombookingapp.presentation.utils.ClickListener
 import com.example.roombookingapp.presentation.utils.SpaceItemDecoration
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
+
+private const val TAG_USER_ID = "TAG_USER_ID"
+private const val TAG_USER_ROLE = "TAG_USER_ROLE"
+private const val TAG_USER_TOKEN = "TAG_USER_TOKEN"
 
 class RoomsFragment : Fragment() {
 
+    companion object {
+        fun newInstance(userData: RemoteUserData): RoomsFragment {
+            val args = Bundle()
+            args.putLong(TAG_USER_ID, userData.userId)
+            args.putString(TAG_USER_ROLE, userData.role)
+            args.putString(TAG_USER_TOKEN, userData.jwtToken)
+
+            val fragment = RoomsFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
     private val flContainerID = R.id.fl_login_container
 
-    private val vmRooms: RoomsViewModel by viewModel()
+    private val vmRooms: RoomsViewModel by viewModel {
+        val userID = arguments?.getLong(TAG_USER_ID)
+        val userRole = arguments?.getString(TAG_USER_ROLE)
+        val userToken = arguments?.getString(TAG_USER_TOKEN)
+        parametersOf(userID, userRole, userToken)
+    }
 
+    private lateinit var tbRooms: Toolbar
     private lateinit var rvRooms: RecyclerView
     private lateinit var roomsAdapter: RoomsAdapter
     private lateinit var roomsLayoutManager: LinearLayoutManager
@@ -36,12 +62,20 @@ class RoomsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initViews(view)
+        initToolbar()
         initRoomsRecyclerView()
         initObservers()
     }
 
     private fun initViews(view: View) {
-        rvRooms = view.findViewById(R.id.rooms_rv_rooms)
+        with(view) {
+            tbRooms = findViewById(R.id.rooms_toolbar)
+            rvRooms = findViewById(R.id.rooms_rv_rooms)
+        }
+    }
+
+    private fun initToolbar() {
+        tbRooms.title = getString(R.string.available_rooms)
     }
 
     private fun initRoomsRecyclerView() {

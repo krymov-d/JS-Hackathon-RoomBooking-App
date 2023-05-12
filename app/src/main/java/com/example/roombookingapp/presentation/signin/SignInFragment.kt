@@ -135,9 +135,14 @@ class SignInFragment : Fragment() {
     }
 
     private fun initRoomsFragment() {
+        val userData = vmSignIn.userDataLiveData.value ?: return
         parentFragmentManager
             .beginTransaction()
-            .replace(flContainerID, RoomsFragment(), null)
+            .replace(
+                flContainerID,
+                RoomsFragment.newInstance(userData = userData),
+                null
+            )
             .commit()
     }
 }

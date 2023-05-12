@@ -18,7 +18,7 @@
             android:id="@+id/room_details_tv_category_hint"
             style="@style/Room_details_description_hint"
             android:layout_marginStart="8dp"
-            android:text="@string/category_w_column"
+            android:text="@string/room_type_w_column"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
@@ -75,7 +75,7 @@
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toEndOf="@id/room_details_barrier_hint"
             app:layout_constraintTop_toTopOf="@id/room_details_tv_category_hint"
-            tools:text="@string/category_w_column" />
+            tools:text="@string/room_type_w_column" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/room_details_tv_floor"

@@ -27,7 +27,8 @@ class BookingsRepositoryImpl : BookingsRepository {
         val endDateTimeFormatted = endDateTime.format(dateTimeFormatter)
 
         val newBookingTimeFrame = RemoteTimeFrame(
-            id = "Random string",
+            clientId = 0,
+            roomId = 303,
             startTime = startDateTimeFormatted,
             endTime = endDateTimeFormatted
         )

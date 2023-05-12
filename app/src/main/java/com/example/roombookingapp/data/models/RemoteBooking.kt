@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class RemoteBooking(
     val reservationId: Long,
+    val period: RemoteTimeFrame,
     val userId: Long,
     val description: String,
-    val period: RemoteTimeFrame,
 ) : Parcelable

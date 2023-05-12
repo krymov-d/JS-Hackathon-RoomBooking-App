@@ -5,7 +5,13 @@ import com.example.roombookingapp.domain.repositories.RoomsRepository
 
 class GetRoomsUseCase(private val roomsRepository: RoomsRepository) {
 
-    suspend operator fun invoke(): List<Room> {
-        return roomsRepository.getRooms()
+    suspend operator fun invoke(
+        userId: Long,
+        userToken: String
+    ): List<Room> {
+        return roomsRepository.getRooms(
+            userId = userId,
+            userToken = userToken
+        )
     }
 }
