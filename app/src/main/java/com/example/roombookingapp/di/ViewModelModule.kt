@@ -4,6 +4,7 @@ import com.example.roombookingapp.presentation.booking.RoomBookingViewModel
 import com.example.roombookingapp.presentation.roomdetails.RoomDetailsViewModel
 import com.example.roombookingapp.presentation.rooms.RoomsViewModel
 import com.example.roombookingapp.presentation.rooms.addroom.AddNewRoomViewModel
+import com.example.roombookingapp.presentation.rooms.allusers.AllUsersViewModel
 import com.example.roombookingapp.presentation.signin.SignInViewModel
 import com.example.roombookingapp.presentation.signup.SignUpViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -51,6 +52,14 @@ val viewModelModule = module {
             userId = userId,
             userToken = userToken,
             addNewRoomUseCase = get()
+        )
+    }
+
+    viewModel { (userId: String, userToken: String) ->
+        AllUsersViewModel(
+            userId = userId,
+            userToken = userToken,
+            getAllUsersUseCase = get()
         )
     }
 }

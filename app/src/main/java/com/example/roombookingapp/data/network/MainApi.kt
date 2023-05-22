@@ -4,6 +4,7 @@ import com.example.roombookingapp.data.models.LoginResponse
 import com.example.roombookingapp.data.models.RegisterResponse
 import com.example.roombookingapp.data.models.RemoteBooking
 import com.example.roombookingapp.data.models.RemoteRoom
+import com.example.roombookingapp.data.models.RemoteUser
 import com.example.roombookingapp.data.models.UserLogin
 import com.example.roombookingapp.data.models.UserRegister
 import retrofit2.http.Body
@@ -19,6 +20,12 @@ interface MainApi {
 
     @POST("signin")
     suspend fun loginUser(@Body userLogin: UserLogin): LoginResponse
+
+    @GET("clients")
+    suspend fun getAllUsers(
+        @Header("Authorization") userToken: String,
+        @Query("userId") userId: String,
+    ): List<RemoteUser>
 
     @GET("rooms")
     suspend fun getRooms(

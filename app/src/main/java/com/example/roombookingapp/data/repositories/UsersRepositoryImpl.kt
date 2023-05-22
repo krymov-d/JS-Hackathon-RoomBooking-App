@@ -1,6 +1,7 @@
 package com.example.roombookingapp.data.repositories
 
 import com.example.roombookingapp.data.models.LoginResponse
+import com.example.roombookingapp.data.models.RemoteUser
 import com.example.roombookingapp.data.models.UserLogin
 import com.example.roombookingapp.data.models.UserRegister
 import com.example.roombookingapp.data.network.MainApi
@@ -22,5 +23,9 @@ class UsersRepositoryImpl(private val mainApi: MainApi) : UsersRepository {
     override suspend fun loginUser(email: String, password: String): LoginResponse {
         val userLogin = UserLogin(email = email, password = password)
         return mainApi.loginUser(userLogin = userLogin)
+    }
+
+    override suspend fun getAllUsers(userId: String, userToken: String): List<RemoteUser> {
+        return mainApi.getAllUsers(userToken = "Bearer $userToken", userId = userId)
     }
 }

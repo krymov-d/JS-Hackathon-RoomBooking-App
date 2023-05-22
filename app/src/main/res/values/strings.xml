@@ -48,4 +48,6 @@
     <string name="create_room">Create Room</string>
     <string name="failed_room_create">FAILED TO CREATE ROOM</string>
     <string name="room_created_successfully">ROOM CREATED SUCCESSFULLY</string>
+
+    <string name="registered_users">Registered Users</string>
 </resources>

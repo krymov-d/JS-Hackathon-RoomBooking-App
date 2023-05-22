@@ -12,13 +12,14 @@ import com.example.roombookingapp.R
 import com.example.roombookingapp.data.models.LoginResponse
 import com.example.roombookingapp.presentation.roomdetails.RoomDetailsFragment
 import com.example.roombookingapp.presentation.rooms.addroom.AddNewRoomFragment
+import com.example.roombookingapp.presentation.rooms.allusers.AllUsersFragment
 import com.example.roombookingapp.presentation.utils.ClickListener
 import com.example.roombookingapp.presentation.utils.SpaceItemDecoration
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
 private const val TAG_USER_ID = "TAG_USER_ID"
-private const val TAG_USER_ROLE = "TAG_USER_ROLE"
+const val TAG_USER_ROLE = "TAG_USER_ROLE"
 private const val TAG_USER_TOKEN = "TAG_USER_TOKEN"
 
 class RoomsFragment : Fragment() {
@@ -125,14 +126,32 @@ class RoomsFragment : Fragment() {
     private fun initMenu() {
         tbRooms.inflateMenu(R.menu.menu_room_add)
         tbRooms.setOnMenuItemClickListener { menuItem ->
-            if (menuItem.itemId == R.id.menu_room_add) {
-                initRoomAddFragment()
+            when (menuItem.itemId) {
+                R.id.menu_all_users -> initAllUsersFragment()
+                R.id.menu_room_add -> initAddNewRoomFragment()
             }
             true
         }
     }
 
-    private fun initRoomAddFragment() {
+    private fun initAllUsersFragment() {
+        val userID = arguments?.getLong(TAG_USER_ID)
+        val userToken = arguments?.getString(TAG_USER_TOKEN) ?: ""
+
+        parentFragmentManager
+            .beginTransaction()
+            .replace(
+                flContainerID,
+                AllUsersFragment.newInstance(
+                    userID = userID.toString(),
+                    userToken = userToken
+                )
+            )
+            .addToBackStack(null)
+            .commit()
+    }
+
+    private fun initAddNewRoomFragment() {
         val userID = arguments?.getLong(TAG_USER_ID)
         val userToken = arguments?.getString(TAG_USER_TOKEN) ?: ""
         parentFragmentManager

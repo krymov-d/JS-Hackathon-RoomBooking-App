@@ -6,4 +6,9 @@
         android:icon="@drawable/iv_room_add"
         android:title="@string/menu_room_add"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menu_all_users"
+        android:icon="@drawable/iv_all_users"
+        android:title="@string/menu_room_add"
+        app:showAsAction="ifRoom" />
 </menu>
