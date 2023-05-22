@@ -1,9 +1,9 @@
 package com.example.roombookingapp.data.network
 
-import com.example.roombookingapp.data.models.RegisterResponse
-import com.example.roombookingapp.data.models.RemoteRoom
 import com.example.roombookingapp.data.models.LoginResponse
+import com.example.roombookingapp.data.models.RegisterResponse
 import com.example.roombookingapp.data.models.RemoteBooking
+import com.example.roombookingapp.data.models.RemoteRoom
 import com.example.roombookingapp.data.models.UserLogin
 import com.example.roombookingapp.data.models.UserRegister
 import retrofit2.http.Body
@@ -33,10 +33,17 @@ interface MainApi {
         @Query("userId") userId: String,
     ): RemoteRoom
 
+    @POST("rooms/add")
+    suspend fun addNewRoom(
+        @Header("Authorization") userToken: String,
+        @Query("userId") userId: String,
+        @Body newRoom: RemoteRoom
+    ): RemoteRoom
+
     @POST("reservation/add")
     suspend fun submitBooking(
         @Header("Authorization") userToken: String,
         @Query("roomId") roomId: String,
         @Body booking: RemoteBooking
-    ): RegisterResponse
+    ): RemoteBooking
 }

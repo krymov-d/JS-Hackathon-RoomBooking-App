@@ -5,6 +5,9 @@ import com.example.roombookingapp.domain.models.Room
 
 fun toRoomsList(remoteRooms: List<RemoteRoom>): List<Room> {
     return remoteRooms.map { remoteRoom ->
-        Room(id = remoteRoom.id, category = remoteRoom.type, photoUrl = remoteRoom.photos[0].name)
+        val photoUrlList = remoteRoom.photos.map { remotePhoto ->
+            remotePhoto.name
+        }
+        Room(id = remoteRoom.id, category = remoteRoom.type, photoUrlList = photoUrlList)
     }
 }

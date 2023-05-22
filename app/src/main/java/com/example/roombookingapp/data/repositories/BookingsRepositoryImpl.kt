@@ -1,7 +1,6 @@
 package com.example.roombookingapp.data.repositories
 
 import com.example.roombookingapp.data.mapper.toRemoteBooking
-import com.example.roombookingapp.data.models.RegisterResponse
 import com.example.roombookingapp.data.network.MainApi
 import com.example.roombookingapp.domain.repositories.BookingsRepository
 
@@ -18,7 +17,7 @@ class BookingsRepositoryImpl(private val mainApi: MainApi) : BookingsRepository 
         startMinute: Int,
         endHour: Int,
         endMinute: Int
-    ): RegisterResponse {
+    ): Long {
         val remoteBooking = toRemoteBooking(
             userId = userId,
             roomId = roomId,
@@ -32,9 +31,9 @@ class BookingsRepositoryImpl(private val mainApi: MainApi) : BookingsRepository 
             endMinute = endMinute
         )
         return mainApi.submitBooking(
-            userToken = userToken,
+            userToken = "Bearer $userToken",
             roomId = roomId,
             booking = remoteBooking
-        )
+        ).reservationId
     }
 }

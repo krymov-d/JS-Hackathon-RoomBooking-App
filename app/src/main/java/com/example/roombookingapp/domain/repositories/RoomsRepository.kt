@@ -15,4 +15,14 @@ interface RoomsRepository {
         userToken: String,
         roomId: String
     ): RoomDetails
+
+    suspend fun addNewRoom(
+        userId: String,
+        userToken: String,
+        roomId: String,
+        roomType: String,
+        roomCapacity: String,
+        roomFloor: String,
+        roomDescription: String
+    ): Long
 }

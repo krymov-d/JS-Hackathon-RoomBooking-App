@@ -11,9 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.roombookingapp.R
 import com.example.roombookingapp.data.models.LoginResponse
 import com.example.roombookingapp.presentation.roomdetails.RoomDetailsFragment
+import com.example.roombookingapp.presentation.rooms.addroom.AddNewRoomFragment
 import com.example.roombookingapp.presentation.utils.ClickListener
 import com.example.roombookingapp.presentation.utils.SpaceItemDecoration
-import com.example.roombookingapp.presentation.utils.extensions.showToast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -133,6 +133,19 @@ class RoomsFragment : Fragment() {
     }
 
     private fun initRoomAddFragment() {
-        context?.showToast(getString(R.string.menu_room_add))
+        val userID = arguments?.getLong(TAG_USER_ID)
+        val userToken = arguments?.getString(TAG_USER_TOKEN) ?: ""
+        parentFragmentManager
+            .beginTransaction()
+            .add(
+                flContainerID,
+                AddNewRoomFragment.newInstance(
+                    userID = userID.toString(),
+                    userToken = userToken
+                ),
+                null
+            )
+            .addToBackStack(null)
+            .commit()
     }
 }

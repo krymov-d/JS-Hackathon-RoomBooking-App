@@ -17,10 +17,12 @@ class RoomsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(room: Room) {
         tvRoomId.text = room.id.toString()
         tvCategory.text = room.category
-        Glide.with(ivPhoto)
-            .load(room.photoUrl)
-            .error(R.drawable.iv_no_photography)
-            .transition(DrawableTransitionOptions.withCrossFade())
-            .into(ivPhoto)
+        room.photoUrlList.forEach { photoUrl ->
+            Glide.with(ivPhoto)
+                .load(photoUrl)
+                .error(R.drawable.iv_no_photography)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .into(ivPhoto)
+        }
     }
 }

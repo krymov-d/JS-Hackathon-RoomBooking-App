@@ -1,7 +1,5 @@
 package com.example.roombookingapp.domain.repositories
 
-import com.example.roombookingapp.data.models.RegisterResponse
-
 interface BookingsRepository {
 
     suspend fun submitBooking(
@@ -16,5 +14,5 @@ interface BookingsRepository {
         startMinute: Int,
         endHour: Int,
         endMinute: Int
-    ): RegisterResponse
+    ): Long
 }

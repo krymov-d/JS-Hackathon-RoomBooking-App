@@ -9,4 +9,5 @@ data class RemoteBooking(
     val period: RemoteTimeFrame,
     val userId: Long,
     val description: String,
+    val roomId: Long,
 ) : Parcelable

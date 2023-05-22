@@ -40,6 +40,7 @@ fun toRemoteBooking(
         reservationId = reservationId,
         period = remoteTimeFrame,
         userId = userId.toLong(),
-        description = reason
+        description = reason,
+        roomId = roomId.toLong()
     )
 }

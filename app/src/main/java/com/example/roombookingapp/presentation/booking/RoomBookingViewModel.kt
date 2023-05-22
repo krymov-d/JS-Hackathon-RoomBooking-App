@@ -86,7 +86,7 @@ class RoomBookingViewModel(
                     endHour = pickedEndHour,
                     endMinute = pickedEndMinute
                 )
-                submitStatusLiveData.value = response.statusCodeValue == 200
+                submitStatusLiveData.value = response != -1L
             } catch (e: Exception) {
                 submitStatusLiveData.value = false
             } finally {

@@ -1,6 +1,5 @@
 package com.example.roombookingapp.domain.use_cases
 
-import com.example.roombookingapp.data.models.RegisterResponse
 import com.example.roombookingapp.domain.repositories.BookingsRepository
 
 class SubmitBookingUseCase(private val bookingsRepository: BookingsRepository) {
@@ -17,7 +16,7 @@ class SubmitBookingUseCase(private val bookingsRepository: BookingsRepository) {
         startMinute: Int,
         endHour: Int,
         endMinute: Int
-    ): RegisterResponse {
+    ): Long {
         return bookingsRepository.submitBooking(
             userId = userId,
             userToken = userToken,

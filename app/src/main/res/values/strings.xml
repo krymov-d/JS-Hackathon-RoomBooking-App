@@ -44,4 +44,8 @@
     <string name="room_booking">Room Booking</string>
 
     <string name="menu_room_add">Room Add</string>
+    <string name="room_creation_form">Room Creation Form</string>
+    <string name="create_room">Create Room</string>
+    <string name="failed_room_create">FAILED TO CREATE ROOM</string>
+    <string name="room_created_successfully">ROOM CREATED SUCCESSFULLY</string>
 </resources>

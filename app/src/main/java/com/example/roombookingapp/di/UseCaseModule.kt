@@ -1,5 +1,6 @@
 package com.example.roombookingapp.di
 
+import com.example.roombookingapp.domain.use_cases.AddNewRoomUseCase
 import com.example.roombookingapp.domain.use_cases.GetRoomDetailsUseCase
 import com.example.roombookingapp.domain.use_cases.GetRoomsUseCase
 import com.example.roombookingapp.domain.use_cases.SubmitBookingUseCase
@@ -13,4 +14,5 @@ val useCaseModule = module {
     factory { GetRoomsUseCase(roomsRepository = get()) }
     factory { GetRoomDetailsUseCase(roomsRepository = get()) }
     factory { SubmitBookingUseCase(bookingsRepository = get()) }
+    factory { AddNewRoomUseCase(roomsRepository = get()) }
 }

@@ -12,34 +12,46 @@ class LocalRoomsRepositoryImpl : RoomsRepository {
             Room(
                 id = 301,
                 category = "Kitchen",
-                photoUrl = "https://thumb.tildacdn.com/tild3031-6663-4838-b932-386138613932/-/cover/760x570/center/center/-/format/webp/photo1664884357_2.jpeg"
+                photoUrlList = listOf(
+                    "https://thumb.tildacdn.com/tild3031-6663-4838-b932-386138613932/-/cover/760x570/center/center/-/format/webp/photo1664884357_2.jpeg"
+                )
             ),
             Room(
                 id = 302,
                 category = "Study Room I",
-                photoUrl = "https://thumb.tildacdn.com/tild3366-3662-4761-b836-356639346166/-/cover/760x570/center/center/-/format/webp/photo1664884357_8.jpeg"
+                photoUrlList = listOf(
+                    "https://thumb.tildacdn.com/tild3366-3662-4761-b836-356639346166/-/cover/760x570/center/center/-/format/webp/photo1664884357_8.jpeg"
+                )
             ),
             Room(
                 id = 303,
                 category = "Conference Room",
-                photoUrl = "https://thumb.tildacdn.com/tild6234-3435-4663-b731-613132366364/-/cover/760x570/center/center/-/format/webp/photo1664884357_10.jpeg"
+                photoUrlList = listOf(
+                    "https://thumb.tildacdn.com/tild6234-3435-4663-b731-613132366364/-/cover/760x570/center/center/-/format/webp/photo1664884357_10.jpeg"
+                )
             ),
             Room(
                 id = 304,
                 category = "Study Room II",
-                photoUrl = "https://thumb.tildacdn.com/tild3462-3632-4366-b233-623039353532/-/cover/760x570/center/center/-/format/webp/photo1664884357_14.jpeg"
+                photoUrlList = listOf(
+                    "https://thumb.tildacdn.com/tild3462-3632-4366-b233-623039353532/-/cover/760x570/center/center/-/format/webp/photo1664884357_14.jpeg"
+                )
             ),
             Room(
                 id = 305,
                 category = "Administration",
-                photoUrl = "https://thumb.tildacdn.com/tild3366-3662-4761-b836-356639346166/-/cover/760x570/center/center/-/format/webp/photo1664884357_8.jpeg"
+                photoUrlList = listOf(
+                    "https://thumb.tildacdn.com/tild3366-3662-4761-b836-356639346166/-/cover/760x570/center/center/-/format/webp/photo1664884357_8.jpeg"
+                )
             ),
-            Room(id = 306, category = "Service Room", photoUrl = ""),
-            Room(id = 403, category = "Office Room", photoUrl = ""),
+            Room(id = 306, category = "Service Room", photoUrlList = emptyList()),
+            Room(id = 403, category = "Office Room", photoUrlList = emptyList()),
             Room(
                 id = 404,
                 category = "Study Room III",
-                photoUrl = "https://thumb.tildacdn.com/tild6435-3638-4463-a566-353063633637/-/cover/760x570/center/center/-/format/webp/photo1664884357.jpeg"
+                photoUrlList = listOf(
+                    "https://thumb.tildacdn.com/tild6435-3638-4463-a566-353063633637/-/cover/760x570/center/center/-/format/webp/photo1664884357.jpeg"
+                )
             )
         )
     }
@@ -115,5 +127,17 @@ class LocalRoomsRepositoryImpl : RoomsRepository {
                 ),
             )
         )
+    }
+
+    override suspend fun addNewRoom(
+        userId: String,
+        userToken: String,
+        roomId: String,
+        roomType: String,
+        roomCapacity: String,
+        roomFloor: String,
+        roomDescription: String
+    ): Long {
+        return 200
     }
 }

@@ -7,5 +7,5 @@ import kotlinx.parcelize.Parcelize
 data class Room(
     val id: Long,
     val category: String,
-    val photoUrl: String,
+    val photoUrlList: List<String>,
 ) : Parcelable
