@@ -1,6 +1,6 @@
 package com.example.roombookingapp.di
 
-import com.example.roombookingapp.constants.BASE_URL
+import com.example.roombookingapp.constants.LOCAL_URL
 import com.example.roombookingapp.data.network.MainApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -39,7 +39,7 @@ val networkModule = module {
         val okHttpClient: OkHttpClient = get()
         val gsonConverterFactory: GsonConverterFactory = get()
         Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(LOCAL_URL)
             .client(okHttpClient)
             .addConverterFactory(gsonConverterFactory)
             .build()

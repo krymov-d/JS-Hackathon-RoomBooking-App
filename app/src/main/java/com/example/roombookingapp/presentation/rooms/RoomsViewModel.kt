@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 
 class RoomsViewModel(
     private val userId: Long,
-    private val userRole: String,
+    userRole: String,
     private val userToken: String,
     private val getRoomsUseCase: GetRoomsUseCase
 ) : ViewModel() {
@@ -18,7 +18,14 @@ class RoomsViewModel(
     private val _roomsLiveData: MutableLiveData<List<Room>> = MutableLiveData()
     val roomsLiveData: LiveData<List<Room>> = _roomsLiveData
 
+    private val _isUserAdmin: MutableLiveData<Boolean> = MutableLiveData(false)
+    val isUserAdmin: LiveData<Boolean> = _isUserAdmin
+
     init {
+        if (userRole == "ADMIN") {
+            _isUserAdmin.value = true
+        }
+
         viewModelScope.launch {
             val rooms = getRoomsUseCase(
                 userId = userId,
