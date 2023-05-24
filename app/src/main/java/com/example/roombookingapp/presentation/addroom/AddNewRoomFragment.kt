@@ -1,4 +1,4 @@
-package com.example.roombookingapp.presentation.rooms.addroom
+package com.example.roombookingapp.presentation.addroom
 
 import android.content.Context
 import android.os.Bundle
@@ -10,15 +10,14 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.example.roombookingapp.R
+import com.example.roombookingapp.constants.TAG_USER_ID
+import com.example.roombookingapp.constants.TAG_USER_TOKEN
 import com.example.roombookingapp.presentation.utils.extensions.showSnackBar
 import com.example.roombookingapp.presentation.utils.extensions.showSnackBarWithAction
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.textfield.TextInputEditText
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
-
-private const val TAG_USER_ID = "TAG_USER_ID"
-private const val TAG_USER_TOKEN = "TAG_USER_TOKEN"
 
 class AddNewRoomFragment : Fragment() {
 

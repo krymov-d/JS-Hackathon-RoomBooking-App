@@ -1,17 +1,17 @@
-package com.example.roombookingapp.presentation.rooms.allusers
+package com.example.roombookingapp.presentation.allusers
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.example.roombookingapp.R
-import com.example.roombookingapp.data.models.RemoteUser
+import com.example.roombookingapp.domain.models.User
 import com.example.roombookingapp.presentation.utils.ClickListener
 
 class AllUsersAdapter(private val inflater: LayoutInflater) :
-    ListAdapter<RemoteUser, AllUsersViewHolder>(DiffCallback()) {
+    ListAdapter<User, AllUsersViewHolder>(DiffCallback()) {
 
-    var listener: ClickListener<RemoteUser>? = null
+    var listener: ClickListener<User>? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AllUsersViewHolder {
         val itemView = inflater.inflate(R.layout.item_user, parent, false)
@@ -27,12 +27,12 @@ class AllUsersAdapter(private val inflater: LayoutInflater) :
     }
 }
 
-private class DiffCallback : DiffUtil.ItemCallback<RemoteUser>() {
-    override fun areItemsTheSame(oldItem: RemoteUser, newItem: RemoteUser): Boolean {
+private class DiffCallback : DiffUtil.ItemCallback<User>() {
+    override fun areItemsTheSame(oldItem: User, newItem: User): Boolean {
         return oldItem.name == newItem.name
     }
 
-    override fun areContentsTheSame(oldItem: RemoteUser, newItem: RemoteUser): Boolean {
+    override fun areContentsTheSame(oldItem: User, newItem: User): Boolean {
         return oldItem == newItem
     }
 }

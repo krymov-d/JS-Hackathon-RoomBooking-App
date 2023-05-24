@@ -8,10 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatButton
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.example.roombookingapp.R
+import com.example.roombookingapp.constants.TAG_ROOM_ID
+import com.example.roombookingapp.constants.TAG_USER_ID
+import com.example.roombookingapp.constants.TAG_USER_TOKEN
 import com.example.roombookingapp.presentation.utils.extensions.showSnackBar
 import com.example.roombookingapp.presentation.utils.extensions.showSnackBarWithAction
 import com.example.roombookingapp.presentation.utils.extensions.showToastLong
@@ -19,10 +23,6 @@ import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.textfield.TextInputEditText
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
-
-private const val TAG_USER_ID = "TAG_USER_ID"
-private const val TAG_ROOM_ID = "TAG_ROOM_ID"
-private const val TAG_USER_TOKEN = "TAG_USER_TOKEN"
 
 class RoomBookingFragment : Fragment() {
 
@@ -49,9 +49,9 @@ class RoomBookingFragment : Fragment() {
     private lateinit var tbRoomBooking: Toolbar
 
     private lateinit var etReason: TextInputEditText
-    private lateinit var etDate: TextInputEditText
-    private lateinit var etStartTime: TextInputEditText
-    private lateinit var etEndTime: TextInputEditText
+    private lateinit var tvDate: AppCompatTextView
+    private lateinit var tvStartTime: AppCompatTextView
+    private lateinit var tvEndTime: AppCompatTextView
     private lateinit var btnSelectDate: AppCompatButton
     private lateinit var btnSelectStartTime: AppCompatButton
     private lateinit var btnSelectEndTime: AppCompatButton
@@ -86,9 +86,9 @@ class RoomBookingFragment : Fragment() {
         with(view) {
             tbRoomBooking = findViewById(R.id.room_booking_toolbar)
             etReason = findViewById(R.id.room_booking_et_reason)
-            etDate = findViewById(R.id.room_booking_et_date)
-            etStartTime = findViewById(R.id.room_booking_et_start_time)
-            etEndTime = findViewById(R.id.room_booking_et_end_time)
+            tvDate = findViewById(R.id.room_booking_tv_date)
+            tvStartTime = findViewById(R.id.room_booking_tv_start_time)
+            tvEndTime = findViewById(R.id.room_booking_tv_end_time)
             btnSelectDate = findViewById(R.id.room_booking_btn_select_date)
             btnSelectStartTime = findViewById(R.id.room_booking_btn_select_start_time)
             btnSelectEndTime = findViewById(R.id.room_booking_btn_select_end_time)
@@ -123,15 +123,30 @@ class RoomBookingFragment : Fragment() {
             showTimePickerDialog(currentContext)
         }
 
+        tvDate.setOnClickListener {
+            initDateSetListener()
+            showDatePickerDialog(currentContext)
+        }
+
+        tvStartTime.setOnClickListener {
+            initTimeSetListener(timeOption = 0)
+            showTimePickerDialog(currentContext)
+        }
+
+        tvEndTime.setOnClickListener {
+            initTimeSetListener(timeOption = 1)
+            showTimePickerDialog(currentContext)
+        }
+
         btnSubmitRequest.setOnClickListener {
             if (etReason.text.toString().isEmpty()
-                || etDate.text.toString().isEmpty()
-                || etStartTime.text.toString().isEmpty()
-                || etEndTime.text.toString().isEmpty()
+                || tvDate.text.isEmpty()
+                || tvStartTime.text.isEmpty()
+                || tvEndTime.text.isEmpty()
             ) {
                 currentContext.showToastLong(getString(R.string.please_fill_all_fields))
             } else {
-                vmRoomBooking.submitBooking()
+                vmRoomBooking.addNewBooking()
             }
         }
     }
@@ -175,15 +190,15 @@ class RoomBookingFragment : Fragment() {
 
     private fun initObservers(currentContext: Context) {
         vmRoomBooking.dateLiveData.observe(viewLifecycleOwner) { pickedDate ->
-            etDate.setText(pickedDate)
+            tvDate.text = pickedDate
         }
 
         vmRoomBooking.startLiveData.observe(viewLifecycleOwner) { pickedStartTime ->
-            etStartTime.setText(pickedStartTime)
+            tvStartTime.text = pickedStartTime
         }
 
         vmRoomBooking.endTimeLiveData.observe(viewLifecycleOwner) { pickedEndTime ->
-            etEndTime.setText(pickedEndTime)
+            tvEndTime.text = pickedEndTime
         }
 
         vmRoomBooking.progressLiveData.observe(viewLifecycleOwner) { isInProgress ->
@@ -213,7 +228,7 @@ class RoomBookingFragment : Fragment() {
                     messageStringId = R.string.booking_failed,
                     actionStringId = R.string.retry
                 ) {
-                    vmRoomBooking.submitBooking()
+                    vmRoomBooking.addNewBooking()
                 }
             }
         }

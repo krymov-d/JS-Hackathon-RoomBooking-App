@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -11,20 +10,16 @@
         android:id="@+id/room_details_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/ui_01"
-        app:titleTextAppearance="@style/rooms_title"
+        app:titleTextAppearance="@style/toolbar_title"
         app:titleTextColor="@color/ui_03" />
 
     <View
         android:id="@+id/room_details_view"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/ui_03" />
+        style="@style/toolbar_barrier" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/bg_fragment_authorization">
+        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -33,9 +28,10 @@
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/room_details_vp_photos"
                 android:layout_width="match_parent"
-                android:layout_height="320dp"
+                android:layout_height="0dp"
                 android:background="@color/ui_01"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="16:9"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -43,11 +39,9 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/room_details_tv_id"
-                style="@style/Room_details_outlined_text"
+                style="@style/room_details_tv_action"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/bg_tv_outlined"
-                android:textColor="@color/ui_03"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0"
@@ -58,12 +52,9 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/room_details_tv_book"
-                style="@style/Room_details_outlined_text"
+                style="@style/room_details_tv_action"
                 android:layout_marginEnd="16dp"
-                android:background="@drawable/selector_bg_btn_book"
                 android:text="@string/book_this_room"
-                android:textAllCaps="true"
-                android:textColor="@color/ui_01"
                 app:layout_constraintBottom_toBottomOf="@id/room_details_tv_id"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1"
@@ -83,35 +74,28 @@
                 app:layout_constraintTop_toBottomOf="@id/room_details_tv_id"
                 app:layout_constraintVertical_bias="0" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/rooms_details_tv_reservations"
-                android:layout_width="0dp"
+            <include
+                android:id="@+id/room_details_cv_description_edge"
+                layout="@layout/item_room_description_edge"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/bg_tv_outlined"
-                android:fontFamily="@font/montserrat_medium"
-                android:gravity="center"
-                android:paddingHorizontal="8dp"
-                android:paddingVertical="2dp"
-                android:text="@string/reservations"
-                android:textAllCaps="true"
-                android:textColor="@color/ui_05"
-                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@id/room_details_cv_description"
-                app:layout_constraintStart_toStartOf="@id/room_details_cv_description"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/room_details_cv_description"
                 app:layout_constraintVertical_bias="0" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/room_details_rv_bookings"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rooms_details_tv_reservations"
+                app:layout_constraintTop_toBottomOf="@id/room_details_cv_description_edge"
                 app:layout_constraintVertical_bias="0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

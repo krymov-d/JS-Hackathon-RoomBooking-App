@@ -9,23 +9,22 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.roombookingapp.R
-import com.example.roombookingapp.data.models.LoginResponse
+import com.example.roombookingapp.constants.TAG_USER_ID
+import com.example.roombookingapp.constants.TAG_USER_ROLE
+import com.example.roombookingapp.constants.TAG_USER_TOKEN
+import com.example.roombookingapp.domain.models.SignInResponse
+import com.example.roombookingapp.presentation.addroom.AddNewRoomFragment
+import com.example.roombookingapp.presentation.allusers.AllUsersFragment
 import com.example.roombookingapp.presentation.roomdetails.RoomDetailsFragment
-import com.example.roombookingapp.presentation.rooms.addroom.AddNewRoomFragment
-import com.example.roombookingapp.presentation.rooms.allusers.AllUsersFragment
 import com.example.roombookingapp.presentation.utils.ClickListener
 import com.example.roombookingapp.presentation.utils.SpaceItemDecoration
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
-private const val TAG_USER_ID = "TAG_USER_ID"
-const val TAG_USER_ROLE = "TAG_USER_ROLE"
-private const val TAG_USER_TOKEN = "TAG_USER_TOKEN"
-
 class RoomsFragment : Fragment() {
 
     companion object {
-        fun newInstance(userData: LoginResponse): RoomsFragment {
+        fun newInstance(userData: SignInResponse): RoomsFragment {
             val args = Bundle()
             args.putLong(TAG_USER_ID, userData.userId)
             args.putString(TAG_USER_ROLE, userData.role)
@@ -40,17 +39,29 @@ class RoomsFragment : Fragment() {
     private val flContainerID = R.id.fl_login_container
 
     private val vmRooms: RoomsViewModel by viewModel {
-        val userID = arguments?.getLong(TAG_USER_ID)
+        val userId = arguments?.getLong(TAG_USER_ID)
         val userRole = arguments?.getString(TAG_USER_ROLE)
         val userToken = arguments?.getString(TAG_USER_TOKEN)
-        parametersOf(userID, userRole, userToken)
+        parametersOf(userId, userRole, userToken)
     }
+
+    private lateinit var userId: String
+    private lateinit var userRole: String
+    private lateinit var userToken: String
 
     private lateinit var tbRooms: Toolbar
     private lateinit var rvRooms: RecyclerView
     private lateinit var roomsAdapter: RoomsAdapter
     private lateinit var roomsLayoutManager: LinearLayoutManager
     private lateinit var roomsItemDecorator: SpaceItemDecoration
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        userId = arguments?.getLong(TAG_USER_ID).toString()
+        userRole = arguments?.getString(TAG_USER_ROLE) ?: return
+        userToken = arguments?.getString(TAG_USER_TOKEN) ?: return
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -83,7 +94,7 @@ class RoomsFragment : Fragment() {
     private fun initRoomsRecyclerView() {
         roomsAdapter = RoomsAdapter(inflater = layoutInflater)
         roomsLayoutManager = LinearLayoutManager(context)
-        roomsItemDecorator = SpaceItemDecoration(verticalSpaceInDp = 4, horizontalSpaceInDp = 8)
+        roomsItemDecorator = SpaceItemDecoration(verticalSpaceInDp = 8, horizontalSpaceInDp = 8)
 
         rvRooms.apply {
             adapter = roomsAdapter
@@ -92,23 +103,25 @@ class RoomsFragment : Fragment() {
         }
 
         roomsAdapter.listener = ClickListener { room ->
-            val userID = arguments?.getLong(TAG_USER_ID)
-            val userToken = arguments?.getString(TAG_USER_TOKEN) ?: ""
+            initRoomDetailsFragment(roomId = room.id)
 
-            parentFragmentManager
-                .beginTransaction()
-                .replace(
-                    flContainerID,
-                    RoomDetailsFragment.newInstance(
-                        userID = userID.toString(),
-                        userToken = userToken,
-                        roomId = room.id.toString()
-                    ),
-                    null
-                )
-                .addToBackStack(null)
-                .commit()
         }
+    }
+
+    private fun initRoomDetailsFragment(roomId: Long) {
+        parentFragmentManager
+            .beginTransaction()
+            .replace(
+                flContainerID,
+                RoomDetailsFragment.newInstance(
+                    userID = userId,
+                    userToken = userToken,
+                    roomId = roomId.toString(),
+                ),
+                null
+            )
+            .addToBackStack(null)
+            .commit()
     }
 
     private fun initObservers() {
@@ -135,15 +148,12 @@ class RoomsFragment : Fragment() {
     }
 
     private fun initAllUsersFragment() {
-        val userID = arguments?.getLong(TAG_USER_ID)
-        val userToken = arguments?.getString(TAG_USER_TOKEN) ?: ""
-
         parentFragmentManager
             .beginTransaction()
             .replace(
                 flContainerID,
                 AllUsersFragment.newInstance(
-                    userID = userID.toString(),
+                    userID = userId,
                     userToken = userToken
                 )
             )
@@ -152,14 +162,12 @@ class RoomsFragment : Fragment() {
     }
 
     private fun initAddNewRoomFragment() {
-        val userID = arguments?.getLong(TAG_USER_ID)
-        val userToken = arguments?.getString(TAG_USER_TOKEN) ?: ""
         parentFragmentManager
             .beginTransaction()
-            .add(
+            .replace(
                 flContainerID,
                 AddNewRoomFragment.newInstance(
-                    userID = userID.toString(),
+                    userID = userId,
                     userToken = userToken
                 ),
                 null

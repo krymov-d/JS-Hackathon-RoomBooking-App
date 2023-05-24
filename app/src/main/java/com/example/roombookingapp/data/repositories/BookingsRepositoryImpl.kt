@@ -5,7 +5,7 @@ import com.example.roombookingapp.data.network.MainApi
 import com.example.roombookingapp.domain.repositories.BookingsRepository
 
 class BookingsRepositoryImpl(private val mainApi: MainApi) : BookingsRepository {
-    override suspend fun submitBooking(
+    override suspend fun addNewBooking(
         userId: String,
         userToken: String,
         roomId: String,
@@ -30,7 +30,7 @@ class BookingsRepositoryImpl(private val mainApi: MainApi) : BookingsRepository 
             endHour = endHour,
             endMinute = endMinute
         )
-        return mainApi.submitBooking(
+        return mainApi.addNewBooking(
             userToken = "Bearer $userToken",
             roomId = roomId,
             booking = remoteBooking

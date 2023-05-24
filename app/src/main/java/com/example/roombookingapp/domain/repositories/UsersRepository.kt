@@ -1,21 +1,21 @@
 package com.example.roombookingapp.domain.repositories
 
-import com.example.roombookingapp.data.models.LoginResponse
-import com.example.roombookingapp.data.models.RemoteUser
+import com.example.roombookingapp.domain.models.SignInResponse
+import com.example.roombookingapp.domain.models.User
 
 interface UsersRepository {
 
-    suspend fun registerUser(
+    suspend fun userSignUp(
         name: String,
         surname: String,
         email: String,
         password: String
     ): Int
 
-    suspend fun loginUser(email: String, password: String): LoginResponse
+    suspend fun userSignIn(email: String, password: String): SignInResponse
 
     suspend fun getAllUsers(
         userId: String,
         userToken: String,
-    ): List<RemoteUser>
+    ): List<User>
 }

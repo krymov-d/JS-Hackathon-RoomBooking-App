@@ -83,7 +83,7 @@ class SignInFragment : Fragment() {
                     messageStringId = R.string.please_fill_all_fields
                 )
             } else {
-                vmSignIn.loginUser()
+                vmSignIn.userSignIn()
             }
         }
 
@@ -128,7 +128,7 @@ class SignInFragment : Fragment() {
                     messageStringId = R.string.login_failed,
                     actionStringId = R.string.retry
                 ) {
-                    vmSignIn.loginUser()
+                    vmSignIn.userSignIn()
                 }
             }
         }

@@ -1,4 +1,4 @@
-package com.example.roombookingapp.presentation.rooms.allusers
+package com.example.roombookingapp.presentation.allusers
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,13 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.roombookingapp.R
+import com.example.roombookingapp.constants.TAG_USER_ID
+import com.example.roombookingapp.constants.TAG_USER_TOKEN
 import com.example.roombookingapp.presentation.utils.ClickListener
 import com.example.roombookingapp.presentation.utils.SpaceItemDecoration
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
-
-private const val TAG_USER_ID = "TAG_USER_ID"
-private const val TAG_USER_TOKEN = "TAG_USER_TOKEN"
 
 class AllUsersFragment : Fragment() {
 

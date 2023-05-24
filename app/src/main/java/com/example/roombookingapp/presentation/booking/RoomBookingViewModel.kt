@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.roombookingapp.domain.use_cases.SubmitBookingUseCase
+import com.example.roombookingapp.domain.use_cases.AddNewBookingUseCase
 import kotlinx.coroutines.launch
 import java.lang.Exception
 import java.util.Calendar
@@ -13,7 +13,7 @@ class RoomBookingViewModel(
     private val userId: String,
     private val userToken: String,
     private val roomId: String,
-    private val submitBookingUseCase: SubmitBookingUseCase
+    private val addNewBookingUseCase: AddNewBookingUseCase
 ) : ViewModel() {
 
     private val calendar = Calendar.getInstance()
@@ -69,11 +69,11 @@ class RoomBookingViewModel(
     fun getCurrentHour() = calendar.get(Calendar.HOUR_OF_DAY)
     fun getCurrentMinute() = calendar.get(Calendar.MINUTE)
 
-    fun submitBooking() {
+    fun addNewBooking() {
         viewModelScope.launch {
             try {
                 progressLiveData.value = true
-                val response = submitBookingUseCase(
+                val response = addNewBookingUseCase(
                     userId = userId,
                     userToken = userToken,
                     roomId = roomId,

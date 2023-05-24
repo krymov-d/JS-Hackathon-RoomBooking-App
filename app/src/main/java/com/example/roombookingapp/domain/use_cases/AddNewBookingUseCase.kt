@@ -2,7 +2,7 @@ package com.example.roombookingapp.domain.use_cases
 
 import com.example.roombookingapp.domain.repositories.BookingsRepository
 
-class SubmitBookingUseCase(private val bookingsRepository: BookingsRepository) {
+class AddNewBookingUseCase(private val bookingsRepository: BookingsRepository) {
 
     suspend operator fun invoke(
         userId: String,
@@ -17,7 +17,7 @@ class SubmitBookingUseCase(private val bookingsRepository: BookingsRepository) {
         endHour: Int,
         endMinute: Int
     ): Long {
-        return bookingsRepository.submitBooking(
+        return bookingsRepository.addNewBooking(
             userId = userId,
             userToken = userToken,
             roomId = roomId,

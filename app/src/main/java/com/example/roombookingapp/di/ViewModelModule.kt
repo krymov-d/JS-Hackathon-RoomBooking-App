@@ -3,8 +3,8 @@ package com.example.roombookingapp.di
 import com.example.roombookingapp.presentation.booking.RoomBookingViewModel
 import com.example.roombookingapp.presentation.roomdetails.RoomDetailsViewModel
 import com.example.roombookingapp.presentation.rooms.RoomsViewModel
-import com.example.roombookingapp.presentation.rooms.addroom.AddNewRoomViewModel
-import com.example.roombookingapp.presentation.rooms.allusers.AllUsersViewModel
+import com.example.roombookingapp.presentation.addroom.AddNewRoomViewModel
+import com.example.roombookingapp.presentation.allusers.AllUsersViewModel
 import com.example.roombookingapp.presentation.signin.SignInViewModel
 import com.example.roombookingapp.presentation.signup.SignUpViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -13,11 +13,11 @@ import org.koin.dsl.module
 val viewModelModule = module {
 
     viewModel {
-        SignInViewModel(userLoginUseCase = get())
+        SignInViewModel(userSignInUseCase = get())
     }
 
     viewModel {
-        SignUpViewModel(userRegisterUseCase = get())
+        SignUpViewModel(userSignUpUseCase = get())
     }
 
     viewModel { (userId: Long, userRole: String, userToken: String) ->
@@ -43,7 +43,7 @@ val viewModelModule = module {
             userId = userId,
             userToken = userToken,
             roomId = roomId,
-            submitBookingUseCase = get()
+            addNewBookingUseCase = get()
         )
     }
 

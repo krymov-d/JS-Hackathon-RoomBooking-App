@@ -4,8 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class LoginResponse(
-    val userId: Long,
-    val role: String,
-    val jwtToken: String,
+data class RemoteSignInForm(
+    val email: String,
+    val password: String
 ) : Parcelable

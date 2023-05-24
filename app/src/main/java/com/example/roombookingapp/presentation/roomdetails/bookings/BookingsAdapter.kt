@@ -7,17 +7,20 @@ import androidx.recyclerview.widget.ListAdapter
 import com.example.roombookingapp.R
 import com.example.roombookingapp.domain.models.Booking
 
-class BookingsAdapter(private val inflater: LayoutInflater) :
+class BookingsAdapter(
+    private val userId: Long,
+    private val inflater: LayoutInflater
+) :
     ListAdapter<Booking, BookingsViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookingsViewHolder {
         val itemView = inflater.inflate(R.layout.item_booking, parent, false)
-        return BookingsViewHolder(itemView)
+        return BookingsViewHolder(itemView = itemView)
     }
 
     override fun onBindViewHolder(holder: BookingsViewHolder, position: Int) {
         val booking = getItem(position)
-        holder.bind(booking)
+        holder.bind(booking = booking, userId = userId)
     }
 }
 

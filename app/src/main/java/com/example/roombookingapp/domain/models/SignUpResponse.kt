@@ -1,12 +1,12 @@
-package com.example.roombookingapp.data.models
+package com.example.roombookingapp.domain.models
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class RegisterResponse(
+data class SignUpResponse(
     val headers: Map<String, String>,
-    val body: RegisterResponseBody,
+    val body: SignUpResponseBody,
     val statusCode: String,
     val statusCodeValue: Int,
 ) : Parcelable

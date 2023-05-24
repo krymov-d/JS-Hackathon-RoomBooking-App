@@ -4,11 +4,8 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Booking(
-    val id: Long,
+data class SignInResponse(
     val userId: Long,
-    val weekDay: String,
-    val date: String,
-    val time: String,
-    val purpose: String,
+    val role: String,
+    val jwtToken: String,
 ) : Parcelable

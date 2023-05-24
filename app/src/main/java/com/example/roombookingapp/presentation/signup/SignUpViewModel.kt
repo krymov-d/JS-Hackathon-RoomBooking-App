@@ -3,10 +3,10 @@ package com.example.roombookingapp.presentation.signup
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.roombookingapp.domain.use_cases.UserRegisterUseCase
+import com.example.roombookingapp.domain.use_cases.UserSignUpUseCase
 import kotlinx.coroutines.launch
 
-class SignUpViewModel(private val userRegisterUseCase: UserRegisterUseCase) : ViewModel() {
+class SignUpViewModel(private val userSignUpUseCase: UserSignUpUseCase) : ViewModel() {
 
     val nameLiveData: MutableLiveData<String> = MutableLiveData()
     val surnameLiveData: MutableLiveData<String> = MutableLiveData()
@@ -24,7 +24,7 @@ class SignUpViewModel(private val userRegisterUseCase: UserRegisterUseCase) : Vi
             try {
                 progressLiveData.value = true
 
-                val response = userRegisterUseCase(
+                val response = userSignUpUseCase(
                     name = nameLiveData.value.toString(),
                     surname = surnameLiveData.value.toString(),
                     email = emailLiveData.value.toString(),

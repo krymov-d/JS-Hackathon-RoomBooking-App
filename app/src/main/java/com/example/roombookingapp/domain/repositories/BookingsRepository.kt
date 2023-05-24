@@ -2,7 +2,7 @@ package com.example.roombookingapp.domain.repositories
 
 interface BookingsRepository {
 
-    suspend fun submitBooking(
+    suspend fun addNewBooking(
         userId: String,
         userToken: String,
         roomId: String,

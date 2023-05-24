@@ -35,6 +35,7 @@ fun toBookingsList(remoteBookingList: List<RemoteBooking>): List<Booking> {
         val bookingTime = toBookingTime(remoteBooking.period)
         Booking(
             id = remoteBooking.reservationId,
+            userId = remoteBooking.userId,
             weekDay = bookingTime[0],
             date = bookingTime[1],
             time = bookingTime[2],

@@ -1,4 +1,4 @@
-package com.example.roombookingapp.presentation.rooms.addroom
+package com.example.roombookingapp.presentation.addroom
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

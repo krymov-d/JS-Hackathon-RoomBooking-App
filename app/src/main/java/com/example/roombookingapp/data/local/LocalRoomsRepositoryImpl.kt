@@ -78,6 +78,7 @@ class LocalRoomsRepositoryImpl : RoomsRepository {
             bookingList = listOf(
                 Booking(
                     id = 0,
+                    userId = 1,
                     weekDay = "Thursday",
                     date = "01.06.2023",
                     time = "14:00 - 14.30",
@@ -85,6 +86,7 @@ class LocalRoomsRepositoryImpl : RoomsRepository {
                 ),
                 Booking(
                     id = 1,
+                    userId = 1,
                     weekDay = "Friday",
                     date = "02.06.2023",
                     time = "12:00 - 15.30",
@@ -92,6 +94,7 @@ class LocalRoomsRepositoryImpl : RoomsRepository {
                 ),
                 Booking(
                     id = 2,
+                    userId = 1,
                     weekDay = "Saturday",
                     date = "03.06.2023",
                     time = "09:00 - 18.00",
@@ -99,6 +102,7 @@ class LocalRoomsRepositoryImpl : RoomsRepository {
                 ),
                 Booking(
                     id = 3,
+                    userId = 1,
                     weekDay = "Sunday",
                     date = "04.06.2023",
                     time = "14:00 - 14.30",
@@ -106,6 +110,7 @@ class LocalRoomsRepositoryImpl : RoomsRepository {
                 ),
                 Booking(
                     id = 4,
+                    userId = 1,
                     weekDay = "Monday",
                     date = "05.06.2023",
                     time = "14:00 - 14.30",
@@ -113,6 +118,7 @@ class LocalRoomsRepositoryImpl : RoomsRepository {
                 ),
                 Booking(
                     id = 5,
+                    userId = 1,
                     weekDay = "Tuesday",
                     date = "06.06.2023",
                     time = "14:00 - 14.30",
@@ -120,6 +126,7 @@ class LocalRoomsRepositoryImpl : RoomsRepository {
                 ),
                 Booking(
                     id = 6,
+                    userId = 1,
                     weekDay = "Wednesday",
                     date = "07.06.2023",
                     time = "14:00 - 14.30",

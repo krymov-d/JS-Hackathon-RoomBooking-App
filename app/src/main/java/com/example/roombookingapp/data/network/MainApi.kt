@@ -1,12 +1,12 @@
 package com.example.roombookingapp.data.network
 
-import com.example.roombookingapp.data.models.LoginResponse
-import com.example.roombookingapp.data.models.RegisterResponse
+import com.example.roombookingapp.domain.models.SignInResponse
+import com.example.roombookingapp.domain.models.SignUpResponse
 import com.example.roombookingapp.data.models.RemoteBooking
 import com.example.roombookingapp.data.models.RemoteRoom
-import com.example.roombookingapp.data.models.RemoteUser
-import com.example.roombookingapp.data.models.UserLogin
-import com.example.roombookingapp.data.models.UserRegister
+import com.example.roombookingapp.domain.models.User
+import com.example.roombookingapp.data.models.RemoteSignInForm
+import com.example.roombookingapp.data.models.RemoteSignUpForm
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -16,16 +16,16 @@ import retrofit2.http.Query
 
 interface MainApi {
     @POST("signup")
-    suspend fun registerUser(@Body userRegister: UserRegister): RegisterResponse
+    suspend fun userSignUp(@Body remoteSignUpForm: RemoteSignUpForm): SignUpResponse
 
     @POST("signin")
-    suspend fun loginUser(@Body userLogin: UserLogin): LoginResponse
+    suspend fun userSignIn(@Body remoteSignInForm: RemoteSignInForm): SignInResponse
 
     @GET("clients")
     suspend fun getAllUsers(
         @Header("Authorization") userToken: String,
         @Query("userId") userId: String,
-    ): List<RemoteUser>
+    ): List<User>
 
     @GET("rooms")
     suspend fun getRooms(
@@ -48,7 +48,7 @@ interface MainApi {
     ): RemoteRoom
 
     @POST("reservation/add")
-    suspend fun submitBooking(
+    suspend fun addNewBooking(
         @Header("Authorization") userToken: String,
         @Query("roomId") roomId: String,
         @Body booking: RemoteBooking
