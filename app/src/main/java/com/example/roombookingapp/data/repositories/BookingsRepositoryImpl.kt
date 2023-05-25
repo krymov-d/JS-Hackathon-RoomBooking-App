@@ -36,4 +36,18 @@ class BookingsRepositoryImpl(private val mainApi: MainApi) : BookingsRepository 
             booking = remoteBooking
         ).reservationId
     }
+
+    override suspend fun removeBooking(
+        bookingId: String,
+        roomId: String,
+        userId: String,
+        userToken: String
+    ): String {
+        return mainApi.removeBooking(
+            userToken = "Bearer $userToken",
+            reservationId = bookingId,
+            roomId = roomId,
+            userId = userId
+        ).message
+    }
 }

@@ -50,4 +50,6 @@
     <string name="room_created_successfully">ROOM CREATED SUCCESSFULLY</string>
 
     <string name="registered_users">Registered Users</string>
+
+    <string name="booking_is_deleted">BOOKING IS DELETED</string>
 </resources>

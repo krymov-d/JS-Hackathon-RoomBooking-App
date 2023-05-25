@@ -34,7 +34,8 @@ val viewModelModule = module {
             userId = userId,
             userToken = userToken,
             roomId = roomId,
-            getRoomDetailsUseCase = get()
+            getRoomDetailsUseCase = get(),
+            removeBookingUseCase = get()
         )
     }
 

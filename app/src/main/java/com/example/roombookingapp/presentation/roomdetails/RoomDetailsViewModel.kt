@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.roombookingapp.domain.models.Booking
 import com.example.roombookingapp.domain.models.RoomDetails
 import com.example.roombookingapp.domain.use_cases.GetRoomDetailsUseCase
+import com.example.roombookingapp.domain.use_cases.RemoveBookingUseCase
 import kotlinx.coroutines.launch
 
 class RoomDetailsViewModel(
@@ -14,6 +15,7 @@ class RoomDetailsViewModel(
     private val userToken: String,
     private val roomId: String,
     private val getRoomDetailsUseCase: GetRoomDetailsUseCase,
+    private val removeBookingUseCase: RemoveBookingUseCase,
 ) : ViewModel() {
 
     private val _roomDetailsLiveData: MutableLiveData<RoomDetails> = MutableLiveData()
@@ -22,7 +24,14 @@ class RoomDetailsViewModel(
     private val _bookingsLiveData: MutableLiveData<List<Booking>> = MutableLiveData()
     val bookingsLiveData: LiveData<List<Booking>> = _bookingsLiveData
 
+    private val _removeBookingStatusLiveData: MutableLiveData<Boolean> = MutableLiveData()
+    val removeBookingStatusLiveData: LiveData<Boolean> = _removeBookingStatusLiveData
+
     init {
+        getRoomDetails()
+    }
+
+    fun getRoomDetails() {
         viewModelScope.launch {
             val roomDetails =
                 getRoomDetailsUseCase(userId = userId, userToken = userToken, roomId = roomId)
@@ -32,6 +41,14 @@ class RoomDetailsViewModel(
     }
 
     fun deleteBooking(index: Int) {
-
+        viewModelScope.launch {
+            val response = removeBookingUseCase(
+                bookingId = _bookingsLiveData.value?.get(index)?.id.toString(),
+                roomId = roomId,
+                userId = userId,
+                userToken = userToken
+            )
+            _removeBookingStatusLiveData.postValue(response.isNotEmpty())
+        }
     }
 }

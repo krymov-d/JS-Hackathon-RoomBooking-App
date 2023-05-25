@@ -18,7 +18,6 @@ import com.example.roombookingapp.constants.TAG_USER_ID
 import com.example.roombookingapp.constants.TAG_USER_TOKEN
 import com.example.roombookingapp.presentation.utils.extensions.showSnackBar
 import com.example.roombookingapp.presentation.utils.extensions.showSnackBarWithAction
-import com.example.roombookingapp.presentation.utils.extensions.showToastLong
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.textfield.TextInputEditText
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -144,7 +143,7 @@ class RoomBookingFragment : Fragment() {
                 || tvStartTime.text.isEmpty()
                 || tvEndTime.text.isEmpty()
             ) {
-                currentContext.showToastLong(getString(R.string.please_fill_all_fields))
+                currentContext.showSnackBar(view = tvDate, messageStringId = R.string.please_fill_all_fields)
             } else {
                 vmRoomBooking.addNewBooking()
             }

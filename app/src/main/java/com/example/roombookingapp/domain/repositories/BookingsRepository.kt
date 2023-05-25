@@ -15,4 +15,11 @@ interface BookingsRepository {
         endHour: Int,
         endMinute: Int
     ): Long
+
+    suspend fun removeBooking(
+        bookingId: String,
+        roomId: String,
+        userId: String,
+        userToken: String,
+    ): String
 }
