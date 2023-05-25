@@ -12,6 +12,7 @@ class RoomsAdapter(private val inflater: LayoutInflater) :
     ListAdapter<Room, RoomsViewHolder>(DiffCallback()) {
 
     var listener: ClickListener<Room>? = null
+    var longListener: ClickListener<Room>? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RoomsViewHolder {
         val itemView = inflater.inflate(R.layout.item_room, parent, false)
@@ -23,6 +24,10 @@ class RoomsAdapter(private val inflater: LayoutInflater) :
         holder.bind(room)
         holder.itemView.setOnClickListener {
             listener?.onClick(room)
+        }
+        holder.itemView.setOnLongClickListener {
+            longListener?.onClick(room)
+            true
         }
     }
 }

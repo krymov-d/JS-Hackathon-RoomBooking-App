@@ -9,6 +9,7 @@ import com.example.roombookingapp.domain.models.RoomDetails
 import com.example.roombookingapp.domain.use_cases.GetRoomDetailsUseCase
 import com.example.roombookingapp.domain.use_cases.RemoveBookingUseCase
 import kotlinx.coroutines.launch
+import java.lang.Exception
 
 class RoomDetailsViewModel(
     private val userId: String,
@@ -24,8 +25,8 @@ class RoomDetailsViewModel(
     private val _bookingsLiveData: MutableLiveData<List<Booking>> = MutableLiveData()
     val bookingsLiveData: LiveData<List<Booking>> = _bookingsLiveData
 
-    private val _removeBookingStatusLiveData: MutableLiveData<Boolean> = MutableLiveData()
-    val removeBookingStatusLiveData: LiveData<Boolean> = _removeBookingStatusLiveData
+    private val _removeBookingStatusLiveData: MutableLiveData<Int> = MutableLiveData()
+    val removeBookingStatusLiveData: LiveData<Int> = _removeBookingStatusLiveData
 
     init {
         getRoomDetails()
@@ -42,13 +43,21 @@ class RoomDetailsViewModel(
 
     fun deleteBooking(index: Int) {
         viewModelScope.launch {
-            val response = removeBookingUseCase(
-                bookingId = _bookingsLiveData.value?.get(index)?.id.toString(),
-                roomId = roomId,
-                userId = userId,
-                userToken = userToken
-            )
-            _removeBookingStatusLiveData.postValue(response.isNotEmpty())
+            try {
+                val response = removeBookingUseCase(
+                    bookingId = _bookingsLiveData.value?.get(index)?.id.toString(),
+                    roomId = roomId,
+                    userId = userId,
+                    userToken = userToken
+                )
+                if (response.isNotEmpty()) {
+                    _removeBookingStatusLiveData.value = 0
+                }
+            } catch (e: Exception) {
+                _removeBookingStatusLiveData.value = 1
+            } finally {
+                _removeBookingStatusLiveData.value = 2
+            }
         }
     }
 }

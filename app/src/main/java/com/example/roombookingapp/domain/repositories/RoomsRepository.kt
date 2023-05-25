@@ -25,4 +25,10 @@ interface RoomsRepository {
         roomFloor: String,
         roomDescription: String
     ): Long
+
+    suspend fun deleteRoom(
+        userId: String,
+        userToken: String,
+        roomId: String,
+    ): String
 }

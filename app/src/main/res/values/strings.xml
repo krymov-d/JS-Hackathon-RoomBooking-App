@@ -43,13 +43,26 @@
     <string name="room_details">Room Details</string>
     <string name="room_booking">Room Booking</string>
 
+    <string name="delete_room_w_question">Delete this room?</string>
+    <string name="room_deleted_successfully">ROOM DELETED SUCCESSFULLY</string>
+    <string name="room_delete_fail">ROOM DELETE FAILURE</string>
+
+
     <string name="menu_room_add">Room Add</string>
+    <string name="menu_all_users">All Users</string>
+
     <string name="room_creation_form">Room Creation Form</string>
     <string name="create_room">Create Room</string>
     <string name="failed_room_create">FAILED TO CREATE ROOM</string>
     <string name="room_created_successfully">ROOM CREATED SUCCESSFULLY</string>
 
     <string name="registered_users">Registered Users</string>
+    <string name="alert_dialog_assign_admin_w_question">Assign administrator role?</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="role_assigned_successfully">ROLE ASSIGNED SUCCESSFULLY</string>
+    <string name="role_assign_fail">ROLE ASSIGNMENT FAILURE</string>
 
     <string name="booking_is_deleted">BOOKING IS DELETED</string>
+    <string name="not_allowed_to_delete">IT IS FORBIDDEN TO DELETE OTHER BOOKINGS</string>
 </resources>

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,6 +14,7 @@ import com.example.roombookingapp.constants.TAG_USER_ID
 import com.example.roombookingapp.constants.TAG_USER_TOKEN
 import com.example.roombookingapp.presentation.utils.ClickListener
 import com.example.roombookingapp.presentation.utils.SpaceItemDecoration
+import com.example.roombookingapp.presentation.utils.extensions.showSnackBar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -82,12 +84,39 @@ class AllUsersFragment : Fragment() {
         }
 
         allUsersAdapter.listener = ClickListener { user ->
+            initAlertDialog(user.id)
         }
+    }
+
+    private fun initAlertDialog(userId: Long) {
+        val currentContext = context ?: return
+        AlertDialog.Builder(currentContext).setTitle(R.string.alert_dialog_assign_admin_w_question)
+            .setPositiveButton(R.string.confirm) { _, _ ->
+                vmAllUsers.makeAdmin(id = userId)
+            }
+            .setNegativeButton(R.string.cancel) { _, _ ->
+            }
+            .show()
     }
 
     private fun initObservers() {
         vmAllUsers.usersLiveData.observe(viewLifecycleOwner) { users ->
             allUsersAdapter.submitList(users)
+        }
+
+        vmAllUsers.makeAdminStatusLiveData.observe(viewLifecycleOwner) { isAdmin ->
+            if (isAdmin) {
+                context?.showSnackBar(
+                    view = tbAllUsers,
+                    messageStringId = R.string.role_assigned_successfully
+                )
+            } else {
+                context?.showSnackBar(
+                    view = tbAllUsers,
+                    messageStringId = R.string.role_assign_fail
+                )
+            }
+            vmAllUsers.getUsers()
         }
     }
 }

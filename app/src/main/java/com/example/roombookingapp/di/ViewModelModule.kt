@@ -25,7 +25,8 @@ val viewModelModule = module {
             userId = userId,
             userRole = userRole,
             userToken = userToken,
-            getRoomsUseCase = get()
+            getRoomsUseCase = get(),
+            deleteRoomUseCase = get()
         )
     }
 
@@ -60,7 +61,8 @@ val viewModelModule = module {
         AllUsersViewModel(
             userId = userId,
             userToken = userToken,
-            getAllUsersUseCase = get()
+            getAllUsersUseCase = get(),
+            makeAdminUseCase = get()
         )
     }
 }

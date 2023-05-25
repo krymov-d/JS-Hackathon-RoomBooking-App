@@ -29,15 +29,13 @@ fun toRemoteBooking(
 
     val remoteTimeFrame = RemoteTimeFrame(
         clientId = userId.toLong(),
-        roomId = roomId.toLong(),
+        roomNum = roomId.toLong(),
         startTime = startDateTimeFormatted,
         endTime = endDateTimeFormatted
     )
 
-    val reservationId = (startDateTimeFormatted + endDateTimeFormatted).hashCode().toLong()
-
     return RemoteBooking(
-        reservationId = reservationId,
+        reservationId = 0,
         period = remoteTimeFrame,
         userId = userId.toLong(),
         description = reason,

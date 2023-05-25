@@ -1,5 +1,6 @@
 package com.example.roombookingapp.domain.repositories
 
+import com.example.roombookingapp.domain.models.MakeAdminResponse
 import com.example.roombookingapp.domain.models.SignInResponse
 import com.example.roombookingapp.domain.models.User
 
@@ -18,4 +19,9 @@ interface UsersRepository {
         userId: String,
         userToken: String,
     ): List<User>
+
+    suspend fun makeAdmin(
+        userId: String,
+        userToken: String
+    ) : MakeAdminResponse
 }

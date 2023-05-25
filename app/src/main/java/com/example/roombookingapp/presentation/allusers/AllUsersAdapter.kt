@@ -21,15 +21,16 @@ class AllUsersAdapter(private val inflater: LayoutInflater) :
     override fun onBindViewHolder(holder: AllUsersViewHolder, position: Int) {
         val user = getItem(position)
         holder.bind(user)
-        holder.itemView.setOnClickListener {
+        holder.itemView.setOnLongClickListener {
             listener?.onClick(user)
+            true
         }
     }
 }
 
 private class DiffCallback : DiffUtil.ItemCallback<User>() {
     override fun areItemsTheSame(oldItem: User, newItem: User): Boolean {
-        return oldItem.name == newItem.name
+        return oldItem.id == newItem.id
     }
 
     override fun areContentsTheSame(oldItem: User, newItem: User): Boolean {

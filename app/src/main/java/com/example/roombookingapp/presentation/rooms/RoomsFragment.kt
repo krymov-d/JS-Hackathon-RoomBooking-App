@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.roombookingapp.R
 import com.example.roombookingapp.constants.TAG_USER_ID
 import com.example.roombookingapp.constants.TAG_USER_ROLE
@@ -18,6 +20,7 @@ import com.example.roombookingapp.presentation.allusers.AllUsersFragment
 import com.example.roombookingapp.presentation.roomdetails.RoomDetailsFragment
 import com.example.roombookingapp.presentation.utils.ClickListener
 import com.example.roombookingapp.presentation.utils.SpaceItemDecoration
+import com.example.roombookingapp.presentation.utils.extensions.showSnackBar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -50,6 +53,7 @@ class RoomsFragment : Fragment() {
     private lateinit var userToken: String
 
     private lateinit var tbRooms: Toolbar
+    private lateinit var srlRooms: SwipeRefreshLayout
     private lateinit var rvRooms: RecyclerView
     private lateinit var roomsAdapter: RoomsAdapter
     private lateinit var roomsLayoutManager: LinearLayoutManager
@@ -76,6 +80,7 @@ class RoomsFragment : Fragment() {
 
         initViews(view)
         initToolbar()
+        initRefreshListener()
         initRoomsRecyclerView()
         initObservers()
     }
@@ -83,12 +88,19 @@ class RoomsFragment : Fragment() {
     private fun initViews(view: View) {
         with(view) {
             tbRooms = findViewById(R.id.rooms_toolbar)
+            srlRooms = findViewById(R.id.rooms_swipe_refresh_layout)
             rvRooms = findViewById(R.id.rooms_rv_rooms)
         }
     }
 
     private fun initToolbar() {
         tbRooms.title = getString(R.string.available_rooms)
+    }
+
+    private fun initRefreshListener() {
+        srlRooms.setOnRefreshListener {
+            vmRooms.getRooms()
+        }
     }
 
     private fun initRoomsRecyclerView() {
@@ -104,7 +116,10 @@ class RoomsFragment : Fragment() {
 
         roomsAdapter.listener = ClickListener { room ->
             initRoomDetailsFragment(roomId = room.id)
+        }
 
+        roomsAdapter.longListener = ClickListener { room ->
+            initAlertDialog(roomId = room.id)
         }
     }
 
@@ -124,15 +139,45 @@ class RoomsFragment : Fragment() {
             .commit()
     }
 
+    private fun initAlertDialog(roomId: Long) {
+        val currentContext = context ?: return
+        AlertDialog.Builder(currentContext).setTitle(R.string.delete_room_w_question)
+            .setPositiveButton(R.string.confirm) { _, _ ->
+                vmRooms.deleteRoom(roomId = roomId)
+            }
+            .setNegativeButton(R.string.cancel) { _, _ ->
+            }
+            .show()
+    }
+
     private fun initObservers() {
         vmRooms.roomsLiveData.observe(viewLifecycleOwner) { rooms ->
             roomsAdapter.submitList(rooms)
+            srlRooms.isRefreshing = false
         }
 
         vmRooms.isUserAdmin.observe(viewLifecycleOwner) { isUserAdmin ->
             if (isUserAdmin) {
                 initMenu()
             }
+        }
+
+        vmRooms.deleteRoomStatusLiveData.observe(viewLifecycleOwner) { status ->
+            when (status) {
+                0 -> {
+                    context?.showSnackBar(
+                        view = tbRooms,
+                        messageStringId = R.string.room_deleted_successfully
+                    )
+                }
+                1 -> {
+                    context?.showSnackBar(
+                        view = tbRooms,
+                        messageStringId = R.string.room_delete_fail
+                    )
+                }
+            }
+            vmRooms.getRooms()
         }
     }
 

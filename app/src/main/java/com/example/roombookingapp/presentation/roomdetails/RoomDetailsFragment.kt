@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.ItemTouchHelper.START
 import androidx.recyclerview.widget.ItemTouchHelper.UP
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.viewpager2.widget.ViewPager2
 import com.example.roombookingapp.R
 import com.example.roombookingapp.constants.TAG_ROOM_ID
@@ -55,6 +56,7 @@ class RoomDetailsFragment : Fragment() {
     private lateinit var roomId: String
 
     private lateinit var tbRoomDetails: Toolbar
+    private lateinit var srlRoomDetails: SwipeRefreshLayout
     private lateinit var vpPhotos: ViewPager2
     private lateinit var photosViewPagerAdapter: PhotosViewPagerAdapter
 
@@ -93,6 +95,7 @@ class RoomDetailsFragment : Fragment() {
 
         initViews(view)
         initToolbar()
+        initRefreshListener()
         initPhotosViewPager()
         initBookingsRecyclerView()
         initClickListener()
@@ -102,6 +105,8 @@ class RoomDetailsFragment : Fragment() {
     private fun initViews(view: View) {
         with(view) {
             tbRoomDetails = findViewById(R.id.room_details_toolbar)
+
+            srlRoomDetails = findViewById(R.id.room_details_swipe_refresh_layout)
 
             vpPhotos = findViewById(R.id.room_details_vp_photos)
 
@@ -119,6 +124,12 @@ class RoomDetailsFragment : Fragment() {
 
     private fun initToolbar() {
         tbRoomDetails.title = getString(R.string.room_details)
+    }
+
+    private fun initRefreshListener() {
+        srlRoomDetails.setOnRefreshListener {
+            vmRoomDetails.getRoomDetails()
+        }
     }
 
     private fun initPhotosViewPager() {
@@ -189,19 +200,31 @@ class RoomDetailsFragment : Fragment() {
                 tvRoomCapacity.text = capacity.toString()
                 tvRoomDescription.text = description
             }
+
+            srlRoomDetails.isRefreshing = false
         }
 
         vmRoomDetails.bookingsLiveData.observe(viewLifecycleOwner) { bookings ->
             bookingsAdapter.submitList(bookings)
         }
 
-        vmRoomDetails.removeBookingStatusLiveData.observe(viewLifecycleOwner) { isDeleted ->
-            if (isDeleted) {
-                context?.showSnackBar(
-                    view = tvRoomId,
-                    messageStringId = R.string.booking_is_deleted
-                )
-                vmRoomDetails.getRoomDetails()
+        vmRoomDetails.removeBookingStatusLiveData.observe(viewLifecycleOwner) { status ->
+            when (status) {
+                0 -> {
+                    context?.showSnackBar(
+                        view = tvRoomId,
+                        messageStringId = R.string.booking_is_deleted
+                    )
+                    vmRoomDetails.getRoomDetails()
+                }
+
+                1 -> {
+                    context?.showSnackBar(
+                        view = tvRoomId,
+                        messageStringId = R.string.not_allowed_to_delete
+                    )
+                    vmRoomDetails.getRoomDetails()
+                }
             }
         }
     }

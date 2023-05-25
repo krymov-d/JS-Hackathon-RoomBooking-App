@@ -147,4 +147,8 @@ class LocalRoomsRepositoryImpl : RoomsRepository {
     ): Long {
         return 200
     }
+
+    override suspend fun deleteRoom(userId: String, userToken: String, roomId: String): String {
+        return "Deleted"
+    }
 }

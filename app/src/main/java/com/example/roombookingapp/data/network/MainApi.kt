@@ -4,6 +4,7 @@ import com.example.roombookingapp.data.models.RemoteBooking
 import com.example.roombookingapp.data.models.RemoteRoom
 import com.example.roombookingapp.data.models.RemoteSignInForm
 import com.example.roombookingapp.data.models.RemoteSignUpForm
+import com.example.roombookingapp.domain.models.MakeAdminResponse
 import com.example.roombookingapp.domain.models.RemoveBookingResponse
 import com.example.roombookingapp.domain.models.SignInResponse
 import com.example.roombookingapp.domain.models.SignUpResponse
@@ -29,6 +30,12 @@ interface MainApi {
         @Query("userId") userId: String,
     ): List<User>
 
+    @POST("make/admin")
+    suspend fun makeAdmin(
+        @Header("Authorization") userToken: String,
+        @Query("userId") userId: String,
+    ): MakeAdminResponse
+
     @GET("rooms")
     suspend fun getRooms(
         @Header("Authorization") userToken: String,
@@ -48,6 +55,13 @@ interface MainApi {
         @Query("userId") userId: String,
         @Body newRoom: RemoteRoom
     ): RemoteRoom
+
+    @DELETE("rooms/delete")
+    suspend fun deleteRoom(
+        @Header("Authorization") userToken: String,
+        @Query("roomId") roomId: String,
+        @Query("userId") userId: String
+    ): String
 
     @POST("reservation/add")
     suspend fun addNewBooking(
