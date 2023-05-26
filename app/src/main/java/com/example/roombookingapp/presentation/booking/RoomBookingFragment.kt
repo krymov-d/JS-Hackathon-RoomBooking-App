@@ -18,6 +18,7 @@ import com.example.roombookingapp.constants.TAG_USER_ID
 import com.example.roombookingapp.constants.TAG_USER_TOKEN
 import com.example.roombookingapp.presentation.utils.extensions.showSnackBar
 import com.example.roombookingapp.presentation.utils.extensions.showSnackBarWithAction
+import com.google.android.material.color.MaterialColors
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.textfield.TextInputEditText
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -97,7 +98,11 @@ class RoomBookingFragment : Fragment() {
     }
 
     private fun initToolbar() {
-        tbRoomBooking.title = getString(R.string.room_booking)
+        tbRoomBooking.title = getString(R.string.tb_title_room_booking)
+        tbRoomBooking.setNavigationIcon(R.drawable.iv_close)
+        tbRoomBooking.setNavigationOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
     }
 
     private fun initClickListeners() {
@@ -143,7 +148,7 @@ class RoomBookingFragment : Fragment() {
                 || tvStartTime.text.isEmpty()
                 || tvEndTime.text.isEmpty()
             ) {
-                currentContext.showSnackBar(view = tvDate, messageStringId = R.string.please_fill_all_fields)
+                currentContext.showSnackBar(view = tvDate, messageStringId = R.string.please_fill_out_all_required_fields)
             } else {
                 vmRoomBooking.addNewBooking()
             }
@@ -207,7 +212,7 @@ class RoomBookingFragment : Fragment() {
                 progressIndicator.visibility = View.VISIBLE
             } else {
                 btnSubmitRequest.isEnabled = true
-                btnSubmitRequest.setTextColor(resources.getColor(R.color.ui_01, null))
+                btnSubmitRequest.setTextColor(MaterialColors.getColor(btnSubmitRequest, R.attr.ui_01))
                 progressIndicator.visibility = View.INVISIBLE
             }
         }
@@ -216,7 +221,7 @@ class RoomBookingFragment : Fragment() {
             if (isSubmitted) {
                 currentContext.showSnackBar(
                     view = btnSubmitRequest,
-                    messageStringId = R.string.booking_successful
+                    messageStringId = R.string.booking_completed_successfully
                 )
 
                 parentFragmentManager.popBackStack()

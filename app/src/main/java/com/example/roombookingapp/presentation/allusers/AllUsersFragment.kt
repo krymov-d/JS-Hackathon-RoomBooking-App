@@ -69,7 +69,11 @@ class AllUsersFragment : Fragment() {
     }
 
     private fun initToolbar() {
-        tbAllUsers.title = getString(R.string.registered_users)
+        tbAllUsers.title = getString(R.string.tb_title_registered_users)
+        tbAllUsers.setNavigationIcon(R.drawable.iv_close)
+        tbAllUsers.setNavigationOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
     }
 
     private fun initRoomsRecyclerView() {
@@ -90,7 +94,7 @@ class AllUsersFragment : Fragment() {
 
     private fun initAlertDialog(userId: Long) {
         val currentContext = context ?: return
-        AlertDialog.Builder(currentContext).setTitle(R.string.alert_dialog_assign_admin_w_question)
+        AlertDialog.Builder(currentContext).setTitle(R.string.assign_administrator_role_w_question)
             .setPositiveButton(R.string.confirm) { _, _ ->
                 vmAllUsers.makeAdmin(id = userId)
             }
@@ -113,7 +117,7 @@ class AllUsersFragment : Fragment() {
             } else {
                 context?.showSnackBar(
                     view = tbAllUsers,
-                    messageStringId = R.string.role_assign_fail
+                    messageStringId = R.string.role_assignment_failed
                 )
             }
             vmAllUsers.getUsers()

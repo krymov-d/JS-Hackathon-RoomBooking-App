@@ -13,14 +13,23 @@ class BookingsAdapter(
 ) :
     ListAdapter<Booking, BookingsViewHolder>(DiffCallback()) {
 
+    override fun getItemViewType(position: Int): Int {
+        val booking = getItem(position)
+        return if (booking.userId == userId) {
+            R.layout.item_booking_highlighted
+        } else {
+            R.layout.item_booking
+        }
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookingsViewHolder {
-        val itemView = inflater.inflate(R.layout.item_booking, parent, false)
+        val itemView = inflater.inflate(viewType, parent, false)
         return BookingsViewHolder(itemView = itemView)
     }
 
     override fun onBindViewHolder(holder: BookingsViewHolder, position: Int) {
         val booking = getItem(position)
-        holder.bind(booking = booking, userId = userId)
+        holder.bind(booking = booking)
     }
 }
 

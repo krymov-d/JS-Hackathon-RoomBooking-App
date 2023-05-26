@@ -10,10 +10,9 @@ import com.example.roombookingapp.R
 
 class PhotosViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val ivPhotoContainer: ImageView = itemView.findViewById(R.id.item_photo_iv_container)
-    val tvPhotoCounter: TextView = itemView.findViewById(R.id.item_photo_tv_counter)
+    val tvPhotoQuantity: TextView = itemView.findViewById(R.id.item_photo_tv_quantity)
 
     fun bind(imageURL: String) {
-
         Glide.with(ivPhotoContainer)
             .load(imageURL)
             .error(R.drawable.iv_no_photography)

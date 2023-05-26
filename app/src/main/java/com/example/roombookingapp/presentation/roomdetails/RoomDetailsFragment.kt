@@ -8,10 +8,9 @@ import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.ItemTouchHelper.DOWN
+import androidx.recyclerview.widget.ItemTouchHelper.ACTION_STATE_IDLE
 import androidx.recyclerview.widget.ItemTouchHelper.END
 import androidx.recyclerview.widget.ItemTouchHelper.START
-import androidx.recyclerview.widget.ItemTouchHelper.UP
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -19,6 +18,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.roombookingapp.R
 import com.example.roombookingapp.constants.TAG_ROOM_ID
 import com.example.roombookingapp.constants.TAG_USER_ID
+import com.example.roombookingapp.constants.TAG_USER_ROLE
 import com.example.roombookingapp.constants.TAG_USER_TOKEN
 import com.example.roombookingapp.presentation.booking.RoomBookingFragment
 import com.example.roombookingapp.presentation.roomdetails.bookings.BookingsAdapter
@@ -31,11 +31,12 @@ import org.koin.core.parameter.parametersOf
 class RoomDetailsFragment : Fragment() {
 
     companion object {
-        fun newInstance(userID: String, userToken: String, roomId: String): RoomDetailsFragment {
+        fun newInstance(userID: String, userToken: String, roomId: String, userRole: String): RoomDetailsFragment {
             val args = Bundle()
             args.putString(TAG_USER_ID, userID)
             args.putString(TAG_USER_TOKEN, userToken)
             args.putString(TAG_ROOM_ID, roomId)
+            args.putString(TAG_USER_ROLE, userRole)
             val fragment = RoomDetailsFragment()
             fragment.arguments = args
             return fragment
@@ -54,6 +55,7 @@ class RoomDetailsFragment : Fragment() {
     private lateinit var userId: String
     private lateinit var userToken: String
     private lateinit var roomId: String
+    private lateinit var userRole: String
 
     private lateinit var tbRoomDetails: Toolbar
     private lateinit var srlRoomDetails: SwipeRefreshLayout
@@ -80,6 +82,7 @@ class RoomDetailsFragment : Fragment() {
         userId = arguments?.getString(TAG_USER_ID) ?: return
         userToken = arguments?.getString(TAG_USER_TOKEN) ?: return
         roomId = arguments?.getString(TAG_ROOM_ID) ?: return
+        userRole = arguments?.getString(TAG_USER_ROLE) ?: return
     }
 
     override fun onCreateView(
@@ -123,7 +126,7 @@ class RoomDetailsFragment : Fragment() {
     }
 
     private fun initToolbar() {
-        tbRoomDetails.title = getString(R.string.room_details)
+        tbRoomDetails.title = getString(R.string.tb_title_room_details)
     }
 
     private fun initRefreshListener() {
@@ -143,7 +146,21 @@ class RoomDetailsFragment : Fragment() {
         bookingLayoutManager = LinearLayoutManager(context)
         bookingItemDecorator = SpaceItemDecoration(verticalSpaceInDp = 8, horizontalSpaceInDp = 16)
         bookingItemTouchCallback =
-            object : ItemTouchHelper.SimpleCallback(UP or DOWN, START or END) {
+            object : ItemTouchHelper.SimpleCallback(
+                ACTION_STATE_IDLE or ACTION_STATE_IDLE,
+                START or END
+            ) {
+
+                override fun getSwipeDirs(
+                    recyclerView: RecyclerView,
+                    viewHolder: RecyclerView.ViewHolder
+                ): Int {
+                    if (viewHolder.itemViewType == R.layout.item_booking && userRole == getString(R.string.user_role_user)) {
+                        return ACTION_STATE_IDLE
+                    }
+                    return super.getSwipeDirs(recyclerView, viewHolder)
+                }
+
                 override fun onMove(
                     recyclerView: RecyclerView,
                     viewHolder: RecyclerView.ViewHolder,
@@ -194,7 +211,7 @@ class RoomDetailsFragment : Fragment() {
         vmRoomDetails.roomDetailsLiveData.observe(viewLifecycleOwner) { roomDetails ->
             photosViewPagerAdapter.setPhotos(roomDetails.photoUrlList)
             with(roomDetails) {
-                tvRoomId.text = getString(R.string.room_w_column, id.toString())
+                tvRoomId.text = getString(R.string.room_w_arrow, id.toString())
                 tvRoomCategory.text = category
                 tvRoomFloor.text = floor.toString()
                 tvRoomCapacity.text = capacity.toString()
@@ -213,19 +230,19 @@ class RoomDetailsFragment : Fragment() {
                 0 -> {
                     context?.showSnackBar(
                         view = tvRoomId,
-                        messageStringId = R.string.booking_is_deleted
+                        messageStringId = R.string.booking_deleted_successfully
                     )
-                    vmRoomDetails.getRoomDetails()
                 }
 
                 1 -> {
                     context?.showSnackBar(
                         view = tvRoomId,
-                        messageStringId = R.string.not_allowed_to_delete
+                        messageStringId = R.string.booking_delete_failed
                     )
-                    vmRoomDetails.getRoomDetails()
                 }
             }
+
+            vmRoomDetails.getRoomDetails()
         }
     }
 }

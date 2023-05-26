@@ -120,7 +120,7 @@
         style="@style/room_booking_btn"
         android:layout_marginBottom="16dp"
         android:background="@drawable/bg_btn_orange"
-        android:text="@string/create_room"
+        android:text="@string/add_room"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

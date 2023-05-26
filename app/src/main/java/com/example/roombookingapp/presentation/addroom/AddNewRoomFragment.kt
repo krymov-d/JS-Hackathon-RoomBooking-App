@@ -14,6 +14,7 @@ import com.example.roombookingapp.constants.TAG_USER_ID
 import com.example.roombookingapp.constants.TAG_USER_TOKEN
 import com.example.roombookingapp.presentation.utils.extensions.showSnackBar
 import com.example.roombookingapp.presentation.utils.extensions.showSnackBarWithAction
+import com.google.android.material.color.MaterialColors
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.textfield.TextInputEditText
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -81,7 +82,11 @@ class AddNewRoomFragment : Fragment() {
     }
 
     private fun initToolbar() {
-        tbRoomAdd.title = getString(R.string.room_creation_form)
+        tbRoomAdd.title = getString(R.string.tb_title_add_new_room)
+        tbRoomAdd.setNavigationIcon(R.drawable.iv_close)
+        tbRoomAdd.setNavigationOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
     }
 
     private fun initTextChangeListeners() {
@@ -116,7 +121,7 @@ class AddNewRoomFragment : Fragment() {
             ) {
                 currentContext.showSnackBar(
                     view = it,
-                    messageStringId = R.string.please_fill_all_fields
+                    messageStringId = R.string.please_fill_out_all_required_fields
                 )
             } else {
                 vmRoomAdd.createRoom()
@@ -132,7 +137,7 @@ class AddNewRoomFragment : Fragment() {
                 progressIndicator.visibility = View.VISIBLE
             } else {
                 btnRoomCreate.isEnabled = true
-                btnRoomCreate.setTextColor(resources.getColor(R.color.ui_01, null))
+                btnRoomCreate.setTextColor(MaterialColors.getColor(btnRoomCreate, R.attr.ui_01))
                 progressIndicator.visibility = View.INVISIBLE
             }
         }
@@ -147,7 +152,7 @@ class AddNewRoomFragment : Fragment() {
             } else {
                 currentContext.showSnackBarWithAction(
                     view = btnRoomCreate,
-                    messageStringId = R.string.failed_room_create,
+                    messageStringId = R.string.room_create_failed,
                     actionStringId = R.string.retry
                 ) {
                     vmRoomAdd.createRoom()

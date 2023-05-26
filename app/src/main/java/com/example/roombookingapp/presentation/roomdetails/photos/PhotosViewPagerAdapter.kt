@@ -23,8 +23,8 @@ class PhotosViewPagerAdapter(private val inflater: LayoutInflater) :
 
     override fun onBindViewHolder(holder: PhotosViewHolder, position: Int) {
         holder.bind(data[position])
-        holder.tvPhotoCounter.text =
-            currentContext?.getString(R.string.room_count, position + 1, data.size)
+        holder.tvPhotoQuantity.text =
+            currentContext?.getString(R.string.room_photo_quantity, position + 1, data.size)
     }
 
     fun setPhotos(photoUrlList: List<String>) {

@@ -2,6 +2,7 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.RoomBookingApp" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
+        <item name="ui_01">#FFFFFF</item>
         <item name="android:statusBarColor">@color/ui_03</item>
     </style>
 

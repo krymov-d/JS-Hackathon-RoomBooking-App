@@ -18,6 +18,7 @@ import com.example.roombookingapp.domain.models.SignInResponse
 import com.example.roombookingapp.presentation.addroom.AddNewRoomFragment
 import com.example.roombookingapp.presentation.allusers.AllUsersFragment
 import com.example.roombookingapp.presentation.roomdetails.RoomDetailsFragment
+import com.example.roombookingapp.presentation.signin.SignInFragment
 import com.example.roombookingapp.presentation.utils.ClickListener
 import com.example.roombookingapp.presentation.utils.SpaceItemDecoration
 import com.example.roombookingapp.presentation.utils.extensions.showSnackBar
@@ -94,7 +95,22 @@ class RoomsFragment : Fragment() {
     }
 
     private fun initToolbar() {
-        tbRooms.title = getString(R.string.available_rooms)
+        tbRooms.title = getString(R.string.tb_title_available_rooms)
+        tbRooms.setNavigationIcon(R.drawable.iv_log_out)
+        tbRooms.setNavigationOnClickListener {
+            initSignPutAlertDialog()
+        }
+    }
+
+    private fun initSignPutAlertDialog() {
+        val currentContext = context ?: return
+        AlertDialog.Builder(currentContext).setTitle(R.string.sign_out_w_question)
+            .setPositiveButton(R.string.confirm) { _, _ ->
+                initSignInFragment()
+            }
+            .setNegativeButton(R.string.cancel) { _, _ ->
+            }
+            .show()
     }
 
     private fun initRefreshListener() {
@@ -118,8 +134,10 @@ class RoomsFragment : Fragment() {
             initRoomDetailsFragment(roomId = room.id)
         }
 
-        roomsAdapter.longListener = ClickListener { room ->
-            initAlertDialog(roomId = room.id)
+        if (userRole == getString(R.string.user_role_admin)) {
+            roomsAdapter.longListener = ClickListener { room ->
+                initRoomDeleteAlertDialog(roomId = room.id)
+            }
         }
     }
 
@@ -132,6 +150,7 @@ class RoomsFragment : Fragment() {
                     userID = userId,
                     userToken = userToken,
                     roomId = roomId.toString(),
+                    userRole = userRole
                 ),
                 null
             )
@@ -139,9 +158,9 @@ class RoomsFragment : Fragment() {
             .commit()
     }
 
-    private fun initAlertDialog(roomId: Long) {
+    private fun initRoomDeleteAlertDialog(roomId: Long) {
         val currentContext = context ?: return
-        AlertDialog.Builder(currentContext).setTitle(R.string.delete_room_w_question)
+        AlertDialog.Builder(currentContext).setTitle(R.string.delete_this_room_w_question)
             .setPositiveButton(R.string.confirm) { _, _ ->
                 vmRooms.deleteRoom(roomId = roomId)
             }
@@ -170,10 +189,11 @@ class RoomsFragment : Fragment() {
                         messageStringId = R.string.room_deleted_successfully
                     )
                 }
+
                 1 -> {
                     context?.showSnackBar(
                         view = tbRooms,
-                        messageStringId = R.string.room_delete_fail
+                        messageStringId = R.string.room_delete_failed
                     )
                 }
             }
@@ -190,6 +210,13 @@ class RoomsFragment : Fragment() {
             }
             true
         }
+    }
+
+    private fun initSignInFragment() {
+        parentFragmentManager
+            .beginTransaction()
+            .add(flContainerID, SignInFragment())
+            .commit()
     }
 
     private fun initAllUsersFragment() {

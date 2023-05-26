@@ -14,6 +14,7 @@ import com.example.roombookingapp.presentation.rooms.RoomsFragment
 import com.example.roombookingapp.presentation.signup.SignUpFragment
 import com.example.roombookingapp.presentation.utils.extensions.showSnackBar
 import com.example.roombookingapp.presentation.utils.extensions.showSnackBarWithAction
+import com.google.android.material.color.MaterialColors
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.textfield.TextInputEditText
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -80,7 +81,7 @@ class SignInFragment : Fragment() {
             if (etEmail.text.toString().isEmpty() || etPassword.text.toString().isEmpty()) {
                 currentContext.showSnackBar(
                     view = it,
-                    messageStringId = R.string.please_fill_all_fields
+                    messageStringId = R.string.please_fill_out_all_required_fields
                 )
             } else {
                 vmSignIn.userSignIn()
@@ -108,7 +109,7 @@ class SignInFragment : Fragment() {
                 progressIndicator.visibility = View.VISIBLE
             } else {
                 btnLogin.isEnabled = true
-                btnLogin.setTextColor(resources.getColor(R.color.ui_01, null))
+                btnLogin.setTextColor(MaterialColors.getColor(btnLogin, R.attr.ui_01))
                 progressIndicator.visibility = View.INVISIBLE
             }
         }
@@ -117,7 +118,7 @@ class SignInFragment : Fragment() {
             if (isLoggedIn) {
                 currentContext.showSnackBar(
                     view = btnLogin,
-                    messageStringId = R.string.login_successful
+                    messageStringId = R.string.login_completed_successfully
                 )
 
                 initRoomsFragment()

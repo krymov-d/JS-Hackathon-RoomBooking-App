@@ -1,6 +1,11 @@
 <resources>
-    <string name="app_name">Room Booking App</string>
 
+    <!--General-->
+    <string name="app_name">Room Booking App</string>
+    <string name="user_role_admin">ADMIN</string>
+    <string name="user_role_user">USER</string>
+
+    <!--Authorization Fragments-->
     <string name="sign_in">Sign In</string>
     <string name="sign_up">Sign Up</string>
     <string name="login">Login</string>
@@ -8,61 +13,68 @@
     <string name="name_w_column">Name:</string>
     <string name="surname_w_column">Surname:</string>
     <string name="email_w_column">E-mail:</string>
-    <string name="password_w_column">Password</string>
+    <string name="password_w_column">Password:</string>
     <string name="need_an_account_w_question">Need an account?</string>
     <string name="already_have_an_account_w_question">Already have an account?</string>
 
+    <!--Rooms Fragment-->
+    <string name="tb_title_available_rooms">Available Rooms</string>
     <string name="room_w_number">Room &#8470;</string>
-    <string name="room_w_column">&#60;&#8212; Room: %1$s</string>
-    <string name="room_count">%1$d/%2$d</string>
-    <string name="book_this_room">Book this room &#8212;&#62;</string>
+
+    <!--Room Details Fragment-->
+    <string name="tb_title_room_details">Room Details</string>
+    <string name="room_w_arrow">&#60;&#8212; Room: %1$s</string>
+    <string name="room_photo_quantity">%1$d/%2$d</string>
+    <string name="book_this_room_w_arrow">Book this room &#8212;&#62;</string>
     <string name="room_type_w_column">Room type:</string>
     <string name="floor_w_column">Floor:</string>
     <string name="capacity_w_column">Capacity:</string>
     <string name="description_w_column">Description:</string>
     <string name="reservations">Reservations</string>
 
+    <!--Room Booking Fragment-->
+    <string name="tb_title_room_booking">Room Booking</string>
     <string name="reason_w_column">Reason:</string>
-    <string name="reason">Reason</string>
     <string name="select_time_period_w_column">Select time period:</string>
-    <string name="select_date">Date</string>
-    <string name="select_start_time">Start Time</string>
-    <string name="select_end_time">End Time</string>
+    <string name="date">Date</string>
+    <string name="start_time">Start Time</string>
+    <string name="end_time">End Time</string>
     <string name="submit">Submit request</string>
 
-    <string name="please_fill_all_fields">PLEASE FILL OUT ALL REQUIRED FIELDS</string>
-    <string name="registration_failed">REGISTRATION FAILED</string>
+    <!--Add New Room Fragment-->
+    <string name="tb_title_add_new_room">Add New Room</string>
+    <string name="add_room">Add Room</string>
+
+    <!--All Users Fragment-->
+    <string name="tb_title_registered_users">Registered Users</string>
+
+    <!--Snack Bar Messages-->
+    <string name="please_fill_out_all_required_fields">PLEASE FILL OUT ALL REQUIRED FIELDS</string>
     <string name="retry">RETRY</string>
-    <string name="registration_completed_successfully">REGISTRATION COMPLETED SUCCESSFULLY\nPlease login to continue</string>
-    <string name="login_successful">LOGIN SUCCESSFUL</string>
+    <string name="registration_completed_successfully_please_log_in">REGISTRATION COMPLETED SUCCESSFULLY\nPlease login to continue</string>
+    <string name="registration_failed">REGISTRATION FAILED</string>
+    <string name="login_completed_successfully">LOGIN COMPLETED SUCCESSFULLY</string>
     <string name="login_failed">LOGIN FAILED</string>
-    <string name="booking_successful">BOOKING SUCCESSFUL</string>
-    <string name="booking_failed">BOOKING FAILED</string>
-
-    <string name="available_rooms">Available Rooms</string>
-    <string name="room_details">Room Details</string>
-    <string name="room_booking">Room Booking</string>
-
-    <string name="delete_room_w_question">Delete this room?</string>
+    <string name="room_created_successfully">ROOM CREATED SUCCESSFULLY</string>
+    <string name="room_create_failed">ROOM CREATE FAILED</string>
     <string name="room_deleted_successfully">ROOM DELETED SUCCESSFULLY</string>
-    <string name="room_delete_fail">ROOM DELETE FAILURE</string>
+    <string name="room_delete_failed">ROOM DELETE FAILED</string>
+    <string name="role_assigned_successfully">ROLE ASSIGNED SUCCESSFULLY</string>
+    <string name="role_assignment_failed">ROLE ASSIGNMENT FAILED</string>
+    <string name="booking_completed_successfully">BOOKING COMPLETED SUCCESSFULLY</string>
+    <string name="booking_failed">BOOKING FAILED</string>
+    <string name="booking_deleted_successfully">BOOKING DELETED SUCCESSFULLY</string>
+    <string name="booking_delete_failed">BOOKING DELETE FAILED</string>
 
-
+    <!--Menu titles-->
     <string name="menu_room_add">Room Add</string>
     <string name="menu_all_users">All Users</string>
 
-    <string name="room_creation_form">Room Creation Form</string>
-    <string name="create_room">Create Room</string>
-    <string name="failed_room_create">FAILED TO CREATE ROOM</string>
-    <string name="room_created_successfully">ROOM CREATED SUCCESSFULLY</string>
-
-    <string name="registered_users">Registered Users</string>
-    <string name="alert_dialog_assign_admin_w_question">Assign administrator role?</string>
+    <!--Alert Dialogs-->
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
-    <string name="role_assigned_successfully">ROLE ASSIGNED SUCCESSFULLY</string>
-    <string name="role_assign_fail">ROLE ASSIGNMENT FAILURE</string>
+    <string name="sign_out_w_question">Sign Out?</string>
+    <string name="assign_administrator_role_w_question">Assign administrator role?</string>
+    <string name="delete_this_room_w_question">Delete this room?</string>
 
-    <string name="booking_is_deleted">BOOKING IS DELETED</string>
-    <string name="not_allowed_to_delete">IT IS FORBIDDEN TO DELETE OTHER BOOKINGS</string>
 </resources>

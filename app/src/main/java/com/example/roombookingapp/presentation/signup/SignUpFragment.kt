@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import com.example.roombookingapp.R
 import com.example.roombookingapp.presentation.utils.extensions.showSnackBar
 import com.example.roombookingapp.presentation.utils.extensions.showSnackBarWithAction
+import com.google.android.material.color.MaterialColors
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.textfield.TextInputEditText
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -86,7 +87,7 @@ class SignUpFragment : Fragment() {
             ) {
                 currentContext.showSnackBar(
                     view = it,
-                    messageStringId = R.string.please_fill_all_fields
+                    messageStringId = R.string.please_fill_out_all_required_fields
                 )
             } else {
                 vmSignUp.registerUser()
@@ -106,7 +107,7 @@ class SignUpFragment : Fragment() {
                 progressIndicator.visibility = View.VISIBLE
             } else {
                 btnRegister.isEnabled = true
-                btnRegister.setTextColor(resources.getColor(R.color.ui_01, null))
+                btnRegister.setTextColor(MaterialColors.getColor(btnRegister, R.attr.ui_01))
                 progressIndicator.visibility = View.INVISIBLE
             }
         }
@@ -115,7 +116,7 @@ class SignUpFragment : Fragment() {
             if (isRegistered) {
                 currentContext.showSnackBar(
                     view = btnRegister,
-                    messageStringId = R.string.registration_completed_successfully
+                    messageStringId = R.string.registration_completed_successfully_please_log_in
                 )
                 parentFragmentManager.popBackStack()
             } else {
