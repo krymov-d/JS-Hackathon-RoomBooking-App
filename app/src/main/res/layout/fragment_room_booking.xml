@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.MainActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/room_booking_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0"
+        app:titleTextAppearance="@style/toolbar_title"
+        app:titleTextColor="@color/ui_03" />
+
+    <View
+        android:id="@+id/room_booking_view"
+        style="@style/toolbar_barrier"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/room_booking_toolbar"
+        app:layout_constraintVertical_bias="0" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/room_booking_tv_reason_hint"
+        style="@style/room_booking_tv_hint"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/reason_w_column"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/room_booking_toolbar"
+        app:layout_constraintVertical_bias="0" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/room_booking_et_layout_reason"
+        style="@style/edit_text_layout"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/room_booking_tv_reason_hint"
+        app:layout_constraintVertical_bias="0"
+        tools:hint="@string/reason_w_column">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/room_booking_et_reason"
+            style="@style/edit_text"
+            android:textColor="@color/ui_05" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/room_booking_tv_select_hint"
+        style="@style/room_booking_tv_hint"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/select_time_period_w_column"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/room_booking_et_layout_reason"
+        app:layout_constraintVertical_bias="0" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/room_booking_btn_select_date"
+        style="@style/room_booking_btn"
+        android:text="@string/date"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/room_booking_tv_select_hint"
+        app:layout_constraintVertical_bias="0" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/room_booking_tv_date"
+        style="@style/room_booking_tv_selection"
+        app:layout_constraintBottom_toBottomOf="@id/room_booking_btn_select_date"
+        app:layout_constraintEnd_toStartOf="@id/room_booking_barrier"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/room_booking_btn_select_date" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/room_booking_btn_select_start_time"
+        style="@style/room_booking_btn"
+        android:text="@string/start_time"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/room_booking_btn_select_date"
+        app:layout_constraintVertical_bias="0" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/room_booking_tv_start_time"
+        style="@style/room_booking_tv_selection"
+        app:layout_constraintBottom_toBottomOf="@id/room_booking_btn_select_start_time"
+        app:layout_constraintEnd_toStartOf="@id/room_booking_barrier"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/room_booking_btn_select_start_time" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/room_booking_btn_select_end_time"
+        style="@style/room_booking_btn"
+        android:text="@string/end_time"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/room_booking_btn_select_start_time"
+        app:layout_constraintVertical_bias="0" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/room_booking_tv_end_time"
+        style="@style/room_booking_tv_selection"
+        app:layout_constraintBottom_toBottomOf="@id/room_booking_btn_select_end_time"
+        app:layout_constraintEnd_toStartOf="@id/room_booking_barrier"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/room_booking_btn_select_end_time" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/room_booking_barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:barrierDirection="start"
+        app:constraint_referenced_ids="room_booking_btn_select_date, room_booking_btn_select_end_time, room_booking_btn_select_start_time" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/room_booking_btn_submit_request"
+        style="@style/room_booking_btn"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/bg_btn_orange"
+        android:text="@string/submit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1" />
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/room_booking_progress_indicator"
+        style="@style/progress_bar"
+        app:layout_constraintBottom_toBottomOf="@id/room_booking_btn_submit_request"
+        app:layout_constraintEnd_toEndOf="@id/room_booking_btn_submit_request"
+        app:layout_constraintStart_toStartOf="@id/room_booking_btn_submit_request"
+        app:layout_constraintTop_toTopOf="@id/room_booking_btn_submit_request"
+        tools:background="@color/ui_04"
+        tools:visibility="visible" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

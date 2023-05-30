@@ -2,6 +2,7 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.RoomBookingApp" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="android:statusBarColor">@color/ui_03</item>
+        <item name="ui_01">#3d3d3d</item>
     </style>
 </resources>

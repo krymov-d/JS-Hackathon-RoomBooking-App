@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.MainActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/room_add_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0"
+        app:titleTextAppearance="@style/toolbar_title"
+        app:titleTextColor="@color/ui_03" />
+
+    <View
+        android:id="@+id/room_add_view"
+        style="@style/toolbar_barrier"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/room_add_toolbar"
+        app:layout_constraintVertical_bias="0" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/room_add_et_layout_room_id"
+        style="@style/edit_text_layout"
+        android:layout_marginTop="16dp"
+        android:hint="@string/room_w_number"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/room_add_view"
+        app:layout_constraintVertical_bias="0">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/room_add_et_room_id"
+            style="@style/edit_text"
+            android:inputType="number" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/room_add_et_layout_room_type"
+        style="@style/edit_text_layout"
+        android:layout_marginTop="16dp"
+        android:hint="@string/room_type_w_column"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/room_add_et_layout_room_id"
+        app:layout_constraintVertical_bias="0">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/room_add_et_room_type"
+            style="@style/edit_text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/room_add_et_layout_room_capacity"
+        style="@style/edit_text_layout"
+        android:layout_marginTop="16dp"
+        android:hint="@string/capacity_w_column"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/room_add_et_layout_room_type"
+        app:layout_constraintVertical_bias="0">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/room_add_et_room_capacity"
+            style="@style/edit_text"
+            android:inputType="number" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/room_add_et_layout_room_floor"
+        style="@style/edit_text_layout"
+        android:layout_marginTop="16dp"
+        android:hint="@string/floor_w_column"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/room_add_et_layout_room_capacity"
+        app:layout_constraintVertical_bias="0">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/room_add_et_room_floor"
+            style="@style/edit_text"
+            android:inputType="number" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/room_add_et_layout_room_description"
+        style="@style/edit_text_layout"
+        android:layout_marginTop="16dp"
+        android:hint="@string/description_w_column"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/room_add_et_layout_room_floor"
+        app:layout_constraintVertical_bias="0">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/room_add_et_room_description"
+            style="@style/edit_text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/room_add_btn_create_room"
+        style="@style/room_booking_btn"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/bg_btn_orange"
+        android:text="@string/add_room"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1" />
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/room_add_progress_indicator"
+        style="@style/progress_bar"
+        app:layout_constraintBottom_toBottomOf="@id/room_add_btn_create_room"
+        app:layout_constraintEnd_toEndOf="@id/room_add_btn_create_room"
+        app:layout_constraintStart_toStartOf="@id/room_add_btn_create_room"
+        app:layout_constraintTop_toTopOf="@id/room_add_btn_create_room"
+        tools:background="@color/ui_04"
+        tools:visibility="visible" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
